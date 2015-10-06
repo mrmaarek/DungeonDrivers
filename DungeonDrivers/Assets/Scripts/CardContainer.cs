@@ -2,8 +2,8 @@
 
 using UnityEngine;
 
-using System;
-using System.Collections;
+//using System;
+//using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
@@ -26,7 +26,7 @@ public class CardContainer
 
 		CardContainer cards = mySerialzer.Deserialize(reader) as CardContainer;
 
-		reader.Close;
+        reader.Close();
 
 		return cards;
 	}
