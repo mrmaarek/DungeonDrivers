@@ -1,10 +1,12 @@
-﻿
+﻿using System.IO;
+
 using UnityEngine;
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Serialization;
-using System.IO;
-using System.IO.StringReader;
+
 
 [XmlRoot("CardCollection")]
 public class CardContainer 
@@ -18,6 +20,7 @@ public class CardContainer
 		TextAsset myXml = Resources.Load<TextAsset>(path);
 
 		XmlSerializer mySerialzer = new XmlSerializer(typeof(CardContainer));
+
 
 		StringReader reader = new StringReader(myXml.text);
 
