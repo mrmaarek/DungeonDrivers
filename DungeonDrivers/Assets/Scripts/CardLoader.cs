@@ -3,7 +3,7 @@ using System.Collections;
 
 public class CardLoader : MonoBehaviour {
 
-	public const string path = "cards"; 
+	public const string path = "DungeonDrivers/Assets/XML/cards"; 
 
 	void Start()
 	{

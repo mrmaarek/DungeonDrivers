@@ -19,8 +19,10 @@ public class CardContainer
 	{
 		TextAsset myXml = Resources.Load<TextAsset>(path);
 
+        
 		XmlSerializer mySerialzer = new XmlSerializer(typeof(CardContainer));
-
+        //mySerialzer.UnknownAttribute("test");
+        
 
 		StringReader reader = new StringReader(myXml.text);
 
