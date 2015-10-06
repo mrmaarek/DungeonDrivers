@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CardCollection>
+	<Cards>
+		<Card name="Testname">
+		</Card>
+		<Card name="SecondCard">
+		</Card>
+		<Card name="ThirdCard">
+		</Card>
+	</Cards>
+</CardCollection>
