@@ -1,11 +1,16 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<CardCollection>
+<?xml version="1.0" encoding="UTF-8" ?>
+
 	<Cards>
-		<Card Cardname="Testname">
+		<Card id="0">
+      <name > Esger  </name>
+      <description>This is an example of my card</description>
 		</Card>
-		<Card Cardname="SecondCard">
+    <Card id="1">
+      <name > Klaas </name>
+      <description>This is currently the most overpowered card</description>
 		</Card>
-		<Card Cardname="ThirdCard">
+    <Card id="2">
+      <name > Sebastiaan  </name>
+      <description>Saltyness</description>
 		</Card>
 	</Cards>
-</CardCollection>
