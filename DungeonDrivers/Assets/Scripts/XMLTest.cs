@@ -79,21 +79,9 @@ public class XMLTest : MonoBehaviour
             newCard.SetActive(true);
             
             newCard.transform.localScale = new Vector3(1,1,1);
-           // newCard.transform.position = new Vector3(0, 0, 0);
+          
             newCard.transform.localPosition = new Vector3(0, 0, 0);
-            //testText.text = cardName[i].InnerXml;
-
-            /*
-            Debug.Log(cardName[i].InnerXml);
-            Debug.Log(cardDescription[i].InnerXml);
-            */
+           
         }
-
-        //xmlDoc.Close();
     }
-   
-	// Update is called once per frame
-	void Update () {
-	
-	}
 }
