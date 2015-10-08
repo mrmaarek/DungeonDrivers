@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System;
+
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -14,6 +15,7 @@ public class XMLTest : MonoBehaviour
     [SerializeField]
     private GameObject myHand;
 
+    public int totalCards;
 
     public GameObject Card;
     [SerializeField]
@@ -21,7 +23,9 @@ public class XMLTest : MonoBehaviour
     [SerializeField]
     private GameObject cardDescription;
 
-    private Text CardTekst;
+    private List<GameObject> playerDeck = new List<GameObject>();
+
+    //private Text CardTekst;
     //public Prefab testpref;
 
     void Awake()
@@ -30,14 +34,14 @@ public class XMLTest : MonoBehaviour
         myPath = Application.dataPath + "/XML/cards.xml";
         xmlDoc.Load(myPath);
 
-        CardTekst = Card.GetComponent<Text>();
+        //CardTekst = Card.GetComponent<Text>();
     }
     // Use this for initialization
     void Start ()
     {        
         
         XmlNodeList cardNames = xmlDoc.GetElementsByTagName("name");
-        int totalCards = cardNames.Count;
+        totalCards = cardNames.Count;
 
         XmlNodeList cardDescription = xmlDoc.GetElementsByTagName("description");
 
@@ -47,15 +51,40 @@ public class XMLTest : MonoBehaviour
             newCard.transform.SetParent(myHand.transform);
             newCard.name = cardNames[cardID].InnerXml;
 
+            /* Replace the beneath code */
             newCard.transform.GetChild(1).GetComponent<Text>().text = cardNames[cardID].InnerXml;
             newCard.transform.GetChild(2).GetComponent<Text>().text = cardDescription[cardID].InnerXml;
+            /* To prevend a different Child Order of the Parent !!! */
 
-            newCard.SetActive(true);
-            
+            //newCard.SetActive(true);
             newCard.transform.localScale = new Vector3(1,1,1);
-          
             newCard.transform.localPosition = new Vector3(0, 0, 0);
-           
+            playerDeck.Add(newCard);
+        }
+
+        /*
+        Debug.Log(playerDeck[0]);
+
+        ShuffleDeck();
+
+        Debug.Log(playerDeck[0]);
+        Debug.Log(playerDeck[1]);
+        Debug.Log(playerDeck[2]);
+        //Debug.Log(playerDeck[3]);
+        */
+
+    }
+
+    public void ShuffleDeck()
+    {
+        for (int i = 0; i < playerDeck.Count; i++)
+        {
+            GameObject temp = playerDeck[i];
+            int randomIndex = UnityEngine.Random.Range(0, totalCards);
+            playerDeck[i] = playerDeck[randomIndex];
+            playerDeck[randomIndex] = temp;
+            Destroy(temp);
         }
     }
+
 }
