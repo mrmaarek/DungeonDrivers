@@ -51,14 +51,18 @@ public class XMLTest : MonoBehaviour
             newCard.transform.SetParent(myHand.transform);
             newCard.name = cardNames[cardID].InnerXml;
 
+            newCard.SetActive(true);
+
             /* Replace the beneath code */
             newCard.transform.GetChild(1).GetComponent<Text>().text = cardNames[cardID].InnerXml;
             newCard.transform.GetChild(2).GetComponent<Text>().text = cardDescription[cardID].InnerXml;
             /* To prevend a different Child Order of the Parent !!! */
 
-            //newCard.SetActive(true);
+
+
             newCard.transform.localScale = new Vector3(1,1,1);
             newCard.transform.localPosition = new Vector3(0, 0, 0);
+            //newCard.transform.Rotate(0, -90, 90, Space.Self );                //Quaternion.x();// = 0; //new Vector3(0, -90, 90);
             playerDeck.Add(newCard);
         }
 
