@@ -14,19 +14,16 @@ public class XMLTest : MonoBehaviour
 
     [SerializeField]
     private GameObject myHand;
+    [SerializeField]
+    private GameObject myDeck;
 
     public int totalCards;
 
     public GameObject Card;
-    [SerializeField]
-    private GameObject cardName;
-    [SerializeField]
-    private GameObject cardDescription;
 
-    private List<GameObject> playerDeck = new List<GameObject>();
+    public List<GameObject> playerDeck = new List<GameObject>();
+    public List<GameObject> playerHand = new List<GameObject>();
 
-    //private Text CardTekst;
-    //public Prefab testpref;
 
     void Awake()
     {
@@ -42,40 +39,45 @@ public class XMLTest : MonoBehaviour
         
         XmlNodeList cardNames = xmlDoc.GetElementsByTagName("name");
         totalCards = cardNames.Count;
+        XmlNodeList cardDescriptions = xmlDoc.GetElementsByTagName("description");
+        Debug.Log(totalCards);
 
-        XmlNodeList cardDescription = xmlDoc.GetElementsByTagName("description");
-
+        //Voor elke kaart... maak een nieuw gameobject en vul de gegevens in.
         for (int cardID = 0; cardID < totalCards; cardID++)
         {
+            // Instantieren van een nieuw gameobject.
             GameObject newCard = Instantiate(Card) as GameObject;
-            newCard.transform.SetParent(myHand.transform);
-            newCard.name = cardNames[cardID].InnerXml;
+            Debug.Log(cardID + cardNames[cardID].InnerXml + cardDescriptions[cardID].InnerXml);
 
-            newCard.SetActive(true);
+ 
+            //Give the new GameObject a name and set myDeck to it's parent.
+            newCard.name = cardNames[cardID].InnerXml;
+            newCard.transform.SetParent(myDeck.transform);
 
             /* Replace the beneath code */
-            newCard.transform.GetChild(1).GetComponent<Text>().text = cardNames[cardID].InnerXml;
-            newCard.transform.GetChild(2).GetComponent<Text>().text = cardDescription[cardID].InnerXml;
+            //Getting the transform of the card.
+            Transform cardTitle;
+            Transform cardDescript;
+
+            //Getting the Text component of Card_Title and set it's name. 
+            cardTitle = newCard.gameObject.transform.GetChild(0).GetChild(1);
+            cardTitle.GetComponent<Text>().text = cardNames[cardID].InnerXml;
+            //Getting the Text component of Card_Description and set it's name. 
+            cardDescript = newCard.gameObject.transform.GetChild(0).GetChild(2);
+            cardDescript.GetComponent<Text>().text = cardDescriptions[cardID].InnerXml;
             /* To prevend a different Child Order of the Parent !!! */
 
-
+            newCard.SetActive(true);                  
 
             newCard.transform.localScale = new Vector3(1,1,1);
             newCard.transform.localPosition = new Vector3(0, 0, 0);
             //newCard.transform.Rotate(0, -90, 90, Space.Self );                //Quaternion.x();// = 0; //new Vector3(0, -90, 90);
             playerDeck.Add(newCard);
+            //Debug.Log(newCard);
+            //Debug.Log(playerDeck[cardID]);
         }
 
-        /*
-        Debug.Log(playerDeck[0]);
-
-        ShuffleDeck();
-
-        Debug.Log(playerDeck[0]);
-        Debug.Log(playerDeck[1]);
-        Debug.Log(playerDeck[2]);
-        //Debug.Log(playerDeck[3]);
-        */
+        pickTopCard();
 
     }
 
@@ -87,8 +89,32 @@ public class XMLTest : MonoBehaviour
             int randomIndex = UnityEngine.Random.Range(0, totalCards);
             playerDeck[i] = playerDeck[randomIndex];
             playerDeck[randomIndex] = temp;
-            Destroy(temp);
+            //Destroy(temp);
+
+            //Debug.Log(playerDeck[i]);
         }
+    }
+
+    public void pickTopCard()
+    {
+        playerDeck[0].transform.position = myHand.transform.position;
+        playerDeck[0].transform.SetParent(myHand.transform);
+        //flipCard();
+
+        playerHand.Add(playerDeck[0]);
+        playerDeck.RemoveAt(0);
+
+        playerHand[0].transform.Rotate(0, 180, 0);
+ 
+        //playerDeck.RemoveAt(0);
+        //Debug.Log(playerDeck[0]);
+        //myCard.flipCard();
+        //playerHand[0].transform.SetParent(myHand.transform);
+    }
+
+    public void flipCard()
+    {
+        //playerHand[0].transform.Rotate(new Vector3(0, 180, 0));
     }
 
 }
