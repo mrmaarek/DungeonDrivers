@@ -12,15 +12,8 @@ public class XMLTest : MonoBehaviour
     XmlDocument xmlDoc = new XmlDocument();
     string myPath;
 
-    /*
-    [SerializeField]
-    private Player myPlayer;
-    [SerializeField]
-    private GameObject myPlayerGO;
-    */
     [SerializeField]
     private GameObject thePlayer;
-
 
     [SerializeField]
     private GameObject myHand;
@@ -37,17 +30,14 @@ public class XMLTest : MonoBehaviour
 
     void Awake()
     {
-        //myHand.transform.position = new Vector3(0, -100, 0);
         thePlayer = GameObject.FindGameObjectWithTag("Player");
-        //myPlayer = GameObject.Find("playerInfo");
-        //Load the XML document with his path
-        //Debug.Log(myPlayer.playerClass);
-
-        //if (Player.Classes = Player.Classes.SandMage) { 
-        //myPlayerGO = GameObject.Find("playerInfo");
+  
 
         myPath = Application.dataPath + "/XML/Warrior.xml";
+        
         /*
+         *  Currently Disabled for testing purposes
+         * 
         if (thePlayer.GetComponent<Player>().playerClass == Player.Classes.SandMage)
         {
             myPath = Application.dataPath + "/XML/SandMage.xml";
@@ -56,10 +46,7 @@ public class XMLTest : MonoBehaviour
         {
             myPath = Application.dataPath + "/XML/Warrior.xml";
         }
-        else if (thePlayer.GetComponent<Player>().playerClass == Player.Classes.NoneSelected) 
-        {
-            myPath = Application.dataPath + "/XML/Warrior.xml";
-        }
+        
         */
         xmlDoc.Load(myPath);
         //CardTekst = Card.GetComponent<Text>();
