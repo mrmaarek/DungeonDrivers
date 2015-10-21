@@ -46,8 +46,8 @@ public class XMLTest : MonoBehaviour
         //if (Player.Classes = Player.Classes.SandMage) { 
         //myPlayerGO = GameObject.Find("playerInfo");
 
-        
-
+        myPath = Application.dataPath + "/XML/Warrior.xml";
+        /*
         if (thePlayer.GetComponent<Player>().playerClass == Player.Classes.SandMage)
         {
             myPath = Application.dataPath + "/XML/SandMage.xml";
@@ -60,7 +60,7 @@ public class XMLTest : MonoBehaviour
         {
             myPath = Application.dataPath + "/XML/Warrior.xml";
         }
-
+        */
         xmlDoc.Load(myPath);
         //CardTekst = Card.GetComponent<Text>();
     }
@@ -102,6 +102,7 @@ public class XMLTest : MonoBehaviour
 
             newCard.transform.localScale = new Vector3(1,1,1);
             newCard.transform.localPosition = new Vector3(0, 0, 0);
+            newCard.transform.rotation = new Quaternion(0, 0, 0, 0);
             //newCard.transform.Rotate(0, -90, 90, Space.Self );                //Quaternion.x();// = 0; //new Vector3(0, -90, 90);
             playerDeck.Add(newCard);
             //Debug.Log(newCard);
