@@ -14,15 +14,18 @@ public class Card_Script : MonoBehaviour
 	public Sprite cardImage;
 	public Targeting targeting;
 	public CardType cardType;
+	public string cardClass;
 
 	public List<Vector3> affectedGridBlocks = new List<Vector3>();
 
+	public Image cardImageObject;
 
 	public enum Targeting
 	{
 		SelfCast,
 		FreeSelect,
-		Locked
+		Locked,
+		Directional
 	}
 
 	public enum CardType

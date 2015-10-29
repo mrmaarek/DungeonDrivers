@@ -355,6 +355,30 @@ public class PhaseWalker : NetworkBehaviour
 	{
 		float tileSize = Grid_Spawner_Script.tileSize;
 
+		for(int i = 0; i < 4; i++)
+		{
+			GameObject selected2 = null;
+			switch(i)
+			{
+			case 0:
+				selected2 = SelectMoveBlock(new Vector3(selectPos.x + tileSize, selectPos.y, selectPos.z));
+				break;
+			case 1:
+				selected2 = SelectMoveBlock(new Vector3(selectPos.x - tileSize, selectPos.y, selectPos.z));
+				break;
+			case 2:
+				selected2 = SelectMoveBlock(new Vector3(selectPos.x, selectPos.y, selectPos.z + tileSize));
+				break;
+			case 3:
+				selected2 = SelectMoveBlock(new Vector3(selectPos.x , selectPos.y, selectPos.z - tileSize));
+				break;
+			}
+			if(selected2 != null)
+			{
+				moveBlocks.Add(selected2);
+			}
+		}
+		/*
 		GameObject selected2 = SelectMoveBlock(new Vector3(selectPos.x + tileSize, selectPos.y, selectPos.z));
 		if(selected2 != null)
 		{
@@ -375,6 +399,7 @@ public class PhaseWalker : NetworkBehaviour
 		{
 			moveBlocks.Add(selected5);
 		}
+		*/
 	}
 	
 	GameObject SelectMoveBlock(Vector3 blockPos)
