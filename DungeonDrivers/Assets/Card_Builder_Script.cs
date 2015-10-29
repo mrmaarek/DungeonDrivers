@@ -28,7 +28,10 @@ public class Card_Builder_Script : MonoBehaviour
 	public Card_Script Card_Script;
 
 	public GameObject ChooseStats, TargetSelect;
-	private bool chooseStats, targetSelect;
+	private bool chooseStats = true;
+	private bool targetSelect = false;
+
+	public List<GameObject> selecteGridBlocks = new List<GameObject>();
 
 	void Start () 
 	{
@@ -38,7 +41,10 @@ public class Card_Builder_Script : MonoBehaviour
 
 	void Update () 
 	{
-
+		if(targetSelect)
+		{
+			Grid_Spawner_Script.SelectWithMouse();
+		}
 	}
 
 	public void SwitchInterface()
@@ -46,8 +52,9 @@ public class Card_Builder_Script : MonoBehaviour
 		chooseStats = !chooseStats;
 		targetSelect = !targetSelect;
 
-		ChooseStats.SetActive(chooseStats);
 		TargetSelect.SetActive(targetSelect);
+
+		NewCard.SetActive(chooseStats);
 	}
 
 	public void SetName(InputField InputField)
@@ -83,12 +90,23 @@ public class Card_Builder_Script : MonoBehaviour
 			cards.Add(cards2[i]);
 		}
 	}
-/*
-	public void SetTargeting(Card_Script.CardType cardType)
+
+
+	public void SetTargetingSelf()
 	{
-		Card_Script.cardType = cardType;
+		Card_Script.targeting = Card_Script.Targeting.SelfCast;
 	}
-*/
+
+	public void SetTargetingFree()
+	{
+		Card_Script.targeting = Card_Script.Targeting.FreeSelect;
+	}
+
+	public void SetTargetingLocked()
+	{
+		Card_Script.targeting = Card_Script.Targeting.Locked;
+	}
+
 	public void CreateNewCard()
 	{
 		if(NewCard != null)
@@ -98,6 +116,11 @@ public class Card_Builder_Script : MonoBehaviour
 
 		NewCard = Instantiate(EmptyCard);
 		Card_Script = NewCard.GetComponent<Card_Script>();
+	}
+
+	public void SafeGridSelection()
+	{
+
 	}
 
 	public void SaveCard()

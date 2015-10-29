@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class Card_Script : MonoBehaviour 
 {
@@ -13,6 +14,8 @@ public class Card_Script : MonoBehaviour
 	public Sprite cardImage;
 	public Targeting targeting;
 	public CardType cardType;
+
+	public List<Vector3> affectedGridBlocks = new List<Vector3>();
 
 
 	public enum Targeting
@@ -34,15 +37,6 @@ public class Card_Script : MonoBehaviour
 
 
 	public Text NameObject, InitiativeObject, DescriptionObject;
-
-	void Start () {
-	
-	}
-
-	void Update () {
-	
-
-	}
 
 	public void SetTexts()
 	{
