@@ -15,6 +15,9 @@ public class playerDeck : MonoBehaviour
     [SerializeField]
     private GameObject mySelectedClass;
 
+    [SerializeField]
+    private Transform myDeckPanel;
+
 
     // Use this for initialization
     void Start ()
@@ -52,9 +55,21 @@ public class playerDeck : MonoBehaviour
     {
         foreach (GameObject card in myDeck)
         {
+            GameObject newCard = Instantiate(card) as GameObject;
+            newCard.transform.SetParent(myDeckPanel);
+        }
+      
+
+
+
+        /*
+        foreach (GameObject card in myDeck)
+        {
             //Instantiate(card) as GameObject;
 
-            Instantiate(card, new Vector3(0,0,0), Quaternion.identity);
+            GameObject test = Instantiate(card, new Vector3(0,0,0), Quaternion.identity) as GameObject; 
+            card.transform.SetParent(myDeckPanel);
         }
+        */
     }
 }
