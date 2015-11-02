@@ -18,6 +18,8 @@ public class playerDeck : MonoBehaviour
     [SerializeField]
     private Transform myDeckPanel;
 
+   
+
 
     // Use this for initialization
     void Start ()
@@ -35,14 +37,15 @@ public class playerDeck : MonoBehaviour
 
         generateDeck();
         spawnDeck();
-       
+        shuffleDeck();
+
     }
 
     // Update is called once per frame
     void Update ()
     {
-	
-	}
+        
+    }
 
     void generateDeck()
     {
@@ -53,23 +56,34 @@ public class playerDeck : MonoBehaviour
 
     void spawnDeck()
     {
+       
         foreach (GameObject card in myDeck)
         {
             GameObject newCard = Instantiate(card) as GameObject;
             newCard.transform.SetParent(myDeckPanel);
+            newCard.transform.position = new Vector3(0, 0, 0);
+            newCard.transform.localPosition = new Vector3(0, 0, 0);
+            newCard.transform.Rotate(new Vector3(90, 180, 0));
+            newCard.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+
+            
         }
-      
+    }
 
+    void shuffleDeck()
+    {
+        Debug.Log("There currently are... " + myDeck.Length + " cards in your deck." );
 
-
-        /*
-        foreach (GameObject card in myDeck)
+        for (int i = 0; i < myDeck.Length; i++)
         {
-            //Instantiate(card) as GameObject;
+            // For each card make a temporary copy.
+            GameObject tempCard = myDeck[i];
+            int randomIndex = UnityEngine.Random.Range(0, myDeck.Length);
+            myDeck[i] = myDeck[randomIndex];
+            myDeck[randomIndex] = tempCard;
 
-            GameObject test = Instantiate(card, new Vector3(0,0,0), Quaternion.identity) as GameObject; 
-            card.transform.SetParent(myDeckPanel);
+            //Destroy(tempCard);
         }
-        */
+
     }
 }
