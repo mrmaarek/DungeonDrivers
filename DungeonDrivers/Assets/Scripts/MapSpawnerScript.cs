@@ -146,7 +146,7 @@ public class MapSpawnerScript : MonoBehaviour
 		tileLength = chosenTile.GetComponent<Level_Tile_Script>().lenght;
 
 
-		Vector3 tilePos = new Vector3(0, 0, totalLength + (tileLength / 2));
+		Vector3 tilePos = new Vector3(0, 0, totalLength);
 
 		GameObject newTile = Instantiate(chosenTile, tilePos, transform.rotation) as GameObject;
 
