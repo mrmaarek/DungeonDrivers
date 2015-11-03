@@ -11,10 +11,6 @@ public class playerDeck : MonoBehaviour
 {
     string deckLocation;
     
-
-    
-    
-
     [SerializeField]
     private GameObject mySelectedClass;
 
