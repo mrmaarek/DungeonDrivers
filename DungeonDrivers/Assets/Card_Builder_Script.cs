@@ -49,6 +49,19 @@ public class Card_Builder_Script : MonoBehaviour
 
 	public Text cardImage;
 
+	public int currentLoadClass, currentLoadCard;
+	public GameObject[] currentLoadCardArray;
+	public List<GameObject> currentLoadCardList = new List<GameObject>();
+
+	public Text LoadClassName;
+
+	public GameObject LoadCardInterface;
+
+	public Card_Script LoadCardScript;
+
+
+
+
 	void Start () 
 	{
 		Grid_Spawner_Script = GetComponent<Grid_Spawner_Script>();
@@ -95,7 +108,7 @@ public class Card_Builder_Script : MonoBehaviour
 
 	public void SetDescription(InputField InputField)
 	{
-		Card_Script.description = InputField.text + " This attack deals " + Card_Script.damage + " damage.";
+		Card_Script.description = InputField.text;
 		Card_Script.SetTexts();
 	}
 
@@ -247,6 +260,8 @@ public class Card_Builder_Script : MonoBehaviour
 
 		NewCard = Instantiate(EmptyCard);
 		Card_Script = NewCard.GetComponent<Card_Script>();
+		isNewCard = true;
+		ClearCardInformation();
 	}
 
 
@@ -270,10 +285,136 @@ public class Card_Builder_Script : MonoBehaviour
 		}
 		else
 		{
-
+			GameObject prefabToReplace = Resources.Load<GameObject>("Cards/" + Card_Script.cardClass + "/" + Card_Script.cardName);
+			Debug.Log(prefabToReplace.name);
+			PrefabUtility.ReplacePrefab(NewCard, prefabToReplace);
 			AssetDatabase.Refresh();
+			currentLoadCardArray = Resources.LoadAll<GameObject>("Cards/" + classes[currentLoadClass].name + "/");
+			currentLoadCardList.Clear();
+			for(int i = 0; i < currentLoadCardArray.Length; i++)
+			{
+				currentLoadCardList.Add(currentLoadCardArray[i]);
+			}
+
 		}
 	}
 
+	public void OpenLoadInterface(bool open)
+	{
+		LoadCardInterface.SetActive(open);
+	}
 
+	public void SwitchLoadClass(bool next)
+	{
+		if(next)
+		{
+			if(currentLoadClass < classes.Count - 1)
+			{
+				currentLoadClass++;
+			}
+			else
+			{
+				currentLoadClass = 0;
+			}
+		}
+		else
+		{
+			if(currentLoadClass > 0)
+			{
+				currentLoadClass--;
+			}
+			else
+			{
+				currentLoadClass = classes.Count - 1;
+			}
+		}
+
+		currentLoadCardArray = Resources.LoadAll<GameObject>("Cards/" + classes[currentLoadClass].name + "/");
+		currentLoadCardList.Clear();
+		for(int i = 0; i < currentLoadCardArray.Length; i++)
+		{
+			currentLoadCardList.Add(currentLoadCardArray[i]);
+		}
+
+		LoadClassName.text = classes[currentLoadClass].name;
+	}
+
+	public void SwitchLoadCard(bool next)
+	{
+		if(next)
+		{
+			if(currentLoadCard < currentLoadCardList.Count - 1)
+			{
+				currentLoadCard++;
+			}
+			else
+			{
+				currentLoadCard = 0;
+			}
+		}
+		else
+		{
+			if(currentLoadCard > 0)
+			{
+				currentLoadCard--;
+			}
+			else
+			{
+				currentLoadCard = classes.Count - 1;
+			}
+		}
+
+		SetLoadInformation();
+	}
+
+	public InputField NameText, DamageText, DescriptionText;
+	public Image ImageImage;
+	public Text ClassText;
+
+	public void SetCardInformation()
+	{
+		NameText.text = Card_Script.cardName;
+		DamageText.text = Card_Script.damage + "";
+		DescriptionText.text = Card_Script.description;
+		ImageImage.sprite = Card_Script.cardImage;
+		ClassText.text = Card_Script.cardClass;
+	}
+
+	public void ClearCardInformation()
+	{
+		NameText.text = "";
+		DamageText.text = "";
+		DescriptionText.text = "";
+		ImageImage.sprite = null;
+		ClassText.text = "";
+	}
+
+
+	public Text LoadNameText, LoadTargetingText, LoadDamageText, LoadInitiativeText, LoadDescriptionText;
+	public Image LoadImage;
+
+	public void SetLoadInformation()
+	{
+		LoadCardScript = currentLoadCardList[currentLoadCard].GetComponent<Card_Script>();
+
+		LoadNameText.text = LoadCardScript.cardName;
+		LoadTargetingText.text = LoadCardScript.targeting.ToString();
+		LoadDamageText.text = LoadCardScript.damage + "";
+		LoadInitiativeText.text = LoadCardScript.initiative + "";
+		LoadDescriptionText.text = LoadCardScript.description;
+		LoadImage.sprite = LoadCardScript.cardImage;
+	}
+
+	public void LoadCardFunction()
+	{
+		if(NewCard != null)
+		{
+			Destroy(NewCard);
+		}
+		
+		NewCard = Instantiate(currentLoadCardList[currentLoadCard]);
+		Card_Script = NewCard.GetComponent<Card_Script>();
+		isNewCard = false;
+		SetCardInformation();
+	}
 }
