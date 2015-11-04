@@ -67,9 +67,18 @@ public class playerDeck : MonoBehaviour
         {
             GameObject newCard = Instantiate(card) as GameObject;
             newCard.transform.SetParent(myDeckPanel);
-            newCard.transform.position = new Vector3(0, 0, 0);
-            newCard.transform.localPosition = new Vector3(0, 0, 0);
-            newCard.transform.localRotation = new Quaternion(90, 0, 0, 0);
+
+            //new
+            //newCard.transform.position = new Vector3(50, 0, 0);
+            newCard.transform.localPosition = new Vector3(75, 0, 0);
+            //newCard.transform.localRotation
+            //newCard.transform.Rotate(new Vector3(90, 0, 0));
+
+            //newCard.transform.Rotate()
+            newCard.transform.localRotation = Quaternion.Euler(new Vector3(-90, 0));
+            newCard.transform.rotation = Quaternion.identity;
+
+           // newCard.transform.localRotation = new Quaternion(90, 0, 0, 0);
             newCard.transform.localScale = new Vector3(200, 200, 200);
             
         }
