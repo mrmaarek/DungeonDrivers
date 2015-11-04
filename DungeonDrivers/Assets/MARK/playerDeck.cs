@@ -50,7 +50,7 @@ public class playerDeck : MonoBehaviour
     void generateDeck()
     {
         // The Deck is loaded in a array.
-        myDeck = Resources.LoadAll<GameObject>("Cards/Warior");
+        myDeck = Resources.LoadAll<GameObject>("Cards/Warrior");
       
         // The Deck is loaded to a list instead of an array.
         for(int i = 0; i < myDeck.Length; i++)
