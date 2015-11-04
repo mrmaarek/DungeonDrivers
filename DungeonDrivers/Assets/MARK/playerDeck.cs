@@ -31,7 +31,7 @@ public class playerDeck : MonoBehaviour
         }
         if (mySelectedClass.GetComponent<ClassSelector>().playerClass == ClassSelector.Classes.Warrior)
         {
-            deckLocation = "Cards/Warior";
+            deckLocation = "Cards/Warrior";
         }
 
         generateDeck();
@@ -69,7 +69,7 @@ public class playerDeck : MonoBehaviour
             newCard.transform.SetParent(myDeckPanel);
             newCard.transform.position = new Vector3(0, 0, 0);
             newCard.transform.localPosition = new Vector3(0, 0, 0);
-            newCard.transform.localRotation = new Quaternion(90, 180, 180, 0);
+            newCard.transform.localRotation = new Quaternion(90, 0, 0, 0);
             newCard.transform.localScale = new Vector3(200, 200, 200);
             
         }
