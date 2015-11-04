@@ -10,6 +10,9 @@ public class ClassSelector : MonoBehaviour
     [SerializeField]
     private Text chosenCharacter;
 
+    [SerializeField]
+    Game_Manager_Script gmScript;
+
 
     public enum Classes
     {
@@ -20,17 +23,14 @@ public class ClassSelector : MonoBehaviour
 
     public Classes playerClass;
 
-    void Start()
-    {
-        this.playerClass = Classes.None_Selected;
-        readyToStart.enabled = false;
-        readyToStart.image.color = Color.red;
-        gridWithPlayer.SetActive(false);
-
-    }
-
     void Update()
     {
+        if (this.playerClass == Classes.None_Selected)
+        {
+            readyToStart.enabled = false;
+            readyToStart.image.color = Color.red;
+            gridWithPlayer.SetActive(false);
+        }
         // WHEN PLAYER CLASS IS NOT NONE SELECTED.
         if (playerClass != Classes.None_Selected)
         {
@@ -56,12 +56,20 @@ public class ClassSelector : MonoBehaviour
             chosenCharacter.text = "Playing as Warrior";
         }
 
-        // When i don't press any of the class 'play' buttons i need to reset the playerClass to NoneSelected.
 
+        //Debug.Log(gmScript.playersReady);
+        /*
+        if (gmScript.playersReady < 4)
+        {
+            chosenCharacter.text = "Waiting for other players.";
+        }
+        */
     }
 
     public void ClassSelect(int pClass)
     {
         this.playerClass = (Classes)pClass;
     }
+
+    
 }

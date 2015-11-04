@@ -110,11 +110,14 @@ public class Game_Manager_Script :  NetworkBehaviour
 		}
 	}
 
+    public int playersReady;
 
 	public void ReadyCheck()
 	{
+        playersReady = 0;
 		foreach(Player_Sync_Variables playerS in players)
 		{
+            playersReady++;
 			if(!playerS.ready)
 			{
 				allPlayersReady = false;
