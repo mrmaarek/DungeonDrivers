@@ -17,8 +17,12 @@ public class playerDeck : MonoBehaviour
     public GameObject[] myDeck;                                         //Array of Deck
     [SerializeField]
     private List<GameObject> myTempDeck = new List<GameObject>();       //List of Deck
+
     [SerializeField]
-    private List<GameObject> myTempHand = new List<GameObject>();
+    private Player_Hand myPlayerHand;
+
+    [SerializeField]
+    private Transform myPlayerHandT;
 
     // Use this for initialization
     void Start ()
@@ -51,7 +55,7 @@ public class playerDeck : MonoBehaviour
     {
         // The Deck is loaded in a array.
         myDeck = Resources.LoadAll<GameObject>("Cards/Warrior");
-      
+        
         // The Deck is loaded to a list instead of an array.
         for(int i = 0; i < myDeck.Length; i++)
         {
@@ -68,17 +72,9 @@ public class playerDeck : MonoBehaviour
             GameObject newCard = Instantiate(card) as GameObject;
             newCard.transform.SetParent(myDeckPanel);
 
-            //new
-            //newCard.transform.position = new Vector3(50, 0, 0);
             newCard.transform.localPosition = new Vector3(75, 0, 0);
-            //newCard.transform.localRotation
-            //newCard.transform.Rotate(new Vector3(90, 0, 0));
+            newCard.transform.localRotation = Quaternion.Euler(new Vector3(90, 0));
 
-            //newCard.transform.Rotate()
-            newCard.transform.localRotation = Quaternion.Euler(new Vector3(-90, 0));
-            newCard.transform.rotation = Quaternion.identity;
-
-           // newCard.transform.localRotation = new Quaternion(90, 0, 0, 0);
             newCard.transform.localScale = new Vector3(200, 200, 200);
             
         }
@@ -109,7 +105,10 @@ public class playerDeck : MonoBehaviour
         int cardsToDraw = 3;
         for (int i = 0; i < cardsToDraw; i++)
         {
-            myTempHand.Add(myTempDeck[i]);
+            myTempDeck[i].transform.SetParent(myPlayerHandT);
+            myPlayerHand.myTempHand.Add(myTempDeck[i]);
+           
+            // myTempHand.Add(myTempDeck[i]);
         }
     }
 }
