@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 using UnityEngine.UI;
-using UnityEditor;
+//using UnityEditor;
 using System.Collections;
 
 public class playerDeck : MonoBehaviour
@@ -77,10 +77,10 @@ public class playerDeck : MonoBehaviour
             GameObject newCard = Instantiate(card) as GameObject;
             newCard.transform.SetParent(myDeckPanel);
 
-            newCard.transform.localPosition = new Vector3(75, 0, 0);
+            newCard.transform.localPosition = new Vector3(115, 0, 0);
             newCard.transform.localRotation = Quaternion.Euler(new Vector3(90, 0));
 
-            newCard.transform.localScale = new Vector3(200, 200, 200);
+            newCard.transform.localScale = new Vector3(380, 380, 380);
             mySpawnedDeck.Add(newCard);
         }
     }
@@ -97,8 +97,8 @@ public class playerDeck : MonoBehaviour
             mySpawnedDeck[i] = mySpawnedDeck[randomIndex];
             mySpawnedDeck[randomIndex] = tempCard;
 
-            Debug.Log(mySpawnedDeck[i]);
-            Debug.Log(mySpawnedDeck[randomIndex]);
+           // Debug.Log(mySpawnedDeck[i]);
+           // Debug.Log(mySpawnedDeck[randomIndex]);
 
             //Destroy(tempCard);
         }
@@ -107,15 +107,20 @@ public class playerDeck : MonoBehaviour
 
     void drawHand()
     {
-        int cardsToDraw = 3;
+        int cardsToDraw = 4;
         for (int i = 0; i < cardsToDraw; i++)
         {
-            mySpawnedDeck[i].transform.SetParent(myPlayerHandT);
-            myPlayerHand.myTempHand.Add(mySpawnedDeck[i]);
+			GameObject newCard = mySpawnedDeck[i];
+			newCard.transform.SetParent(myPlayerHandT);
+			myPlayerHand.myTempHand.Add(newCard);
+			newCard.transform.localPosition = new Vector3(125 + i * 250,-120,0);
+			newCard.transform.localScale = new Vector3(400, 400, 400);
+			newCard.transform.localRotation = Quaternion.Euler(new Vector3(270, 0));
+			newCard.GetComponent<BoxCollider>().enabled = true;
             //mySpawnedDeck[i].transform.localPosition = new Vector3(0, 0, 0);
-            mySpawnedDeck[i].AddComponent<LayoutElement>();
-            mySpawnedDeck[i].GetComponent<LayoutElement>().preferredWidth = 120;
-            mySpawnedDeck[i].GetComponent<LayoutElement>().preferredHeight = 80;
+            //mySpawnedDeck[i].AddComponent<LayoutElement>();
+            //mySpawnedDeck[i].GetComponent<LayoutElement>().preferredWidth = 120;
+            //mySpawnedDeck[i].GetComponent<LayoutElement>().preferredHeight = 80;
             // myTempHand.Add(myTempDeck[i]);
         }
     }

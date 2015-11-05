@@ -47,4 +47,15 @@ public class Card_Script : MonoBehaviour
 		InitiativeObject.text = "Initiative: " + initiative;
 		DescriptionObject.text = description;
 	}
+
+	void OnMouseEnter()
+	{
+		transform.localPosition = new Vector3(transform.localPosition.x, 110, transform.localPosition.z);
+	}
+
+	void OnMouseExit()
+	{
+		transform.localPosition = new Vector3(transform.localPosition.x, -120, transform.localPosition.z);
+	}
+
 }

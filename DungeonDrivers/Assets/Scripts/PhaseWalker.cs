@@ -42,6 +42,9 @@ public class PhaseWalker : NetworkBehaviour
 	
 	public LayerMask layerMask; // Used for gridblock detection
 
+	public GameObject PlayerDeckObject;
+
+	public GameObject ClassSelector, ClassSelectorUI;
 
 	/*
 	public List<LaneEvent> laneEvents = new List<LaneEvent>();
@@ -95,16 +98,9 @@ public class PhaseWalker : NetworkBehaviour
 		}
 		ObjectsToTurnOn.SetActive(true);
 
-		Grid_Spawner_Script.SetupGrid();
+		//Grid_Spawner_Script.SetupGrid();
 		
-		for(int i = 0; i < playerStartIDs.Length; i++)
-		{
-			PlayerStartGridBlocks.Add(Grid_Spawner_Script.gridBlocks[playerStartIDs[i]]);
-		}
-		
-		CurrentGridBlock = PlayerStartGridBlocks[playerID];
-		currentPlayerPos = CurrentGridBlock.transform.localPosition;
-		CmdSendPosition(currentPlayerPos);
+
 
 	}
 
@@ -252,6 +248,22 @@ public class PhaseWalker : NetworkBehaviour
 			if(!currentPhase.turnStarted)
 			{
 				ResetPhases();
+
+				
+				Destroy(ClassSelector);
+				Destroy(ClassSelectorUI);
+
+				Grid_Spawner_Script.SetupGrid();
+				PlayerDeckObject.GetComponent<playerDeck>().enabled = true;
+
+				for(int i = 0; i < playerStartIDs.Length; i++)
+				{
+					PlayerStartGridBlocks.Add(Grid_Spawner_Script.gridBlocks[playerStartIDs[i]]);
+				}
+				
+				CurrentGridBlock = PlayerStartGridBlocks[playerID];
+				currentPlayerPos = CurrentGridBlock.transform.localPosition;
+				CmdSendPosition(currentPlayerPos);
 
 				for(int i = 0; i < Game_Manager_Script.players.Count; i++)
 				{

@@ -29,7 +29,7 @@ public class ClassSelector : MonoBehaviour
         {
             readyToStart.enabled = false;
             readyToStart.image.color = Color.red;
-            gridWithPlayer.SetActive(false);
+            //gridWithPlayer.SetActive(false);
         }
         // WHEN PLAYER CLASS IS NOT NONE SELECTED.
         if (playerClass != Classes.None_Selected)

@@ -6,6 +6,7 @@ using UnityEngine.Networking;
 public class Game_Manager_Script :  NetworkBehaviour
 {
 
+
 	public List<Player_Sync_Variables> players = new List<Player_Sync_Variables>();
 	 
 	void Start()
@@ -152,6 +153,7 @@ public class Game_Manager_Script :  NetworkBehaviour
 
 		if(allPlayersReady)
 		{
+
 			phase = Phase.SpawnPlayers;
 
 			foreach(Player_Sync_Variables player in players)
