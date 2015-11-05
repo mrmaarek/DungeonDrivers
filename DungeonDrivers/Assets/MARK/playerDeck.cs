@@ -112,7 +112,7 @@ public class playerDeck : MonoBehaviour
         {
             mySpawnedDeck[i].transform.SetParent(myPlayerHandT);
             myPlayerHand.myTempHand.Add(mySpawnedDeck[i]);
-            mySpawnedDeck[i].transform.localPosition = new Vector3(0, 0, 0);
+            //mySpawnedDeck[i].transform.localPosition = new Vector3(0, 0, 0);
             mySpawnedDeck[i].AddComponent<LayoutElement>();
             mySpawnedDeck[i].GetComponent<LayoutElement>().preferredWidth = 120;
             mySpawnedDeck[i].GetComponent<LayoutElement>().preferredHeight = 80;
