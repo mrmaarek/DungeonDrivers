@@ -5,44 +5,51 @@ using System.Collections.Generic;
 
 public class PhaseWalker : NetworkBehaviour 
 {
-	
+	// Setup vars
 	public Game_Manager_Script Game_Manager_Script;
-	public Player_Sync_Variables Player_Sync_Variables;
+	public Player_Sync_Variables Player_Sync_Variables; // The players syncing variables
 	public Grid_Spawner_Script Grid_Spawner_Script;
 
 	public int playerID;
 
-	public List<Phase> phases = new List<Phase>();
+	public List<Phase> phases = new List<Phase>();	// Contains all phases a player can go trough.
 
 	public int currentPhaseId;
 	public Phase currentPhase;
 	
 	private GameObject PlayerCamera;
-	public GameObject ObjectsToTurnOn;
+	public GameObject ObjectsToTurnOn;	// Will be turned on when te player spawns.
 
 	private float doneTimer;
 
-	public List<string> phaseFuncions = new List<string>();
+	public List<string> phaseFuncions = new List<string>(); // Functions that belong to the phases.
 	
-	public int[] playerStartIDs;
+	public int[] playerStartIDs; // The ID's of the gridblokcs used as spawnpoints.
 
 	
-	private List<GameObject> PlayerStartGridBlocks = new List<GameObject>();
+	private List<GameObject> PlayerStartGridBlocks = new List<GameObject>(); // The player spawnpoints
 
+
+	// Movement vars
 	public GameObject CurrentGridBlock, NextGridBlock, PreviousGridBlock;
 	public Vector3 currentPlayerPos, nextPlayerPos, previousPlayerPos;
-	
+
+	// All the in wordl players.
 	public List<GameObject> spawnedPlayers = new List<GameObject>();
 	public GameObject PlayerBlockObject, PlayerContainer;
 
-	private bool canMove = true;
+	private bool canMove = true; // Used to block movement.
 	
-	public LayerMask layerMask;
+	public LayerMask layerMask; // Used for gridblock detection
 
+
+	/*
 	public List<LaneEvent> laneEvents = new List<LaneEvent>();
 	public GameObject LaneWarning;
 	public List<GameObject> laneWarnings = new List<GameObject>();
+	*/
 
+	// Add the player to the list of objects moving along with the camera, set the starting vars.
 	void Awake()
 	{
 		GameObject.Find("Map Spawner").GetComponent<MapSpawnerScript>().ObjectsMovingAlong.Add(this.gameObject);
@@ -50,9 +57,10 @@ public class PhaseWalker : NetworkBehaviour
 		Game_Manager_Script = GameObject.Find("Game Manager").GetComponent<Game_Manager_Script>();
 		Game_Manager_Script.players.Add(new Player_Sync_Variables());
 
-		playerID = Game_Manager_Script.players.Count - 1;
+		playerID = Game_Manager_Script.players.Count - 1; // Give the player his id.
 	}
 
+	// Activate the startvars
 	void Start()
 	{
 		if(isLocalPlayer)
@@ -70,9 +78,11 @@ public class PhaseWalker : NetworkBehaviour
 		}
 	}
 
+	// Setup for the player at the start of the game.
 	void SetStartVariables()
 	{
 		CmdSetStartVariables();
+
 
 		GameObject.Find("Scene Camera").SetActive(false);
 		
@@ -97,7 +107,8 @@ public class PhaseWalker : NetworkBehaviour
 		CmdSendPosition(currentPlayerPos);
 
 	}
-	
+
+	// Set the syncing vars.
 	[Command]
 	void CmdSetStartVariables()
 	{
@@ -109,11 +120,12 @@ public class PhaseWalker : NetworkBehaviour
 	{
 		Player_Sync_Variables = Game_Manager_Script.players[playerID];
 		Player_Sync_Variables.playerID = playerID;
-
 	}
 
+	// Used to activate the main gameplay mechanics.
 	void GameFlow()
 	{
+		// Searching for the current phase and activates the funcion.
 		currentPhaseId = Player_Sync_Variables.currentPhaseId;
 		currentPhase = phases[currentPhaseId];
 
@@ -182,6 +194,7 @@ public class PhaseWalker : NetworkBehaviour
 		}
 		*/
 
+		// Completes a turn for the player.
 		if(isLocalPlayer)
 		{
 			if(currentPhase.phaseType == Phase.PhaseType.AutoDone)
@@ -231,6 +244,7 @@ public class PhaseWalker : NetworkBehaviour
 	// Spawn Players
 	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 
+	// Spawns the in-world/visible players.
 	public void SpawnPlayers()
 	{
 		if(isLocalPlayer)
@@ -253,9 +267,11 @@ public class PhaseWalker : NetworkBehaviour
 	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	// Choose Movement
 	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	// Choose the location the player will move towards.
+
 
 	bool stopDeselecting;
-	public List<GameObject> moveBlocks = new List<GameObject>();
+	public List<GameObject> moveBlocks = new List<GameObject>(); // All avaidable gridblocks for movement.
 
 	public void PlayerIsChoosingMovement()
 	{
@@ -267,6 +283,7 @@ public class PhaseWalker : NetworkBehaviour
 
 				CmdSetTurn();
 
+				/*
 				for(int i = laneEvents.Count - 1; i >= 0; i--)
 				{
 					if(laneEvents[i].turnsLeft <= 0)
@@ -300,14 +317,16 @@ public class PhaseWalker : NetworkBehaviour
 
 					laneEvent.turnsLeft--;
 				}
+				*/
 			}
-
+			/*
 			if(Input.GetKeyDown(KeyCode.Q))
 			{
 				int randomLane = Random.Range(1,6);
 				int randomTurnsLeft = Random.Range(1,4);
 				laneEvents.Add(new LaneEvent(laneEvents.Count ,randomTurnsLeft, 1, randomLane));
 			}
+			*/
 
 			if(canMove)
 			{
@@ -325,11 +344,14 @@ public class PhaseWalker : NetworkBehaviour
 			}
 		}
 	}
-	
+
+	// Acivate all reachable gridblocks.
 	void PlayerMovementSelector()
 	{
-		moveBlocks.Clear();
-		
+		moveBlocks.Clear(); // Refresh the list of avaidable gridblocks.
+
+
+		// Select the gridblocks.
 		if(Player_Sync_Variables.currentMaxMoves > 0)
 		{
 			SelectSurroundingBlocks(CurrentGridBlock.transform.position);
@@ -344,13 +366,15 @@ public class PhaseWalker : NetworkBehaviour
 				SelectSurroundingBlocks(moveBlocks[j].transform.position);
 			}
 		}
-		
+
+		// Activate them
 		foreach(GameObject moveBlockDef in moveBlocks)
 		{
 			ActivateGridBlock(moveBlockDef);
 		}
 	}
-	
+
+	// Select the 4 surrounding gridblocks.
 	void SelectSurroundingBlocks(Vector3 selectPos)
 	{
 		float tileSize = Grid_Spawner_Script.tileSize;
@@ -401,7 +425,8 @@ public class PhaseWalker : NetworkBehaviour
 		}
 		*/
 	}
-	
+
+	// Select a gridblock.
 	GameObject SelectMoveBlock(Vector3 blockPos)
 	{
 		RaycastHit vHit = new RaycastHit();
@@ -638,6 +663,7 @@ public class PhaseWalker : NetworkBehaviour
 			{
 				ResetPhases();
 
+				/*
 				foreach(LaneEvent laneEvent in laneEvents)
 				{
 					if(laneEvent.turnsLeft == 0)
@@ -662,6 +688,7 @@ public class PhaseWalker : NetworkBehaviour
 						}
 					}
 				}
+				*/
 			}
 		}
 	}
