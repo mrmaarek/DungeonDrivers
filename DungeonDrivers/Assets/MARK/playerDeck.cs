@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+
+using UnityEngine.UI;
 using UnityEditor;
 using System.Collections;
 
@@ -17,6 +19,9 @@ public class playerDeck : MonoBehaviour
     public GameObject[] myDeck;                                         //Array of Deck
     [SerializeField]
     private List<GameObject> myTempDeck = new List<GameObject>();       //List of Deck
+
+    [SerializeField]
+    private List<GameObject> mySpawnedDeck = new List<GameObject>();
 
     [SerializeField]
     private Player_Hand myPlayerHand;
@@ -76,24 +81,24 @@ public class playerDeck : MonoBehaviour
             newCard.transform.localRotation = Quaternion.Euler(new Vector3(90, 0));
 
             newCard.transform.localScale = new Vector3(200, 200, 200);
-            
+            mySpawnedDeck.Add(newCard);
         }
     }
 
     void shuffleDeck()
     {
-        Debug.Log("There currently are... " + myTempDeck.Count + " cards in your deck." );
+        Debug.Log("There currently are... " + mySpawnedDeck.Count + " cards in your deck." );
 
-        for (int i = 0; i < myTempDeck.Count; i++)
+        for (int i = 0; i < mySpawnedDeck.Count; i++)
         {
             // For each card make a temporary copy.
-            GameObject tempCard = myTempDeck[i];
+            GameObject tempCard = mySpawnedDeck[i];
             int randomIndex = UnityEngine.Random.Range(0, myDeck.Length);
-            myTempDeck[i] = myTempDeck[randomIndex];
-            myTempDeck[randomIndex] = tempCard;
+            mySpawnedDeck[i] = mySpawnedDeck[randomIndex];
+            mySpawnedDeck[randomIndex] = tempCard;
 
-            Debug.Log(myTempDeck[i]);
-            Debug.Log(myTempDeck[randomIndex]);
+            Debug.Log(mySpawnedDeck[i]);
+            Debug.Log(mySpawnedDeck[randomIndex]);
 
             //Destroy(tempCard);
         }
@@ -105,9 +110,12 @@ public class playerDeck : MonoBehaviour
         int cardsToDraw = 3;
         for (int i = 0; i < cardsToDraw; i++)
         {
-            myTempDeck[i].transform.SetParent(myPlayerHandT);
-            myPlayerHand.myTempHand.Add(myTempDeck[i]);
-           
+            mySpawnedDeck[i].transform.SetParent(myPlayerHandT);
+            myPlayerHand.myTempHand.Add(mySpawnedDeck[i]);
+            mySpawnedDeck[i].transform.localPosition = new Vector3(0, 0, 0);
+            mySpawnedDeck[i].AddComponent<LayoutElement>();
+            mySpawnedDeck[i].GetComponent<LayoutElement>().preferredWidth = 120;
+            mySpawnedDeck[i].GetComponent<LayoutElement>().preferredHeight = 80;
             // myTempHand.Add(myTempDeck[i]);
         }
     }
