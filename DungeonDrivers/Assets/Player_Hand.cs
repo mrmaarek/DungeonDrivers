@@ -8,12 +8,14 @@ public class Player_Hand : MonoBehaviour
     public List<GameObject> myTempHand = new List<GameObject>();
 
     // Use this for initialization
-    void Start () {
-	
+    void Start ()
+    {
+	    
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
 	
 	}
 }
