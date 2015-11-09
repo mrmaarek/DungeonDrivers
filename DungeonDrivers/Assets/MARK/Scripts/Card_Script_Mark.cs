@@ -8,7 +8,8 @@ public class Card_Script_Mark : MonoBehaviour
     float distance = 1f;
 
     [SerializeField]
-    GameObject playingCardMark;
+    private GameObject myPlayerHand;
+
 
     [SerializeField]
     GameObject cardToPlay;
@@ -18,6 +19,11 @@ public class Card_Script_Mark : MonoBehaviour
 
     [SerializeField]
     //private Animator Card_Animator_Mark;
+
+    public void Start()
+    {
+        myPlayerHand = GameObject.Find("MyHand");
+    }
 
     public void flipCard()
     {
@@ -34,17 +40,24 @@ public class Card_Script_Mark : MonoBehaviour
 
         this.transform.position = objPosition;
 
+
+        
+
         // The card which will be played, will transform into a 'X' Mark
         // So you can play your card easily on the grid.
         if (Input.mousePosition.y > 200)
         {
             this.transform.SetParent(cardToPlay.transform);
-            //this.enabled = false; 
+            myPlayerHand.GetComponent<Player_Hand>().myTempHand.Remove(this.gameObject);
 
-            //Instantiate(playingCardMark, objPosition, Quaternion.identity);
-            
+            // RE ORGANIZE THE PLAYER HAND WITHOUT THE PLAYED CARD.
         }
 
         //
+    }
+
+    private void ReOrganizeHand()
+    {
+        // 
     }
 }

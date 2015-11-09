@@ -40,6 +40,9 @@ public class playerDeck : MonoBehaviour
 
         gmObj = GameObject.Find("Game Manager");
         
+        previousTurnID = 0;
+
+
         //Check which Class is selected.
         // And load the corresponding cards.
         if (mySelectedClass.GetComponent<ClassSelector>().playerClass == ClassSelector.Classes.Sandmage)
@@ -55,7 +58,7 @@ public class playerDeck : MonoBehaviour
         spawnDeck();
         shuffleDeck();
         drawHand();
-        drawCard();
+        
 
        
     }
@@ -65,13 +68,12 @@ public class playerDeck : MonoBehaviour
     {
         // Holds the previous and the current turn ID.
         // Here I can check if it's increasing? 
+        currentTurnID = gmObj.GetComponent<Game_Manager_Script>().players[0].currentTurn;
 
         // If it's increasing i know im in a new round, so i need to draw a card. 
-        currentTurnID = gmObj.GetComponent<Game_Manager_Script>().players[0].currentTurn;
-        previousTurnID = 0;
-
         if (currentTurnID > previousTurnID)
         {
+            Debug.Log("A new round has started.");
             drawCard();
             previousTurnID = currentTurnID;
         }
@@ -152,21 +154,20 @@ public class playerDeck : MonoBehaviour
 
     void drawCard()
     {
-        
-
-        // WHEN YOU ARE IN THE CHOOSE MOVEMENTPHASE, DRAW A CARD.
+            // WHEN YOU ARE IN THE CHOOSE MOVEMENTPHASE, DRAW A CARD.
        
             Debug.Log("YAY IM IN THE CHOOOSE MOVEMENT");
-            /*
+            
             GameObject drawedCard = mySpawnedDeck[0];
             drawedCard.transform.SetParent(myPlayerHandT);
             myPlayerHand.myTempHand.Add(drawedCard);
-            // 
+            
             drawedCard.transform.localPosition = new Vector3(125 + 3 * 250, -120, 0);
             drawedCard.transform.localScale = new Vector3(400, 400, 400);
             drawedCard.transform.localRotation = Quaternion.Euler(new Vector3(270, 0));
             drawedCard.GetComponent<BoxCollider>().enabled = true;
-            */
+
+            mySpawnedDeck.Remove(mySpawnedDeck[0]);
         
     }
 }
