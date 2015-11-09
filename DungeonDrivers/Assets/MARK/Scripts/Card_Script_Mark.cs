@@ -23,6 +23,10 @@ public class Card_Script_Mark : MonoBehaviour
     public void Start()
     {
         myPlayerHand = GameObject.Find("MyHand");
+
+        cardToPlay = GameObject.Find("MyCardToPlay");
+
+        testCam = GameObject.Find("InWorldUICamera (1)").GetComponent<Camera>();
     }
 
     public void flipCard()
@@ -50,6 +54,7 @@ public class Card_Script_Mark : MonoBehaviour
             this.transform.SetParent(cardToPlay.transform);
             myPlayerHand.GetComponent<Player_Hand>().myTempHand.Remove(this.gameObject);
 
+            ReOrganizeHand();
             // RE ORGANIZE THE PLAYER HAND WITHOUT THE PLAYED CARD.
         }
 
@@ -59,5 +64,10 @@ public class Card_Script_Mark : MonoBehaviour
     private void ReOrganizeHand()
     {
         // 
+        for (int i = 0; i < myPlayerHand.GetComponent<Player_Hand>().myTempHand.Count; i++)
+        {
+            // Voor elk object in de array.
+            myPlayerHand.GetComponent<Player_Hand>().myTempHand[i].transform.localPosition = new Vector3(125 + i * 250, -120, 0);
+        }
     }
 }
