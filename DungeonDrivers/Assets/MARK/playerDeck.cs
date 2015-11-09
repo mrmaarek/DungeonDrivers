@@ -31,6 +31,8 @@ public class playerDeck : MonoBehaviour
     [SerializeField]
     private GameObject gmObj;
 
+    public int currentTurnID, previousTurnID;
+
     // Use this for initialization
     void Start ()
     {
@@ -53,16 +55,26 @@ public class playerDeck : MonoBehaviour
         spawnDeck();
         shuffleDeck();
         drawHand();
+        drawCard();
 
+       
     }
 
     // Update is called once per frame
     void Update ()
     {
-        if (gmObj.GetComponent<Game_Manager_Script>().phase == Game_Manager_Script.Phase.ChooseMovePosition)
+        // Holds the previous and the current turn ID.
+        // Here I can check if it's increasing? 
+
+        // If it's increasing i know im in a new round, so i need to draw a card. 
+        currentTurnID = gmObj.GetComponent<Game_Manager_Script>().players[0].currentTurn;
+        previousTurnID = 0;
+
+        if (currentTurnID > previousTurnID)
         {
             drawCard();
-        } 
+            previousTurnID = currentTurnID;
+        }
     }
 
     void generateDeck()

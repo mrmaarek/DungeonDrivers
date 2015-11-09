@@ -923,7 +923,8 @@ public class PhaseWalker : NetworkBehaviour
 	[ClientRpc]
 	void RpcSetTurn()
 	{
-		Player_Sync_Variables.currentTurn++;
+        // Deze heb ik nodig.
+        Player_Sync_Variables.currentTurn++;
 	}
 
 	[Command]
