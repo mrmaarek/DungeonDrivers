@@ -8,6 +8,12 @@ public class Card_Script_Mark : MonoBehaviour
     float distance = 1f;
 
     [SerializeField]
+    GameObject playingCardMark;
+
+    [SerializeField]
+    GameObject cardToPlay;
+
+    [SerializeField]
     private Camera testCam;
 
     [SerializeField]
@@ -27,5 +33,18 @@ public class Card_Script_Mark : MonoBehaviour
         Vector3 objPosition = testCam.ScreenToWorldPoint(mousePosition);
 
         this.transform.position = objPosition;
+
+        // The card which will be played, will transform into a 'X' Mark
+        // So you can play your card easily on the grid.
+        if (Input.mousePosition.y > 200)
+        {
+            this.transform.SetParent(cardToPlay.transform);
+            //this.enabled = false; 
+
+            //Instantiate(playingCardMark, objPosition, Quaternion.identity);
+            
+        }
+
+        //
     }
 }

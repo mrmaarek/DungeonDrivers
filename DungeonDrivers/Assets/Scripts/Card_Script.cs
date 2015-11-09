@@ -50,7 +50,10 @@ public class Card_Script : MonoBehaviour
 
 	void OnMouseEnter()
 	{
-		transform.localPosition = new Vector3(transform.localPosition.x, 110, transform.localPosition.z);
+        // Need to be added:
+        // IF THE CARD IS IN THE HAND, THEN YOU CAN TRANSFORM ITS Y++
+        
+        transform.localPosition = new Vector3(transform.localPosition.x, 110, transform.localPosition.z);
 	}
 
 	void OnMouseExit()

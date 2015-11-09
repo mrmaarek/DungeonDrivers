@@ -15,7 +15,6 @@ public class playerDeck : MonoBehaviour
     [SerializeField]
     private Transform myDeckPanel;
 
-
     public GameObject[] myDeck;                                         //Array of Deck
     [SerializeField]
     private List<GameObject> myTempDeck = new List<GameObject>();       //List of Deck
@@ -29,9 +28,16 @@ public class playerDeck : MonoBehaviour
     [SerializeField]
     private Transform myPlayerHandT;
 
+    [SerializeField]
+    private GameObject gmObj;
+
     // Use this for initialization
     void Start ()
     {
+        //Locate the gamemanger
+
+        gmObj = GameObject.Find("Game Manager");
+        
         //Check which Class is selected.
         // And load the corresponding cards.
         if (mySelectedClass.GetComponent<ClassSelector>().playerClass == ClassSelector.Classes.Sandmage)
@@ -53,7 +59,10 @@ public class playerDeck : MonoBehaviour
     // Update is called once per frame
     void Update ()
     {
-        //shuffleDeck();
+        if (gmObj.GetComponent<Game_Manager_Script>().phase == Game_Manager_Script.Phase.ChooseMovePosition)
+        {
+            drawCard();
+        } 
     }
 
     void generateDeck()
@@ -107,9 +116,10 @@ public class playerDeck : MonoBehaviour
 
     void drawHand()
     {
-        int cardsToDraw = 4;
+        int cardsToDraw = 3;
         for (int i = 0; i < cardsToDraw; i++)
         {
+
 			GameObject newCard = mySpawnedDeck[i];
 			newCard.transform.SetParent(myPlayerHandT);
 			myPlayerHand.myTempHand.Add(newCard);
@@ -117,11 +127,34 @@ public class playerDeck : MonoBehaviour
 			newCard.transform.localScale = new Vector3(400, 400, 400);
 			newCard.transform.localRotation = Quaternion.Euler(new Vector3(270, 0));
 			newCard.GetComponent<BoxCollider>().enabled = true;
+
+            mySpawnedDeck.Remove(mySpawnedDeck[i]);
+            
             //mySpawnedDeck[i].transform.localPosition = new Vector3(0, 0, 0);
             //mySpawnedDeck[i].AddComponent<LayoutElement>();
             //mySpawnedDeck[i].GetComponent<LayoutElement>().preferredWidth = 120;
             //mySpawnedDeck[i].GetComponent<LayoutElement>().preferredHeight = 80;
             // myTempHand.Add(myTempDeck[i]);
         }
+    }
+
+    void drawCard()
+    {
+        
+
+        // WHEN YOU ARE IN THE CHOOSE MOVEMENTPHASE, DRAW A CARD.
+       
+            Debug.Log("YAY IM IN THE CHOOOSE MOVEMENT");
+            /*
+            GameObject drawedCard = mySpawnedDeck[0];
+            drawedCard.transform.SetParent(myPlayerHandT);
+            myPlayerHand.myTempHand.Add(drawedCard);
+            // 
+            drawedCard.transform.localPosition = new Vector3(125 + 3 * 250, -120, 0);
+            drawedCard.transform.localScale = new Vector3(400, 400, 400);
+            drawedCard.transform.localRotation = Quaternion.Euler(new Vector3(270, 0));
+            drawedCard.GetComponent<BoxCollider>().enabled = true;
+            */
+        
     }
 }
