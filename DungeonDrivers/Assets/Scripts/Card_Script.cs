@@ -58,7 +58,7 @@ public class Card_Script : MonoBehaviour
 
 	void OnMouseExit()
 	{
-		transform.localPosition = new Vector3(transform.localPosition.x, -120, transform.localPosition.z);
+		transform.localPosition = new Vector3(transform.localPosition.x, -80, transform.localPosition.z);
 	}
 
 }

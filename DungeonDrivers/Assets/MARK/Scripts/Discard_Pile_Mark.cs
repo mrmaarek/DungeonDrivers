@@ -1,16 +1,16 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
 using System.Collections;
+using System.Collections.Generic;
 
-public class Player_Hand : MonoBehaviour
+public class Discard_Pile_Mark : MonoBehaviour
 {
-    
-    public List<GameObject> myTempHand = new List<GameObject>();
+
+    public List<GameObject> myPlayedCards = new List<GameObject>();
 
     // Use this for initialization
     void Start ()
     {
-	    
+	
 	}
 	
 	// Update is called once per frame

@@ -33,11 +33,15 @@ public class playerDeck : MonoBehaviour
 
     public int currentTurnID, previousTurnID;
 
+    [SerializeField]
+    private GameObject myDiscardPile;
+
     // Use this for initialization
     void Start ()
     {
+        myDiscardPile = GameObject.Find("MyDiscardPile");
+        
         //Locate the gamemanger
-
         gmObj = GameObject.Find("Game Manager");
         
         previousTurnID = 0;
@@ -73,9 +77,42 @@ public class playerDeck : MonoBehaviour
         // If it's increasing i know im in a new round, so i need to draw a card. 
         if (currentTurnID > previousTurnID)
         {
-            Debug.Log("A new round has started.");
-            drawCard();
-            previousTurnID = currentTurnID;
+            //Debug.Log("A new round has started.");
+            // Check if there are still cards in the deck.
+            if (mySpawnedDeck.Count != 0)
+            {
+                drawCard();
+            }
+            // If there aren't anymore cards to draw...
+            if (mySpawnedDeck.Count == 0)
+            {
+                    int playedCards = myDiscardPile.GetComponent<Discard_Pile_Mark>().myPlayedCards.Count;
+                    Debug.Log(playedCards);
+
+                    for (int i = 0; i < playedCards; i++)
+                    {
+
+                        //Debug.Log("Kaart # " + i);
+                        //Debug.Log(myDiscardPile.GetComponent<Discard_Pile_Mark>().myPlayedCards[i]);
+                        // Add the card again to the spawned deck.
+                        mySpawnedDeck.Add(myDiscardPile.GetComponent<Discard_Pile_Mark>().myPlayedCards[i]);
+                        // Set it's parent
+                        myDiscardPile.GetComponent<Discard_Pile_Mark>().myPlayedCards[i].transform.SetParent(myDeckPanel);
+
+                        myDiscardPile.GetComponent<Discard_Pile_Mark>().myPlayedCards[i].transform.localPosition = new Vector3(115, 0, 0);
+                        myDiscardPile.GetComponent<Discard_Pile_Mark>().myPlayedCards[i].transform.localRotation = Quaternion.Euler(new Vector3(90, 0));
+                        myDiscardPile.GetComponent<Discard_Pile_Mark>().myPlayedCards[i].transform.localScale = new Vector3(380, 380, 380);
+
+                    // Remove the card from the discard pile
+                    //myDiscardPile.GetComponent<Discard_Pile_Mark>().myPlayedCards.Remove(myDiscardPile.GetComponent<Discard_Pile_Mark>().myPlayedCards[i]);
+
+                }
+                
+                myDiscardPile.GetComponent<Discard_Pile_Mark>().myPlayedCards.Clear();
+                shuffleDeck();
+              
+            }
+                previousTurnID = currentTurnID;
         }
     }
 
@@ -116,14 +153,15 @@ public class playerDeck : MonoBehaviour
         {
             // For each card make a temporary copy.
             GameObject tempCard = mySpawnedDeck[i];
-            int randomIndex = UnityEngine.Random.Range(0, myDeck.Length);
+            Debug.Log("Tempcard created > " + mySpawnedDeck[i]);
+
+            // Grab a random number, where to place it.
+            int randomIndex = UnityEngine.Random.Range(0, mySpawnedDeck.Count);
+
+
             mySpawnedDeck[i] = mySpawnedDeck[randomIndex];
             mySpawnedDeck[randomIndex] = tempCard;
 
-           // Debug.Log(mySpawnedDeck[i]);
-           // Debug.Log(mySpawnedDeck[randomIndex]);
-
-            //Destroy(tempCard);
         }
 
     }
@@ -137,37 +175,44 @@ public class playerDeck : MonoBehaviour
 			GameObject newCard = mySpawnedDeck[i];
 			newCard.transform.SetParent(myPlayerHandT);
 			myPlayerHand.myTempHand.Add(newCard);
-			newCard.transform.localPosition = new Vector3(125 + i * 250,-120,0);
+			newCard.transform.localPosition = new Vector3(125 + i * 250,-80,0);
 			newCard.transform.localScale = new Vector3(400, 400, 400);
 			newCard.transform.localRotation = Quaternion.Euler(new Vector3(270, 0));
 			newCard.GetComponent<BoxCollider>().enabled = true;
 
             mySpawnedDeck.Remove(mySpawnedDeck[i]);
             
+            /*
             //mySpawnedDeck[i].transform.localPosition = new Vector3(0, 0, 0);
             //mySpawnedDeck[i].AddComponent<LayoutElement>();
             //mySpawnedDeck[i].GetComponent<LayoutElement>().preferredWidth = 120;
             //mySpawnedDeck[i].GetComponent<LayoutElement>().preferredHeight = 80;
             // myTempHand.Add(myTempDeck[i]);
+            */
         }
     }
 
     void drawCard()
     {
-            // WHEN YOU ARE IN THE CHOOSE MOVEMENTPHASE, DRAW A CARD.
        
-            Debug.Log("YAY IM IN THE CHOOOSE MOVEMENT");
-            
             GameObject drawedCard = mySpawnedDeck[0];
             drawedCard.transform.SetParent(myPlayerHandT);
             myPlayerHand.myTempHand.Add(drawedCard);
-            
-            drawedCard.transform.localPosition = new Vector3(125 + 3 * 250, -120, 0);
+
+            drawedCard.transform.localPosition = new Vector3(125 + 3 * 250, -80, 0);
             drawedCard.transform.localScale = new Vector3(400, 400, 400);
             drawedCard.transform.localRotation = Quaternion.Euler(new Vector3(270, 0));
             drawedCard.GetComponent<BoxCollider>().enabled = true;
 
             mySpawnedDeck.Remove(mySpawnedDeck[0]);
-        
+    }
+
+    void PlacePlayedCardsBackInDeck()
+    {
+        int discardedCards = myDiscardPile.GetComponent<Discard_Pile_Mark>().myPlayedCards.Count;
+        for (int i = 0; i < discardedCards; i++)
+        {
+            // Do something
+        }
     }
 }
