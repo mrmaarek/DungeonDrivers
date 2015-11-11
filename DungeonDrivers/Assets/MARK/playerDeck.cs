@@ -125,6 +125,7 @@ public class playerDeck : MonoBehaviour
         for(int i = 0; i < myDeck.Length; i++)
         {
             // Add every element of the array to the list.
+            //myDeck[i].transform.SetParent(myDeck[i].transform);
             myTempDeck.Add(myDeck[i]);
         }
     }
@@ -136,6 +137,7 @@ public class playerDeck : MonoBehaviour
         {
             GameObject newCard = Instantiate(card) as GameObject;
             newCard.transform.SetParent(myDeckPanel);
+            
 
             newCard.transform.localPosition = new Vector3(115, 0, 0);
             newCard.transform.localRotation = Quaternion.Euler(new Vector3(90, 0));

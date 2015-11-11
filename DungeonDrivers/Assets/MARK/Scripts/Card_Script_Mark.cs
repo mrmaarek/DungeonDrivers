@@ -36,6 +36,7 @@ public class Card_Script_Mark : MonoBehaviour
        // Card_Animator_Mark.SetBool("Headsup", true);
     }
 
+    /*
     public void OnMouseDrag()
     {
 
@@ -55,6 +56,13 @@ public class Card_Script_Mark : MonoBehaviour
             // RE ORGANIZE THE PLAYER HAND WITHOUT THE PLAYED CARD.
             ReOrganizeHand();
 
+
+            // Drag the card to an gridblock.
+            // Get the gridblocks' id 
+
+
+
+
             /*
             // WANNEER EEN KAART GESPEELD IS, ZET DE ANDERE KAARTEN UIT ZODAT ER NIET MEER GESPEELD KUNNEN WORDEN.
             for (int i = 0; i < myPlayerHand.GetComponent<Player_Hand>().myTempHand.Count; i++)
@@ -62,12 +70,13 @@ public class Card_Script_Mark : MonoBehaviour
                 myPlayerHand.GetComponent<Player_Hand>().myTempHand[i].GetComponent<Card_Script_Mark>().enabled = false;
                 myPlayerHand.GetComponent<Player_Hand>().myTempHand[i].GetComponent<Card_Script>().enabled = false; 
             }
-            */
+            
             
             // Card to discard pile if he really is played.
         }
 
     }
+    */
     //When the mouse is released? 
     // So this will be the end of the drag?
     public void OnMouseUp()

@@ -20,6 +20,8 @@ public class Card_Script : MonoBehaviour
 
 	public Image cardImageObject;
 
+    public bool cardIsInPlay = false;
+
 	public enum Targeting
 	{
 		SelfCast,
@@ -52,13 +54,46 @@ public class Card_Script : MonoBehaviour
 	{
         // Need to be added:
         // IF THE CARD IS IN THE HAND, THEN YOU CAN TRANSFORM ITS Y++
-        
-        transform.localPosition = new Vector3(transform.localPosition.x, 110, transform.localPosition.z);
+        if (!cardIsInPlay)
+        {
+            transform.localPosition = new Vector3(transform.localPosition.x, 110, transform.localPosition.z);
+        }
 	}
 
 	void OnMouseExit()
 	{
-		transform.localPosition = new Vector3(transform.localPosition.x, -80, transform.localPosition.z);
+        if (!cardIsInPlay)
+        {
+            transform.localPosition = new Vector3(transform.localPosition.x, -80, transform.localPosition.z);
+        }
 	}
+
+    void OnMouseDown()
+    {
+        
+    }
+
+    void OnMouseUp()
+    {
+        // The card is NOT in play, and will be transformed to 'playable'
+        if (!cardIsInPlay)
+        {
+            cardIsInPlay = true;
+            transform.localPosition = new Vector3(transform.localPosition.x, 110, transform.localPosition.z);
+            transform.localScale = new Vector3(450, 450, 450);
+
+            Debug.Log("You made the card to IN-Play");
+        }
+        // The card is already in play, set it back.
+        else
+        {
+            cardIsInPlay = false;
+            transform.localScale = new Vector3(400, 400, 400);
+
+            Debug.Log("I Want the card back to normal.");
+        }
+    }
+    // ONMOUSECLICK()
+    // 
 
 }

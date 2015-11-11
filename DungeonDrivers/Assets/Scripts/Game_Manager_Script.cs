@@ -68,8 +68,8 @@ public class Game_Manager_Script :  NetworkBehaviour
 			NextPhase(Phase.ChooseMovementPositionResolve);
 			break;
 		case Phase.ChooseMovementPositionResolve:
-			//NextPhase(Phase.PlayCards);
-			NextPhase(Phase.IsMoving);
+			NextPhase(Phase.PlayCards);
+			//NextPhase(Phase.IsMoving);
 			break;
 		case Phase.PlayCards:
 			NextPhase(Phase.PlayCardsResolve);
