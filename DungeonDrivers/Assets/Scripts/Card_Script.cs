@@ -22,6 +22,10 @@ public class Card_Script : MonoBehaviour
 
     public bool cardIsInPlay = false;
 
+	public PhaseWalker PhaseWalker;
+
+	public Vector3 cardPos;
+
 	public enum Targeting
 	{
 		SelfCast,
@@ -49,7 +53,7 @@ public class Card_Script : MonoBehaviour
 		InitiativeObject.text = "Initiative: " + initiative;
 		DescriptionObject.text = description;
 	}
-
+	/*
 	void OnMouseEnter()
 	{
         // Need to be added:
@@ -67,7 +71,7 @@ public class Card_Script : MonoBehaviour
             transform.localPosition = new Vector3(transform.localPosition.x, -80, transform.localPosition.z);
         }
 	}
-
+*/
     void OnMouseDown()
     {
         
@@ -75,23 +79,26 @@ public class Card_Script : MonoBehaviour
 
     void OnMouseUp()
     {
+		/*
         // The card is NOT in play, and will be transformed to 'playable'
         if (!cardIsInPlay)
         {
             cardIsInPlay = true;
-            transform.localPosition = new Vector3(transform.localPosition.x, 110, transform.localPosition.z);
             transform.localScale = new Vector3(450, 450, 450);
-
+			PhaseWalker.CardToPlay = this.gameObject;
+			transform.position = PhaseWalker.CardPos.transform.position;
             Debug.Log("You made the card to IN-Play");
         }
         // The card is already in play, set it back.
         else
         {
             cardIsInPlay = false;
-            transform.localScale = new Vector3(400, 400, 400);
-
-            Debug.Log("I Want the card back to normal.");
+			transform.localScale = new Vector3(400, 400, 400);
+			transform.localPosition = cardPos;
+			
+			Debug.Log("I Want the card back to normal.");
         }
+        */
     }
     // ONMOUSECLICK()
     // 

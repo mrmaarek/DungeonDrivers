@@ -100,6 +100,7 @@ public class playerDeck : MonoBehaviour
                         myDiscardPile.GetComponent<Discard_Pile_Mark>().myPlayedCards[i].transform.SetParent(myDeckPanel);
 
                         myDiscardPile.GetComponent<Discard_Pile_Mark>().myPlayedCards[i].transform.localPosition = new Vector3(115, 0, 0);
+						
                         myDiscardPile.GetComponent<Discard_Pile_Mark>().myPlayedCards[i].transform.localRotation = Quaternion.Euler(new Vector3(90, 0));
                         myDiscardPile.GetComponent<Discard_Pile_Mark>().myPlayedCards[i].transform.localScale = new Vector3(380, 380, 380);
 
@@ -178,6 +179,7 @@ public class playerDeck : MonoBehaviour
 			newCard.transform.SetParent(myPlayerHandT);
 			myPlayerHand.myTempHand.Add(newCard);
 			newCard.transform.localPosition = new Vector3(125 + i * 250,-80,0);
+			newCard.GetComponent<Card_Script>().cardPos = new Vector3(125 + i * 250,-80,0);
 			newCard.transform.localScale = new Vector3(400, 400, 400);
 			newCard.transform.localRotation = Quaternion.Euler(new Vector3(270, 0));
 			newCard.GetComponent<BoxCollider>().enabled = true;
@@ -201,7 +203,8 @@ public class playerDeck : MonoBehaviour
             drawedCard.transform.SetParent(myPlayerHandT);
             myPlayerHand.myTempHand.Add(drawedCard);
 
-            drawedCard.transform.localPosition = new Vector3(125 + 3 * 250, -80, 0);
+			drawedCard.transform.localPosition = new Vector3(125 + 3 * 250, -80, 0);
+			drawedCard.GetComponent<Card_Script>().cardPos = new Vector3(125 + 3 * 250,-80,0);
             drawedCard.transform.localScale = new Vector3(400, 400, 400);
             drawedCard.transform.localRotation = Quaternion.Euler(new Vector3(270, 0));
             drawedCard.GetComponent<BoxCollider>().enabled = true;

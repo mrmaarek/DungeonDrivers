@@ -46,11 +46,9 @@ public class PhaseWalker : NetworkBehaviour
 
 	public GameObject ClassSelector, ClassSelectorUI;
 
-	/*
-	public List<LaneEvent> laneEvents = new List<LaneEvent>();
-	public GameObject LaneWarning;
-	public List<GameObject> laneWarnings = new List<GameObject>();
-	*/
+	public GameObject CardToPlay, PlayerHand, CardPos;
+	public List<GameObject> cardsInHand = new List<GameObject>();
+
 
 	// Add the player to the list of objects moving along with the camera, set the starting vars.
 	void Awake()
@@ -136,60 +134,6 @@ public class PhaseWalker : NetworkBehaviour
 			}
 		}
 
-		/*
-		switch(currentPhaseId)
-		{
-		case 0:
-
-			break;
-		case 1:
-			SpawnPlayers();
-			break;
-		case 2:
-			PlayerIsChoosingMovement();
-			break;
-		case 3:
-			PlayerIsChoosingMovementResolve();
-			break;
-		case 4:
-			PlayerIsChoosingCard();
-			break;
-		case 5:
-			PlayerIsChoosingCardResolve();
-			break;
-		case 6:
-			PlayerIsMoving();
-			break;
-		case 7:
-			PlayerIsMovingResolve();
-			break;
-		case 8:
-			PlayerIsUtility();
-			break;
-		case 9:
-			PlayerIsUtilityResolve();
-			break;
-		case 10:
-			PlayerIsCC();
-			break;
-		case 11:
-			PlayerIsCCResolve();
-			break;
-		case 12:
-			PlayerIsAttack();
-			break;
-		case 13:
-			PlayerIsAttackResolve();
-			break;
-		case 14:
-			PlayerIsEndTurn();
-			break;
-		case 15:
-			PlayerIsEndTurnResolve();
-			break;
-		}
-		*/
-
 		// Completes a turn for the player.
 		if(isLocalPlayer)
 		{
@@ -208,32 +152,6 @@ public class PhaseWalker : NetworkBehaviour
 				}
 			}
 		}
-		/*
-		switch(Player_Sync_Variables.phase)
-		{
-		case Game_Manager_Script.Phase.SpawnPlayers:
-			SpawnPlayers();
-			break;
-		case Game_Manager_Script.Phase.ChooseMovePosition:
-			PlayerIsChoosingMovement();
-			break;
-		case Game_Manager_Script.Phase.PlayCards:
-			PlayerIsPlayingCards();
-			break;
-		case Game_Manager_Script.Phase.IsMoving:
-			PlayerIsMoving();
-			break;
-		case Game_Manager_Script.Phase.IsUtility:
-			PlayerIsUtility();
-			break;
-		case Game_Manager_Script.Phase.IsAttacking:
-			
-			break;
-		case Game_Manager_Script.Phase.isCCing:
-			
-			break;
-		}
-*/
 	}
 
 	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -294,51 +212,7 @@ public class PhaseWalker : NetworkBehaviour
 				ResetPhases();
 
 				CmdSetTurn();
-
-				/*
-				for(int i = laneEvents.Count - 1; i >= 0; i--)
-				{
-					if(laneEvents[i].turnsLeft <= 0)
-					{
-						foreach(GameObject laneW in laneEvents[i].laneWarnings)
-						{
-							Destroy(laneW);
-						}
-						laneEvents.RemoveAt(i);
-					}
-				}
-
-				foreach(LaneEvent laneEvent in laneEvents)
-				{
-
-
-					if(laneEvent.turnsLeft == 1)
-					{
-						foreach(GameObject gridBlockW in Grid_Spawner_Script.gridBlocks)
-						{
-							if(gridBlockW.GetComponent<Grid_Block_Script>().xLane == laneEvent.xLane)
-							{
-								
-								GameObject laneWarning = Instantiate(LaneWarning) as GameObject;
-								laneWarning.transform.SetParent(gridBlockW.transform);
-								laneWarning.transform.localPosition = Vector3.zero;
-								laneEvent.laneWarnings.Add(laneWarning);
-							}
-						}
-					}
-
-					laneEvent.turnsLeft--;
-				}
-				*/
 			}
-			/*
-			if(Input.GetKeyDown(KeyCode.Q))
-			{
-				int randomLane = Random.Range(1,6);
-				int randomTurnsLeft = Random.Range(1,4);
-				laneEvents.Add(new LaneEvent(laneEvents.Count ,randomTurnsLeft, 1, randomLane));
-			}
-			*/
 
 			if(canMove)
 			{
@@ -414,28 +288,6 @@ public class PhaseWalker : NetworkBehaviour
 				moveBlocks.Add(selected2);
 			}
 		}
-		/*
-		GameObject selected2 = SelectMoveBlock(new Vector3(selectPos.x + tileSize, selectPos.y, selectPos.z));
-		if(selected2 != null)
-		{
-			moveBlocks.Add(selected2);
-		}
-		GameObject selected3 = SelectMoveBlock(new Vector3(selectPos.x - tileSize, selectPos.y, selectPos.z));
-		if(selected3 != null)
-		{
-			moveBlocks.Add(selected3);
-		}
-		GameObject selected4 = SelectMoveBlock(new Vector3(selectPos.x, selectPos.y, selectPos.z + tileSize));
-		if(selected4 != null)
-		{
-			moveBlocks.Add(selected4);
-		}
-		GameObject selected5 = SelectMoveBlock(new Vector3(selectPos.x , selectPos.y, selectPos.z - tileSize));
-		if(selected5 != null)
-		{
-			moveBlocks.Add(selected5);
-		}
-		*/
 	}
 
 	// Select a gridblock.
@@ -507,7 +359,13 @@ public class PhaseWalker : NetworkBehaviour
 			if(!currentPhase.turnStarted)
 			{
                 ResetPhases();
-                //Can play cards = true;
+                
+				cardsInHand = PlayerHand.GetComponent<Player_Hand>().myTempHand;
+				foreach(GameObject cardInHand in cardsInHand)
+				{
+					cardInHand.GetComponent<Card_Script>().PhaseWalker = this;
+				}
+
 
                 
             }
@@ -677,33 +535,6 @@ public class PhaseWalker : NetworkBehaviour
 			if(!currentPhase.turnStarted)
 			{
 				ResetPhases();
-
-				/*
-				foreach(LaneEvent laneEvent in laneEvents)
-				{
-					if(laneEvent.turnsLeft == 0)
-					{
-						foreach(GameObject gridBlockW in Grid_Spawner_Script.gridBlocks)
-						{
-							Grid_Block_Script G_Script = gridBlockW.GetComponent<Grid_Block_Script>();
-							if(G_Script.xLane == laneEvent.xLane)
-							{
-								for(int i = 0; i < G_Script.playersInSide.Length; i++)
-								{
-									if(G_Script.playersInSide[i])
-									{
-										for(int j = 0; j < Game_Manager_Script.players.Count; j++)
-										{
-											CmdDoDamage(laneEvent.damage, i);
-										}
-
-									}
-								}
-							}
-						}
-					}
-				}
-				*/
 			}
 		}
 	}
