@@ -47,7 +47,9 @@ public class PhaseWalker : NetworkBehaviour
 	public GameObject ClassSelector, ClassSelectorUI;
 
 	public GameObject CardToPlay, PlayerHand, CardPos;
-	public List<GameObject> cardsInHand = new List<GameObject>();
+	//public List<GameObject> cardsInHand = new List<GameObject>();
+
+	private Player_Deck_Script Player_Deck_Script;
 
 
 	// Add the player to the list of objects moving along with the camera, set the starting vars.
@@ -57,6 +59,7 @@ public class PhaseWalker : NetworkBehaviour
 		Grid_Spawner_Script = GetComponent<Grid_Spawner_Script>();
 		Game_Manager_Script = GameObject.Find("Game Manager").GetComponent<Game_Manager_Script>();
 		Game_Manager_Script.players.Add(new Player_Sync_Variables());
+		Player_Deck_Script = GetComponent<Player_Deck_Script>();
 
 		playerID = Game_Manager_Script.players.Count - 1; // Give the player his id.
 	}
@@ -167,12 +170,15 @@ public class PhaseWalker : NetworkBehaviour
 			{
 				ResetPhases();
 
-				
+				Player_Sync_Variables.playerClass = ClassSelector.GetComponent<ClassSelector>().playerClass.ToString();
 				Destroy(ClassSelector);
 				Destroy(ClassSelectorUI);
 
 				Grid_Spawner_Script.SetupGrid();
-				PlayerDeckObject.GetComponent<playerDeck>().enabled = true;
+				Player_Deck_Script.LoadDeck();
+				Player_Deck_Script.FillHand();
+
+				//PlayerDeckObject.GetComponent<playerDeck>().enabled = true;
 
 				for(int i = 0; i < playerStartIDs.Length; i++)
 				{
@@ -212,6 +218,9 @@ public class PhaseWalker : NetworkBehaviour
 				ResetPhases();
 
 				CmdSetTurn();
+
+
+				Player_Deck_Script.DrawCard();
 			}
 
 			if(canMove)
@@ -360,15 +369,20 @@ public class PhaseWalker : NetworkBehaviour
 			{
                 ResetPhases();
                 
+
+
+				/*
 				cardsInHand = PlayerHand.GetComponent<Player_Hand>().myTempHand;
 				foreach(GameObject cardInHand in cardsInHand)
 				{
 					cardInHand.GetComponent<Card_Script>().PhaseWalker = this;
 				}
-
+				*/
 
                 
             }
+			
+			Player_Deck_Script.SelectCard();
         }
 	}
 
@@ -383,6 +397,19 @@ public class PhaseWalker : NetworkBehaviour
 			if(!currentPhase.turnStarted)
 			{
 				ResetPhases();
+
+				CmdSetCard();
+
+				for(int i = 0; i < Player_Deck_Script.hand.Count; i++)
+				{
+					if(Player_Deck_Script.hand[i] == Player_Deck_Script.CardCurrentlyPlayed)
+					{
+						Player_Deck_Script.discardPile.Add(Player_Deck_Script.hand[i]);
+						Player_Deck_Script.hand.RemoveAt(i);
+					}
+				}
+				Player_Deck_Script.RefilDeck();
+				//Destroy(Player_Deck_Script.CardCurrentlyPlayed);
 			}
 		}
 	}
@@ -505,7 +532,28 @@ public class PhaseWalker : NetworkBehaviour
 			if(!currentPhase.turnStarted)
 			{
 				ResetPhases();
+
+
+
 			}
+
+			int i = 0;
+			foreach(GameObject playerObject in spawnedPlayers)
+			{
+				
+				GameObject playerGridBlock = Grid_Spawner_Script.gridBlocks[Game_Manager_Script.players[i].currentBlockId];
+				Grid_Block_Script Grid_Block_Script = playerGridBlock.GetComponent<Grid_Block_Script>();
+				Grid_Block_Script.playersInSide[i] = true;
+				
+				GameObject playerPreviousGridBlock = Grid_Spawner_Script.gridBlocks[Game_Manager_Script.players[i].previousBlockId];
+				Grid_Block_Script Grid_Block_Script2 = playerPreviousGridBlock.GetComponent<Grid_Block_Script>();
+				Grid_Block_Script2.playersInSide[i] = false;
+				
+				playerObject.transform.localPosition = Vector3.MoveTowards(playerObject.transform.localPosition, new Vector3(Game_Manager_Script.players[i].currentPosition.x, Game_Manager_Script.players[i].currentPosition.z, Game_Manager_Script.players[i].currentPosition.y), 3 * Time.deltaTime);
+				
+				i++;
+			}
+
 		}
 	}
 	
@@ -771,6 +819,27 @@ public class PhaseWalker : NetworkBehaviour
 	void RpcDoDamage(int damage, int pId)
 	{
 		Game_Manager_Script.players[pId].health -= damage;
+	}
+
+	[Command]
+	void CmdSetCard()
+	{
+		RpcSetCard();
+	}
+	
+	[ClientRpc]
+	void RpcSetCard()
+	{
+		for(int i = 0; i < Player_Deck_Script.tempDeck.Length; i++)
+		{
+			if(Player_Deck_Script.tempDeck[i].GetComponent<Card_Script>().cardName == Player_Deck_Script.CardCurrentlyPlayed.GetComponent<Card_Script>().cardName)
+			{
+				Player_Sync_Variables.Card_Script = Player_Deck_Script.tempDeck[i].GetComponent<Card_Script>();
+			}
+		}
+
+
+
 	}
 
 }

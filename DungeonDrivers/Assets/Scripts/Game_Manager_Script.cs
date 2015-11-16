@@ -82,7 +82,7 @@ public class Game_Manager_Script :  NetworkBehaviour
 			break;
 		case Phase.IsMovingResovle:
 			//NextPhase(Phase.IsUtility);
-			NextPhase(Phase.ChooseMovePosition);
+			NextPhase(Phase.IsAttacking);
 			break;
 		case Phase.IsUtility:
 			NextPhase(Phase.IsUtilityResolve);
@@ -100,7 +100,8 @@ public class Game_Manager_Script :  NetworkBehaviour
 			NextPhase(Phase.IsAttackingResolve);
 			break;
 		case Phase.IsAttackingResolve:
-			NextPhase(Phase.EndTurn);
+			//NextPhase(Phase.EndTurn);
+			NextPhase(Phase.ChooseMovePosition);
 			break;
 		case Phase.EndTurn:
 			NextPhase(Phase.EndTurnResolve);

@@ -4,7 +4,8 @@ using System.Collections.Generic;
 
 public class Player_Deck_Script : MonoBehaviour 
 {
-
+	public PhaseWalker Player;
+	
 	public List<GameObject> deck, hand, discardPile = new List<GameObject>();
 	public GameObject[] tempDeck;
 	public GameObject DeckObject, HandObject, DiscardPile, CardToPlay, CardCurrentlyPlayed;
@@ -13,22 +14,35 @@ public class Player_Deck_Script : MonoBehaviour
 
 	void Start () 
 	{
-		LoadDeck();
-		FillHand();
+		//LoadDeck();
+		//FillHand();
 	}
 
 	void Update () 
 	{
-		SelectCard();
+		//SelectCard();
 	}
 
-	void LoadDeck()
+	public void LoadDeck()
 	{
-		tempDeck = Resources.LoadAll<GameObject>("Cards/Warrior");
+		if(Player != null)
+		{
+			tempDeck = Resources.LoadAll<GameObject>("Cards/" + Player.Player_Sync_Variables.playerClass);
+		}
+		else 
+		{
+			Debug.Log("No Player script (PhaseWalker) attached in the player slot.");
+		}
 		for(int i = 0; i < tempDeck.Length; i++)
 		{
 			deck.Add(tempDeck[i]);
 		}
+		for(int i = 0; i < tempDeck.Length; i++)
+		{
+			deck.Add(tempDeck[i]);
+		}
+
+		ShuffleDeck();
 	}
 
 	void SpawnDeck()
@@ -36,7 +50,7 @@ public class Player_Deck_Script : MonoBehaviour
 
 	}
 
-	void ShuffleDeck()
+	public void ShuffleDeck()
 	{
 		for (int i = 0; i < deck.Count; i++)
 		{
@@ -51,32 +65,34 @@ public class Player_Deck_Script : MonoBehaviour
 		}
 	}
 
-	void FillHand()
+	public void FillHand()
 	{
 
 		for (int i = 0; i < 3; i++)
 		{
 			DrawCard();
 
-			deck.Remove(deck[i]);
 		}
 
 	}
 
-	void DrawCard()
+	public void DrawCard()
 	{
-		GameObject drawedCard = Instantiate(deck[0]) as GameObject;
-		hand.Add(drawedCard);
-		drawedCard.transform.SetParent(HandObject.transform);
+		if(hand.Count < 4)
+		{
+			GameObject drawedCard = Instantiate(deck[0]) as GameObject;
+			hand.Add(drawedCard);
+			drawedCard.transform.SetParent(HandObject.transform);
 
-		OrderCards();
+			OrderCards();
 
-		drawedCard.GetComponent<BoxCollider>().enabled = true;
-		
-		deck.Remove(deck[0]);
+			drawedCard.GetComponent<BoxCollider>().enabled = true;
+			
+			deck.Remove(deck[0]);
+		}
 	}
 
-	void SelectCard()
+	public void SelectCard()
 	{
 		GameObject CardHoveredOver;
 
@@ -99,10 +115,13 @@ public class Player_Deck_Script : MonoBehaviour
 				cardHit.transform.localPosition = new Vector3(cardHit.transform.localPosition.x, 110, cardHit.transform.localPosition.z);
 				if(Input.GetMouseButtonDown(0))
 				{
-					if(CardCurrentlyPlayed == null)
+					if(CardCurrentlyPlayed == cardHit)
+					{
+						PutCardBack(cardHit);
+					}
+					else if(CardCurrentlyPlayed == null)
 					{
 						CardCurrentlyPlayed = cardHit;
-
 					}
 				}
 			}
@@ -110,13 +129,21 @@ public class Player_Deck_Script : MonoBehaviour
 			{
 				cardHit.transform.localPosition = new Vector3(cardHit.transform.localPosition.x, -80, cardHit.transform.localPosition.z);
 			}
+
+			if(CardCurrentlyPlayed == cardHit)
+			{
+				cardHit.transform.localPosition = new Vector3(cardHit.transform.localPosition.x, 130, cardHit.transform.localPosition.z);
+				cardHit.transform.localScale = new Vector3(500, 500, 500);
+			}
 		}
 
 	}
 
-	void PutCardBack()
+	void PutCardBack(GameObject CardHit)
 	{
-
+		CardHit.transform.localPosition = new Vector3(CardHit.transform.localPosition.x, -80, CardHit.transform.localPosition.z);
+		CardHit.transform.localScale = new Vector3(400, 400, 400);
+		CardCurrentlyPlayed = null;
 	}
 
 	void OrderCards()
@@ -128,5 +155,14 @@ public class Player_Deck_Script : MonoBehaviour
 			hand[i].transform.localRotation = Quaternion.Euler(new Vector3(270, 0));
 			hand[i].GetComponent<BoxCollider>().enabled = true;
 		}
+	}
+
+	public void RefilDeck()
+	{
+		for(int i = 0; i < discardPile.Count; i++)
+		{
+			deck.Add(discardPile[i]);
+		}
+		ShuffleDeck();
 	}
 }
