@@ -249,6 +249,7 @@ public class PhaseWalker : NetworkBehaviour
 		// Select the gridblocks.
 		if(Player_Sync_Variables.currentMaxMoves > 0)
 		{
+
 			SelectSurroundingBlocks(CurrentGridBlock.transform.position);
 		}
 
