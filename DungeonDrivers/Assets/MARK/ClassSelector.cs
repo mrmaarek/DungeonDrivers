@@ -49,11 +49,11 @@ public class ClassSelector : MonoBehaviour
         }
         else if (playerClass == Classes.Sandmage)
         {
-            chosenCharacter.text = "Playing as Sandmage";
+            chosenCharacter.text = "Playing as Kaylessa";
         }
         else if (playerClass == Classes.Warrior)
         {
-            chosenCharacter.text = "Playing as Warrior";
+            chosenCharacter.text = "Playing as Grimmet";
         }
 
 
