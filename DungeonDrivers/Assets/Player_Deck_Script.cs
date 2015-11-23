@@ -5,7 +5,10 @@ using System.Collections.Generic;
 public class Player_Deck_Script : MonoBehaviour 
 {
 	public PhaseWalker Player;
-	
+
+	public GameObject[] allCards2;
+	public List<GameObject> allCards = new List<GameObject>();
+
 	public List<GameObject> deck, hand, discardPile = new List<GameObject>();
 	public GameObject[] tempDeck;
 	public GameObject DeckObject, HandObject, DiscardPile, CardToPlay, CardCurrentlyPlayed;
@@ -16,11 +19,25 @@ public class Player_Deck_Script : MonoBehaviour
 	{
 		//LoadDeck();
 		//FillHand();
+		LoadAllCards();
 	}
 
 	void Update () 
 	{
 		//SelectCard();
+	}
+
+	void LoadAllCards()
+	{
+		foreach(GameObject classId in Resources.LoadAll<GameObject>("Classes/"))
+		{
+			allCards2 = Resources.LoadAll<GameObject>("Cards/" + classId.name);
+
+			for(int i = 0; i < allCards2.Length; i++)
+			{
+				allCards.Add(allCards2[i]);
+			}
+		}
 	}
 
 	public void LoadDeck()
