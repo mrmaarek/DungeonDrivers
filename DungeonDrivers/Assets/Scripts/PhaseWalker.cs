@@ -418,7 +418,8 @@ public class PhaseWalker : NetworkBehaviour
 	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	// Move
 	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	
+	float moveDelay;
+
 	public void PlayerIsMoving()
 	{
 		if(isLocalPlayer)
@@ -427,6 +428,8 @@ public class PhaseWalker : NetworkBehaviour
 			{
 				ResetPhases();
 			}
+
+			moveDelay += Time.deltaTime;
 
 			int i = 0;
 			foreach(GameObject playerObject in spawnedPlayers)
@@ -439,8 +442,11 @@ public class PhaseWalker : NetworkBehaviour
 				GameObject playerPreviousGridBlock = Grid_Spawner_Script.gridBlocks[Game_Manager_Script.players[i].previousBlockId];
 				Grid_Block_Script Grid_Block_Script2 = playerPreviousGridBlock.GetComponent<Grid_Block_Script>();
 				Grid_Block_Script2.playersInSide[i] = false;
-				
+
+				if(moveDelay >= i)
+				{
 				playerObject.transform.localPosition = Vector3.MoveTowards(playerObject.transform.localPosition, new Vector3(Game_Manager_Script.players[i].currentPosition.x, Game_Manager_Script.players[i].currentPosition.z, Game_Manager_Script.players[i].currentPosition.y), 3 * Time.deltaTime);
+				}
 
 				i++;
 			}
@@ -458,6 +464,7 @@ public class PhaseWalker : NetworkBehaviour
 			if(!currentPhase.turnStarted)
 			{
 				ResetPhases();
+				moveDelay = 0;
 			}
 		}
 	}
@@ -534,29 +541,28 @@ public class PhaseWalker : NetworkBehaviour
 			{
 				ResetPhases();
 
+				int i = 0;
+
+				foreach(GameObject playerObject in spawnedPlayers)
+				{
+					Player_Sync_Variables Temp_Player_Sync_Variables = playerObject.GetComponent<PhaseWalker>().Player_Sync_Variables;
+					if(Temp_Player_Sync_Variables.Card_Script.initiative == 4)
+					{
+						Card_Script Temp_Card_Script = Player_Sync_Variables.Card_Script;
+
+
+
+					}
+
+					i++;
+				}
 
 
 			}
-
-			int i = 0;
-			foreach(GameObject playerObject in spawnedPlayers)
-			{
-				
-				GameObject playerGridBlock = Grid_Spawner_Script.gridBlocks[Game_Manager_Script.players[i].currentBlockId];
-				Grid_Block_Script Grid_Block_Script = playerGridBlock.GetComponent<Grid_Block_Script>();
-				Grid_Block_Script.playersInSide[i] = true;
-				
-				GameObject playerPreviousGridBlock = Grid_Spawner_Script.gridBlocks[Game_Manager_Script.players[i].previousBlockId];
-				Grid_Block_Script Grid_Block_Script2 = playerPreviousGridBlock.GetComponent<Grid_Block_Script>();
-				Grid_Block_Script2.playersInSide[i] = false;
-				
-				playerObject.transform.localPosition = Vector3.MoveTowards(playerObject.transform.localPosition, new Vector3(Game_Manager_Script.players[i].currentPosition.x, Game_Manager_Script.players[i].currentPosition.z, Game_Manager_Script.players[i].currentPosition.y), 3 * Time.deltaTime);
-				
-				i++;
-			}
-
 		}
 	}
+
+
 	
 	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	// Attack Resolve
