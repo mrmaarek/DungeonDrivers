@@ -26,6 +26,9 @@ public class Player_Sync_Variables
 	public Card_Script Card_Script;
 
 	[SyncVar]
+	public int cardId;
+
+	[SyncVar]
 	public string playerClass;
 
 }
