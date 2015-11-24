@@ -6,7 +6,7 @@ using UnityEngine.Networking;
 public class Player_Sync_Variables
 {
 	[SyncVar]
-	public int playerID, currentTurn, health, maxMoves, currentPhaseId;
+	public int playerID, currentTurn, health, maxMoves, currentPhaseId, currentHealth, maxHealth;
 	[SyncVar]
 	public int currentMaxMoves = 3;
 	[SyncVar]
