@@ -15,6 +15,8 @@ public class Player_Deck_Script : MonoBehaviour
 
 	public LayerMask cardSelectLayerMask;
 
+	public int currentCardId;
+
 	void Start () 
 	{
 		//LoadDeck();
@@ -139,6 +141,14 @@ public class Player_Deck_Script : MonoBehaviour
 					else if(CardCurrentlyPlayed == null)
 					{
 						CardCurrentlyPlayed = cardHit;
+
+						for(int i = 0; i < allCards.Count; i++)
+						{
+							if(allCards[i].name + "(Clone)" == cardHit.name)
+							{
+								currentCardId = i;
+							}
+						}
 					}
 				}
 			}

@@ -397,9 +397,9 @@ public class PhaseWalker : NetworkBehaviour
 		{
 			if(!currentPhase.turnStarted)
 			{
+				CmdSetCard();
 				ResetPhases();
 
-				CmdSetCard();
 
 				for(int i = 0; i < Player_Deck_Script.hand.Count; i++)
 				{
@@ -540,11 +540,12 @@ public class PhaseWalker : NetworkBehaviour
 			if(!currentPhase.turnStarted)
 			{
 				ResetPhases();
-
+				/*
 				int i = 0;
 
 				foreach(GameObject playerObject in spawnedPlayers)
 				{
+
 					Player_Sync_Variables Temp_Player_Sync_Variables = playerObject.GetComponent<PhaseWalker>().Player_Sync_Variables;
 					if(Temp_Player_Sync_Variables.Card_Script.initiative == 4)
 					{
@@ -556,7 +557,7 @@ public class PhaseWalker : NetworkBehaviour
 
 					i++;
 				}
-
+				*/
 
 			}
 		}
@@ -837,6 +838,8 @@ public class PhaseWalker : NetworkBehaviour
 	[ClientRpc]
 	void RpcSetCard()
 	{
+		Player_Sync_Variables.cardId = Player_Deck_Script.currentCardId;
+		/*
 		for(int i = 0; i < Player_Deck_Script.tempDeck.Length; i++)
 		{
 			if(Player_Deck_Script.tempDeck[i].GetComponent<Card_Script>().cardName == Player_Deck_Script.CardCurrentlyPlayed.GetComponent<Card_Script>().cardName)
@@ -844,11 +847,8 @@ public class PhaseWalker : NetworkBehaviour
 				Player_Sync_Variables.Card_Script = Player_Deck_Script.tempDeck[i].GetComponent<Card_Script>();
 			}
 		}
-
-
-
+		*/
 	}
-
 }
 
 
