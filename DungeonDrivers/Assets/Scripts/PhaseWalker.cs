@@ -56,6 +56,7 @@ public class PhaseWalker : NetworkBehaviour
 	void Awake()
 	{
 		GameObject.Find("Map Spawner").GetComponent<MapSpawnerScript>().ObjectsMovingAlong.Add(this.gameObject);
+		GetComponent<Player_Deck_Script>().enabled = true;
 		Grid_Spawner_Script = GetComponent<Grid_Spawner_Script>();
 		Game_Manager_Script = GameObject.Find("Game Manager").GetComponent<Game_Manager_Script>();
 		Game_Manager_Script.players.Add(new Player_Sync_Variables());
@@ -395,10 +396,14 @@ public class PhaseWalker : NetworkBehaviour
 	{
 		if(isLocalPlayer)
 		{
+
 			if(!currentPhase.turnStarted)
 			{
-				CmdSetCard();
+
 				ResetPhases();
+
+
+				CmdSetCard();
 
 
 				for(int i = 0; i < Player_Deck_Script.hand.Count; i++)
