@@ -399,13 +399,14 @@ public class PhaseWalker : NetworkBehaviour
 		if(isLocalPlayer)
 		{
 
+
+
+
 			if(!currentPhase.turnStarted)
 			{
 
 				ResetPhases();
 
-
-				CmdSetCard();
 
 
 				for(int i = 0; i < hand.Count; i++)
@@ -420,6 +421,7 @@ public class PhaseWalker : NetworkBehaviour
 				//Destroy(Player_Deck_Script.CardCurrentlyPlayed);
 			}
 		}
+
 	}
 
 	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -834,30 +836,16 @@ public class PhaseWalker : NetworkBehaviour
 	}
 
 	[Command]
-	void CmdSetCard()
+	void CmdSetCard(int i)
 	{
-		RpcSetCard();
+		RpcSetCard(i);
 	}
 
-
-
 	[ClientRpc]
-	void RpcSetCard()
+	void RpcSetCard(int i)
 	{
-		Player_Sync_Variables.cardId = currentCardId;
-		Debug.Log(currentCardId);
-
-
-
-		/*
-		for(int i = 0; i < Player_Deck_Script.tempDeck.Length; i++)
-		{
-			if(Player_Deck_Script.tempDeck[i].GetComponent<Card_Script>().cardName == Player_Deck_Script.CardCurrentlyPlayed.GetComponent<Card_Script>().cardName)
-			{
-				Player_Sync_Variables.Card_Script = Player_Deck_Script.tempDeck[i].GetComponent<Card_Script>();
-			}
-		}
-		*/
+		currentCardId = i;
+		Player_Sync_Variables.cardId = i;
 	}
 
 	
@@ -870,7 +858,7 @@ public class PhaseWalker : NetworkBehaviour
 	
 	public LayerMask cardSelectLayerMask;
 	
-	public int currentCardId;
+	[SyncVar] public int currentCardId;
 	
 
 	
@@ -986,7 +974,8 @@ public class PhaseWalker : NetworkBehaviour
 						{
 							if(allCards[i].name + "(Clone)" == cardHit.name)
 							{
-								currentCardId = i;
+
+								CmdSetCard(i);
 							}
 						}
 					}
