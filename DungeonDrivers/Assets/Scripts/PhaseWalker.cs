@@ -839,11 +839,30 @@ public class PhaseWalker : NetworkBehaviour
 	{
 		RpcSetCard();
 	}
-	
+
+	[ClientRpc]
+	void RpcSetCardMark()
+	{
+		Debug.Log(Player_Deck_Script.currentCardId);
+	}
+
 	[ClientRpc]
 	void RpcSetCard()
 	{
 		Player_Sync_Variables.cardId = Player_Deck_Script.currentCardId;
+
+		Debug.Log (Player_Deck_Script.allCards);
+
+		Debug.Log (Player_Deck_Script.currentCardId.ToString());
+		Debug.Log (Player_Deck_Script);
+
+
+		for (int i = 0; i < Player_Deck_Script.allCards.Count; i++)
+		{
+
+			Debug.Log(Player_Deck_Script.allCards[i]);
+		}
+
 		/*
 		for(int i = 0; i < Player_Deck_Script.tempDeck.Length; i++)
 		{
