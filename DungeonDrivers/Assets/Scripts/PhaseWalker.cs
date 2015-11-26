@@ -46,21 +46,21 @@ public class PhaseWalker : NetworkBehaviour
 
 	public GameObject ClassSelector, ClassSelectorUI;
 
-	public GameObject CardToPlay, PlayerHand, CardPos;
+	public GameObject  PlayerHand, CardPos;
 	//public List<GameObject> cardsInHand = new List<GameObject>();
 
-	private Player_Deck_Script Player_Deck_Script;
+	//private Player_Deck_Script Player_Deck_Script;
 
 
 	// Add the player to the list of objects moving along with the camera, set the starting vars.
 	void Awake()
 	{
 		GameObject.Find("Map Spawner").GetComponent<MapSpawnerScript>().ObjectsMovingAlong.Add(this.gameObject);
-		GetComponent<Player_Deck_Script>().enabled = true;
+		//GetComponent<Player_Deck_Script>().enabled = true;
 		Grid_Spawner_Script = GetComponent<Grid_Spawner_Script>();
 		Game_Manager_Script = GameObject.Find("Game Manager").GetComponent<Game_Manager_Script>();
 		Game_Manager_Script.players.Add(new Player_Sync_Variables());
-		Player_Deck_Script = GetComponent<Player_Deck_Script>();
+		//Player_Deck_Script = GetComponent<Player_Deck_Script>();
 
 		playerID = Game_Manager_Script.players.Count - 1; // Give the player his id.
 	}
@@ -176,10 +176,12 @@ public class PhaseWalker : NetworkBehaviour
 				Destroy(ClassSelectorUI);
 
 				Grid_Spawner_Script.SetupGrid();
-				Player_Deck_Script.LoadDeck();
-				Player_Deck_Script.FillHand();
+				LoadDeck();
+				FillHand();
 
 				//PlayerDeckObject.GetComponent<playerDeck>().enabled = true;
+				
+				LoadAllCards();
 
 				for(int i = 0; i < playerStartIDs.Length; i++)
 				{
@@ -221,7 +223,7 @@ public class PhaseWalker : NetworkBehaviour
 				CmdSetTurn();
 
 
-				Player_Deck_Script.DrawCard();
+				DrawCard();
 			}
 
 			if(canMove)
@@ -384,7 +386,7 @@ public class PhaseWalker : NetworkBehaviour
                 
             }
 			
-			Player_Deck_Script.SelectCard();
+			SelectCard();
         }
 	}
 
@@ -406,15 +408,15 @@ public class PhaseWalker : NetworkBehaviour
 				CmdSetCard();
 
 
-				for(int i = 0; i < Player_Deck_Script.hand.Count; i++)
+				for(int i = 0; i < hand.Count; i++)
 				{
-					if(Player_Deck_Script.hand[i] == Player_Deck_Script.CardCurrentlyPlayed)
+					if(hand[i] == CardCurrentlyPlayed)
 					{
-						Player_Deck_Script.discardPile.Add(Player_Deck_Script.hand[i]);
-						Player_Deck_Script.hand.RemoveAt(i);
+						discardPile.Add(hand[i]);
+						hand.RemoveAt(i);
 					}
 				}
-				Player_Deck_Script.RefilDeck();
+				RefilDeck();
 				//Destroy(Player_Deck_Script.CardCurrentlyPlayed);
 			}
 		}
@@ -423,7 +425,7 @@ public class PhaseWalker : NetworkBehaviour
 	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	// Move
 	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	float moveDelay;
+
 
 	public void PlayerIsMoving()
 	{
@@ -434,7 +436,6 @@ public class PhaseWalker : NetworkBehaviour
 				ResetPhases();
 			}
 
-			moveDelay += Time.deltaTime;
 
 			int i = 0;
 			foreach(GameObject playerObject in spawnedPlayers)
@@ -448,10 +449,9 @@ public class PhaseWalker : NetworkBehaviour
 				Grid_Block_Script Grid_Block_Script2 = playerPreviousGridBlock.GetComponent<Grid_Block_Script>();
 				Grid_Block_Script2.playersInSide[i] = false;
 
-				if(moveDelay >= i)
-				{
+
 				playerObject.transform.localPosition = Vector3.MoveTowards(playerObject.transform.localPosition, new Vector3(Game_Manager_Script.players[i].currentPosition.x, Game_Manager_Script.players[i].currentPosition.z, Game_Manager_Script.players[i].currentPosition.y), 3 * Time.deltaTime);
-				}
+				
 
 				i++;
 			}
@@ -469,7 +469,6 @@ public class PhaseWalker : NetworkBehaviour
 			if(!currentPhase.turnStarted)
 			{
 				ResetPhases();
-				moveDelay = 0;
 			}
 		}
 	}
@@ -840,28 +839,15 @@ public class PhaseWalker : NetworkBehaviour
 		RpcSetCard();
 	}
 
-	[ClientRpc]
-	void RpcSetCardMark()
-	{
-		Debug.Log(Player_Deck_Script.currentCardId);
-	}
+
 
 	[ClientRpc]
 	void RpcSetCard()
 	{
-		Player_Sync_Variables.cardId = Player_Deck_Script.currentCardId;
-
-		Debug.Log (Player_Deck_Script.allCards);
-
-		Debug.Log (Player_Deck_Script.currentCardId.ToString());
-		Debug.Log (Player_Deck_Script);
+		Player_Sync_Variables.cardId = currentCardId;
+		Debug.Log(currentCardId);
 
 
-		for (int i = 0; i < Player_Deck_Script.allCards.Count; i++)
-		{
-
-			Debug.Log(Player_Deck_Script.allCards[i]);
-		}
 
 		/*
 		for(int i = 0; i < Player_Deck_Script.tempDeck.Length; i++)
@@ -872,6 +858,179 @@ public class PhaseWalker : NetworkBehaviour
 			}
 		}
 		*/
+	}
+
+	
+	public GameObject[] allCards2;
+	public List<GameObject> allCards = new List<GameObject>();
+	
+	public List<GameObject> deck, hand, discardPile = new List<GameObject>();
+	public GameObject[] tempDeck;
+	public GameObject DeckObject, HandObject, DiscardPile, CardToPlay, CardCurrentlyPlayed;
+	
+	public LayerMask cardSelectLayerMask;
+	
+	public int currentCardId;
+	
+
+	
+	void LoadAllCards()
+	{
+		foreach(GameObject classId in Resources.LoadAll<GameObject>("Classes/"))
+		{
+			allCards2 = Resources.LoadAll<GameObject>("Cards/" + classId.name);
+			
+			for(int i = 0; i < allCards2.Length; i++)
+			{
+				allCards.Add(allCards2[i]);
+			}
+		}
+	}
+	
+	public void LoadDeck()
+	{
+
+		tempDeck = Resources.LoadAll<GameObject>("Cards/" + Player_Sync_Variables.playerClass);
+
+		for(int i = 0; i < tempDeck.Length; i++)
+		{
+			deck.Add(tempDeck[i]);
+		}
+		for(int i = 0; i < tempDeck.Length; i++)
+		{
+			deck.Add(tempDeck[i]);
+		}
+		
+		ShuffleDeck();
+	}
+	
+	void SpawnDeck()
+	{
+		
+	}
+	
+	public void ShuffleDeck()
+	{
+		for (int i = 0; i < deck.Count; i++)
+		{
+			// For each card make a temporary copy.
+			GameObject tempCard = deck[i];
+			
+			// Grab a random number, where to place it.
+			int randomIndex = UnityEngine.Random.Range(0, deck.Count);
+			
+			deck[i] = deck[randomIndex];
+			deck[randomIndex] = tempCard;
+		}
+	}
+	
+	public void FillHand()
+	{
+		
+		for (int i = 0; i < 3; i++)
+		{
+			DrawCard();
+			
+		}
+		
+	}
+	
+	public void DrawCard()
+	{
+		if(hand.Count < 4)
+		{
+			GameObject drawedCard = Instantiate(deck[0]) as GameObject;
+			hand.Add(drawedCard);
+			drawedCard.transform.SetParent(HandObject.transform);
+			
+			OrderCards();
+			
+			drawedCard.GetComponent<BoxCollider>().enabled = true;
+			
+			deck.Remove(deck[0]);
+		}
+	}
+	
+	public void SelectCard()
+	{
+		GameObject CardHoveredOver;
+		
+		RaycastHit vHit = new RaycastHit();
+		
+		Ray vRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+		if(Physics.Raycast(vRay, out vHit, 1000, cardSelectLayerMask)) 
+		{
+			CardHoveredOver = vHit.collider.gameObject;
+		}
+		else
+		{
+			CardHoveredOver = null;
+		}
+		
+		foreach(GameObject cardHit in hand)
+		{
+			if(CardHoveredOver == cardHit)
+			{
+				cardHit.transform.localPosition = new Vector3(cardHit.transform.localPosition.x, 110, cardHit.transform.localPosition.z);
+				if(Input.GetMouseButtonDown(0))
+				{
+					if(CardCurrentlyPlayed == cardHit)
+					{
+						PutCardBack(cardHit);
+					}
+					else if(CardCurrentlyPlayed == null)
+					{
+						CardCurrentlyPlayed = cardHit;
+						
+						for(int i = 0; i < allCards.Count; i++)
+						{
+							if(allCards[i].name + "(Clone)" == cardHit.name)
+							{
+								currentCardId = i;
+							}
+						}
+					}
+				}
+			}
+			else
+			{
+				cardHit.transform.localPosition = new Vector3(cardHit.transform.localPosition.x, -80, cardHit.transform.localPosition.z);
+			}
+			
+			if(CardCurrentlyPlayed == cardHit)
+			{
+				cardHit.transform.localPosition = new Vector3(cardHit.transform.localPosition.x, 130, cardHit.transform.localPosition.z);
+				cardHit.transform.localScale = new Vector3(500, 500, 500);
+			}
+		}
+		
+	}
+	
+	void PutCardBack(GameObject CardHit)
+	{
+		CardHit.transform.localPosition = new Vector3(CardHit.transform.localPosition.x, -80, CardHit.transform.localPosition.z);
+		CardHit.transform.localScale = new Vector3(400, 400, 400);
+		CardCurrentlyPlayed = null;
+	}
+	
+	void OrderCards()
+	{
+		for(int i = 0; i < hand.Count; i++)
+		{
+			hand[i].transform.localPosition = new Vector3(125 + i * 250, -80, 0);
+			hand[i].transform.localScale = new Vector3(400, 400, 400);
+			hand[i].transform.localRotation = Quaternion.Euler(new Vector3(270, 0));
+			hand[i].GetComponent<BoxCollider>().enabled = true;
+		}
+	}
+	
+	public void RefilDeck()
+	{
+		for(int i = 0; i < discardPile.Count; i++)
+		{
+			deck.Add(discardPile[i]);
+		}
+		ShuffleDeck();
 	}
 }
 
