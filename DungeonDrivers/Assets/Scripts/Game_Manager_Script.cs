@@ -12,7 +12,9 @@ public class Game_Manager_Script :  NetworkBehaviour
 	void Start()
 	{
 		StartCoroutine("GameFlowActivateEnum");
-	}
+
+        
+    }
 
 
 
@@ -162,6 +164,8 @@ public class Game_Manager_Script :  NetworkBehaviour
 				player.phase = Phase.SpawnPlayers;
 
 				player.currentPhaseId = (int)phase;
+
+               
 			}
 
 			

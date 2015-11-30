@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.Networking;
 using System.Collections.Generic;
@@ -47,13 +48,16 @@ public class PhaseWalker : NetworkBehaviour
 	public GameObject ClassSelector, ClassSelectorUI;
 
 	public GameObject  PlayerHand, CardPos;
-	//public List<GameObject> cardsInHand = new List<GameObject>();
 
-	//private Player_Deck_Script Player_Deck_Script;
+    public Transform healthPanel;
+    public GameObject playerHealth;
+    //public List<GameObject> cardsInHand = new List<GameObject>();
+
+    //private Player_Deck_Script Player_Deck_Script;
 
 
-	// Add the player to the list of objects moving along with the camera, set the starting vars.
-	void Awake()
+    // Add the player to the list of objects moving along with the camera, set the starting vars.
+    void Awake()
 	{
 		GameObject.Find("Map Spawner").GetComponent<MapSpawnerScript>().ObjectsMovingAlong.Add(this.gameObject);
 		//GetComponent<Player_Deck_Script>().enabled = true;
@@ -63,12 +67,16 @@ public class PhaseWalker : NetworkBehaviour
 		//Player_Deck_Script = GetComponent<Player_Deck_Script>();
 
 		playerID = Game_Manager_Script.players.Count - 1; // Give the player his id.
-	}
+
+        
+    }
 
 	// Activate the startvars
 	void Start()
 	{
-		if(isLocalPlayer)
+        
+
+        if (isLocalPlayer)
 		{
 			SetStartVariables();
 		}
@@ -179,9 +187,48 @@ public class PhaseWalker : NetworkBehaviour
 				LoadDeck();
 				FillHand();
 
-				//PlayerDeckObject.GetComponent<playerDeck>().enabled = true;
-				
-				LoadAllCards();
+                healthPanel = GameObject.Find("HealthPanel").transform;
+
+                //PlayerDeckObject.GetComponent<playerDeck>().enabled = true;
+
+                //SET HEALTH TO THE PLAYERS.
+                for (int i = 0; i < Game_Manager_Script.players.Count; i++)
+                {
+                    int spacing = i * -100;
+
+
+                    GameObject hpBar;
+                    hpBar = Instantiate(playerHealth, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
+                    hpBar.transform.SetParent(healthPanel);
+                    hpBar.SetActive(true);
+                    hpBar.transform.localPosition = new Vector3(0, spacing, 0);
+                    hpBar.transform.localScale = new Vector3(1, 1, 1);
+                    hpBar.transform.localRotation = new Quaternion(0, 0, 0, 0);
+                    //hpBar.GetComponentInChildren<Text>().text = 
+                    
+                    //hpBar.GetComponent<Text>().text = Game_Manager_Script.players[i].maxHealth.ToString();
+                    int realID = i + 1;
+                    hpBar.name = "Player" + realID + "Health";
+                    // If you've chosen a warrior...
+                    if (Game_Manager_Script.players[i].playerClass == "Warrior")
+                    {
+                        Game_Manager_Script.players[i].maxHealth = 13;
+                        Game_Manager_Script.players[i].currentHealth = Game_Manager_Script.players[i].maxHealth;
+                        
+                    }
+                    else if (Game_Manager_Script.players[i].playerClass == "Sandmage")
+                    {
+                        Game_Manager_Script.players[i].maxHealth = 11;
+                        Game_Manager_Script.players[i].currentHealth = Game_Manager_Script.players[i].maxHealth;
+                    }
+
+                    hpBar.GetComponentInChildren<Text>().text = Game_Manager_Script.players[i].maxHealth.ToString();
+
+                    //playerHealth = GameObject.Find("");
+                    //playerHealth = Instantiate(playerHealth);
+                }
+
+                LoadAllCards();
 
 				for(int i = 0; i < playerStartIDs.Length; i++)
 				{
@@ -198,6 +245,7 @@ public class PhaseWalker : NetworkBehaviour
 					spawnedPlayers.Add(NewPlayerBlock);
 					NewPlayerBlock.transform.SetParent(PlayerContainer.transform);
 					NewPlayerBlock.transform.localPosition = new Vector3(PlayerStartGridBlocks[i].transform.localPosition.x, PlayerStartGridBlocks[i].transform.localPosition.z, PlayerStartGridBlocks[i].transform.localPosition.y);
+                    
 				}
 			}
 		}
