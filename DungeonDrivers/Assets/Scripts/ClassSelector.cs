@@ -32,8 +32,8 @@ public class ClassSelector : MonoBehaviour
     void Start()
     {
         // To make the class selection screen clearer, i'm having a canvas group which alpha will be set to 0.
-        notNeededUI = GameObject.Find("inGameUI(Deck, Hand, Discard Pile, HealthPanel)").GetComponent<CanvasGroup>();
-        notNeededUI.alpha = 1;
+        notNeededUI = GameObject.Find("inGameUIElements").GetComponent<CanvasGroup>();
+        notNeededUI.alpha = 0;
 
         developerPhases = GameObject.Find("PhasesPanel").GetComponent<CanvasGroup>();
         developerPhases.alpha = 0;

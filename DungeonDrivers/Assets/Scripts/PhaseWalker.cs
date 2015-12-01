@@ -55,6 +55,11 @@ public class PhaseWalker : NetworkBehaviour
 
     //private Player_Deck_Script Player_Deck_Script;
 
+    [SerializeField]
+    private CanvasGroup notNeededUI;
+    [SerializeField]
+    private CanvasGroup developerPhases;
+
 
     // Add the player to the list of objects moving along with the camera, set the starting vars.
     void Awake()
@@ -179,7 +184,15 @@ public class PhaseWalker : NetworkBehaviour
 			{
 				ResetPhases();
 
-				Player_Sync_Variables.playerClass = ClassSelector.GetComponent<ClassSelector>().playerClass.ToString();
+                //TEST
+                notNeededUI = GameObject.Find("inGameUIElements").GetComponent<CanvasGroup>();
+                notNeededUI.alpha = 1;
+
+                developerPhases = GameObject.Find("PhasesPanel").GetComponent<CanvasGroup>();
+                developerPhases.alpha = 1;
+
+
+                Player_Sync_Variables.playerClass = ClassSelector.GetComponent<ClassSelector>().playerClass.ToString();
 				Destroy(ClassSelector);
 				Destroy(ClassSelectorUI);
 

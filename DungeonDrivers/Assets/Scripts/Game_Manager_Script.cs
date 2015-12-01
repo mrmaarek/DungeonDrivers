@@ -7,13 +7,14 @@ public class Game_Manager_Script :  NetworkBehaviour
 {
 
 
-	public List<Player_Sync_Variables> players = new List<Player_Sync_Variables>();
+
+    public List<Player_Sync_Variables> players = new List<Player_Sync_Variables>();
 	 
 	void Start()
 	{
 		StartCoroutine("GameFlowActivateEnum");
 
-        
+       
     }
 
 
