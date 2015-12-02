@@ -184,13 +184,14 @@ public class PhaseWalker : NetworkBehaviour
 			{
 				ResetPhases();
 
+				/*
                 //TEST
                 notNeededUI = GameObject.Find("inGameUIElements").GetComponent<CanvasGroup>();
                 notNeededUI.alpha = 1;
 
                 developerPhases = GameObject.Find("PhasesPanel").GetComponent<CanvasGroup>();
                 developerPhases.alpha = 1;
-
+*/
 
                 Player_Sync_Variables.playerClass = ClassSelector.GetComponent<ClassSelector>().playerClass.ToString();
 				Destroy(ClassSelector);
@@ -200,6 +201,7 @@ public class PhaseWalker : NetworkBehaviour
 				LoadDeck();
 				FillHand();
 
+				/*
                 healthPanel = GameObject.Find("HealthPanel").transform;
 
                 //PlayerDeckObject.GetComponent<playerDeck>().enabled = true;
@@ -240,6 +242,7 @@ public class PhaseWalker : NetworkBehaviour
                     //playerHealth = GameObject.Find("");
                     //playerHealth = Instantiate(playerHealth);
                 }
+                */
 
                 LoadAllCards();
 
@@ -997,6 +1000,19 @@ public class PhaseWalker : NetworkBehaviour
 	{
 		currentCardId = i;
 		Player_Sync_Variables.cardId = i;
+	}
+
+	[Command]
+	void CmdSetHp(int i, int health)
+	{
+		RpcSetHp(i, health);
+	}
+	
+	[ClientRpc]
+	void RpcSetHp(int i, int health)
+	{
+		Game_Manager_Script.players[i].maxHealth = health;
+		Game_Manager_Script.players[i].currentHealth = health;
 	}
 
 	
