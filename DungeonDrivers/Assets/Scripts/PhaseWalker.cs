@@ -60,6 +60,7 @@ public class PhaseWalker : NetworkBehaviour
     [SerializeField]
     private CanvasGroup developerPhases;
 
+	public GameObject Health_Object;
 
     // Add the player to the list of objects moving along with the camera, set the starting vars.
     void Awake()
@@ -194,12 +195,26 @@ public class PhaseWalker : NetworkBehaviour
 */
 
                 Player_Sync_Variables.playerClass = ClassSelector.GetComponent<ClassSelector>().playerClass.ToString();
+				CmdSetClass(Player_Sync_Variables.playerClass);
+
 				Destroy(ClassSelector);
 				Destroy(ClassSelectorUI);
 
 				Grid_Spawner_Script.SetupGrid();
 				LoadDeck();
 				FillHand();
+
+				Health_Object.SetActive(true);
+
+				switch(Player_Sync_Variables.playerClass)
+				{
+				case "Warrior":
+					CmdSetHp(13);
+					break;
+				case "Sandmage":
+					CmdSetHp(11);
+					break;
+				}
 
 				/*
                 healthPanel = GameObject.Find("HealthPanel").transform;
@@ -1003,18 +1018,29 @@ public class PhaseWalker : NetworkBehaviour
 	}
 
 	[Command]
-	void CmdSetHp(int i, int health)
+	void CmdSetHp(int health)
 	{
-		RpcSetHp(i, health);
+		RpcSetHp(health);
 	}
 	
 	[ClientRpc]
-	void RpcSetHp(int i, int health)
+	void RpcSetHp(int health)
 	{
-		Game_Manager_Script.players[i].maxHealth = health;
-		Game_Manager_Script.players[i].currentHealth = health;
+		Player_Sync_Variables.maxHealth = health;
+		Player_Sync_Variables.currentHealth = health;
 	}
 
+	[Command]
+	void CmdSetClass(string pClass)
+	{
+		RpcSetClass(pClass);
+	}
+	
+	[ClientRpc]
+	void RpcSetClass(string pClass)
+	{
+		Player_Sync_Variables.playerClass = pClass;
+	}
 	
 	public GameObject[] allCards2;
 	public List<GameObject> allCards = new List<GameObject>();
