@@ -13,6 +13,12 @@ public class ClassSelector : MonoBehaviour
     [SerializeField]
     Game_Manager_Script gmScript;
 
+    [SerializeField]
+    private CanvasGroup notNeededUI;
+
+    [SerializeField]
+    private CanvasGroup developerPhases;
+
 
     public enum Classes
     {
@@ -22,6 +28,16 @@ public class ClassSelector : MonoBehaviour
     }
 
     public Classes playerClass;
+
+    void Start()
+    {
+        // To make the class selection screen clearer, i'm having a canvas group which alpha will be set to 0.
+        notNeededUI = GameObject.Find("inGameUIElements").GetComponent<CanvasGroup>();
+        notNeededUI.alpha = 0;
+
+        developerPhases = GameObject.Find("PhasesPanel").GetComponent<CanvasGroup>();
+        developerPhases.alpha = 0;
+    }
 
     void Update()
     {
