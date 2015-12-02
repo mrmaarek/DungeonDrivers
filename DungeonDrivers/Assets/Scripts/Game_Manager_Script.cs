@@ -42,14 +42,16 @@ public class Game_Manager_Script :  NetworkBehaviour
 		PlayCardsResolve = 5,
 		IsMoving = 6,
 		IsMovingResovle = 7,
-		IsUtility = 8,
-		IsUtilityResolve = 9,
-		isCCing = 10,
-		IsCCingResolve = 11,
-		IsAttacking = 12,
-		IsAttackingResolve = 13,
-		EndTurn = 14,
-		EndTurnResolve = 15
+		IsCard1 = 8,
+		IsCard1Resolve = 9,
+		IsCard2 = 10,
+		IsCard2Resolve = 11,
+		IsCard3 = 12,
+		IsCard3Resolve = 13,
+		IsCard4 = 14,
+		IsCard4Resolve = 15,
+		EndTurn = 16,
+		EndTurnResolve = 17
 	}
 
 
@@ -82,26 +84,33 @@ public class Game_Manager_Script :  NetworkBehaviour
 			break;
 		case Phase.IsMovingResovle:
 			//NextPhase(Phase.IsUtility);
-			NextPhase(Phase.IsAttacking);
+			NextPhase(Phase.IsCard1);
 			break;
-		case Phase.IsUtility:
-			NextPhase(Phase.IsUtilityResolve);
+		case Phase.IsCard1:
+			NextPhase(Phase.IsCard1Resolve);
 			break;
-		case Phase.IsUtilityResolve:
-			NextPhase(Phase.isCCing);
+		case Phase.IsCard1Resolve:
+			NextPhase(Phase.IsCard2);
 			break;
-		case Phase.isCCing:
-			NextPhase(Phase.IsCCingResolve);
+		case Phase.IsCard2:
+			NextPhase(Phase.IsCard2Resolve);
 			break;
-		case Phase.IsCCingResolve:
-			NextPhase(Phase.IsAttacking);
+		case Phase.IsCard2Resolve:
+			NextPhase(Phase.IsCard3);
 			break;
-		case Phase.IsAttacking:
-			NextPhase(Phase.IsAttackingResolve);
+		case Phase.IsCard3:
+			NextPhase(Phase.IsCard3Resolve);
 			break;
-		case Phase.IsAttackingResolve:
+		case Phase.IsCard3Resolve:
 			//NextPhase(Phase.EndTurn);
-			NextPhase(Phase.ChooseMovePosition);
+			NextPhase(Phase.IsCard4);
+			break;
+		case Phase.IsCard4:
+			NextPhase(Phase.IsCard4Resolve);
+			break;
+		case Phase.IsCard4Resolve:
+			//NextPhase(Phase.EndTurn);
+			NextPhase(Phase.EndTurn);
 			break;
 		case Phase.EndTurn:
 			NextPhase(Phase.EndTurnResolve);

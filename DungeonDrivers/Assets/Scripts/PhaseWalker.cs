@@ -393,14 +393,12 @@ public class PhaseWalker : NetworkBehaviour
 	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	// Choose Card Resolve
 	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	
+	public List<Player_Sync_Variables> tempPlayerList = new List<Player_Sync_Variables>();
+
 	public void PlayerIsChoosingCardResolve()
 	{
 		if(isLocalPlayer)
 		{
-
-
-
 
 			if(!currentPhase.turnStarted)
 			{
@@ -419,7 +417,20 @@ public class PhaseWalker : NetworkBehaviour
 				}
 				RefilDeck();
 				//Destroy(Player_Deck_Script.CardCurrentlyPlayed);
+
+				for(int i = 0; i < 4; i++)
+				{
+					foreach(Player_Sync_Variables player in Game_Manager_Script.players)
+					{
+						if(allCards[player.cardId].GetComponent<Card_Script>().initiative == i+1)
+						{
+							tempPlayerList.Add(player);
+						}
+					}
+				}
 			}
+
+
 		}
 
 	}
@@ -476,106 +487,111 @@ public class PhaseWalker : NetworkBehaviour
 	}
 
 	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	// Utility
+	// Card 1
 	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	
-	public void PlayerIsUtility()
-	{
-		if(isLocalPlayer)
-		{
-			if(!currentPhase.turnStarted)
-			{
-				ResetPhases();
-			}
-		}
-	}
-	
-	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	// Utility Resolve
-	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	
-	public void PlayerIsUtilityResolve()
-	{
-		if(isLocalPlayer)
-		{
-			if(!currentPhase.turnStarted)
-			{
-				ResetPhases();
-			}
-		}
-	}
+	Card_Script TempCardScript;
 
-	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	// CC
-	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	
-	public void PlayerIsCC()
-	{
-		if(isLocalPlayer)
-		{
-			if(!currentPhase.turnStarted)
-			{
-				ResetPhases();
-			}
-		}
-	}
-	
-	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	// CC Resolve
-	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	
-	public void PlayerIsCCResolve()
-	{
-		if(isLocalPlayer)
-		{
-			if(!currentPhase.turnStarted)
-			{
-				ResetPhases();
-			}
-		}
-	}
 
-	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	// Attack
-	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	
-	public void PlayerIsAttack()
+	public void PlayerIsCard1()
 	{
 		if(isLocalPlayer)
 		{
 			if(!currentPhase.turnStarted)
 			{
 				ResetPhases();
-				/*
-				int i = 0;
 
-				foreach(GameObject playerObject in spawnedPlayers)
+				if(tempPlayerList.Count > 0)
 				{
+					TempCardScript = allCards[tempPlayerList[0].cardId].GetComponent<Card_Script>();
+					Debug.Log(TempCardScript.cardName);
 
-					Player_Sync_Variables Temp_Player_Sync_Variables = playerObject.GetComponent<PhaseWalker>().Player_Sync_Variables;
-					if(Temp_Player_Sync_Variables.Card_Script.initiative == 4)
-					{
-						Card_Script Temp_Card_Script = Player_Sync_Variables.Card_Script;
-
-
-
-					}
-
-					i++;
 				}
-				*/
+				else
+				{
+					return;
+				}
+			}
+			UseCard();
+		}
+	}
+
+	void UseCard()
+	{
+		switch(TempCardScript.targeting)
+		{
+		case Card_Script.Targeting.Locked:
+
+			//UseLockedCard();
+			Debug.Log("Activate Locked Card");
+
+			break;
+		case Card_Script.Targeting.FreeSelect:
+
+			Debug.Log("Activate Freeselect Card");
+
+			break;
+		}
+	}
+
+	void UseLockedCard()
+	{
+		foreach(Vector3 cardTargetGridBlock in TempCardScript.affectedGridBlocks)
+		{
+			for(int i = 0; i < 4; i++)
+			{
+				if(SelectMoveBlock(cardTargetGridBlock + currentPlayerPos).GetComponent<Grid_Block_Script>().playersInSide[i])
+				{
+					Debug.Log("Player: " + i + " is inside");
+				}
+			}
+			//SelectMoveBlock(cardTargetGridBlock).GetComponent<Grid_Block_Script>().playersInSide[0];
+		}
+	}
+	
+	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	// Card 1 Resolve
+	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	
+	public void PlayerIsCard1Resolve()
+	{
+		if(isLocalPlayer)
+		{
+			if(!currentPhase.turnStarted)
+			{
+				ResetPhases();
+
+
 
 			}
 		}
 	}
 
+	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	// Card 2
+	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	
+	public void PlayerIsCard2()
+	{
+		if(isLocalPlayer)
+		{
+			if(!currentPhase.turnStarted)
+			{
+				ResetPhases();
 
+				if(tempPlayerList.Count > 1)
+				{
+					Card_Script tempCardScript = allCards[tempPlayerList[1].cardId].GetComponent<Card_Script>();
+					Debug.Log(tempCardScript.cardName);
+				}
+			}
+		}
+	}
 	
 	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	// Attack Resolve
+	// Card 2 Resolve
 	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	
-	public void PlayerIsAttackResolve()
+	public void PlayerIsCard2Resolve()
 	{
 		if(isLocalPlayer)
 		{
@@ -586,6 +602,80 @@ public class PhaseWalker : NetworkBehaviour
 		}
 	}
 
+	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	// Card 3
+	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	
+	public void PlayerIsCard3()
+	{
+		if(isLocalPlayer)
+		{
+			if(!currentPhase.turnStarted)
+			{
+				ResetPhases();
+
+				if(tempPlayerList.Count > 2)
+				{
+					Card_Script tempCardScript = allCards[tempPlayerList[2].cardId].GetComponent<Card_Script>();
+					Debug.Log(tempCardScript.cardName);
+				}
+			}
+		}
+	}
+
+
+	
+	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	// Card 3 Resolve
+	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	
+	public void PlayerIsCard3Resolve()
+	{
+		if(isLocalPlayer)
+		{
+			if(!currentPhase.turnStarted)
+			{
+				ResetPhases();
+			}
+		}
+	}
+
+	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	// Card 4
+	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	
+	public void PlayerIsCard4()
+	{
+		if(isLocalPlayer)
+		{
+			if(!currentPhase.turnStarted)
+			{
+				ResetPhases();
+
+				if(tempPlayerList.Count > 3)
+				{
+					Card_Script tempCardScript = allCards[tempPlayerList[3].cardId].GetComponent<Card_Script>();
+					Debug.Log(tempCardScript.cardName);
+				}
+			}
+		}
+	}
+
+	
+	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	// Card 4 Resolve
+	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	
+	public void PlayerIsCard4Resolve()
+	{
+		if(isLocalPlayer)
+		{
+			if(!currentPhase.turnStarted)
+			{
+				ResetPhases();
+			}
+		}
+	}
 	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	// End Turn
 	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
