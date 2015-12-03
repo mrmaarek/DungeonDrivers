@@ -1,0 +1,1321 @@
+fileFormatVersion: 2
+guid: 266dbb286a0690248b8fbe4857073e09
+timeCreated: 1449147470
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: InterfaceCollection_0
+    21300002: InterfaceCollection_1
+    21300004: InterfaceCollection_2
+    21300006: InterfaceCollection_3
+    21300008: InterfaceCollection_4
+    21300010: InterfaceCollection_5
+    21300012: InterfaceCollection_6
+    21300014: InterfaceCollection_7
+    21300016: InterfaceCollection_8
+    21300018: InterfaceCollection_9
+    21300020: InterfaceCollection_10
+    21300022: InterfaceCollection_11
+    21300024: InterfaceCollection_12
+    21300026: InterfaceCollection_13
+    21300028: InterfaceCollection_14
+    21300030: InterfaceCollection_15
+    21300032: InterfaceCollection_16
+    21300034: InterfaceCollection_17
+    21300036: InterfaceCollection_18
+    21300038: InterfaceCollection_19
+    21300040: InterfaceCollection_20
+    21300042: InterfaceCollection_21
+    21300044: InterfaceCollection_22
+    21300046: InterfaceCollection_23
+    21300048: InterfaceCollection_24
+    21300050: InterfaceCollection_25
+    21300052: InterfaceCollection_26
+    21300054: InterfaceCollection_27
+    21300056: InterfaceCollection_28
+    21300058: InterfaceCollection_29
+    21300060: InterfaceCollection_30
+    21300062: InterfaceCollection_31
+    21300064: InterfaceCollection_32
+    21300066: InterfaceCollection_33
+    21300068: InterfaceCollection_34
+    21300070: InterfaceCollection_35
+    21300072: InterfaceCollection_36
+    21300074: InterfaceCollection_37
+    21300076: InterfaceCollection_38
+    21300078: InterfaceCollection_39
+    21300080: InterfaceCollection_40
+    21300082: InterfaceCollection_41
+    21300084: InterfaceCollection_42
+    21300086: InterfaceCollection_43
+    21300088: InterfaceCollection_44
+    21300090: InterfaceCollection_45
+    21300092: InterfaceCollection_46
+    21300094: InterfaceCollection_47
+    21300096: InterfaceCollection_48
+    21300098: InterfaceCollection_49
+    21300100: InterfaceCollection_50
+    21300102: InterfaceCollection_51
+    21300104: InterfaceCollection_52
+    21300106: InterfaceCollection_53
+    21300108: InterfaceCollection_54
+    21300110: InterfaceCollection_55
+    21300112: InterfaceCollection_56
+    21300114: InterfaceCollection_57
+    21300116: InterfaceCollection_58
+    21300118: InterfaceCollection_59
+    21300120: InterfaceCollection_60
+    21300122: InterfaceCollection_61
+    21300124: InterfaceCollection_62
+    21300126: InterfaceCollection_63
+    21300128: InterfaceCollection_64
+    21300130: InterfaceCollection_65
+    21300132: InterfaceCollection_66
+    21300134: InterfaceCollection_67
+    21300136: InterfaceCollection_68
+    21300138: InterfaceCollection_69
+    21300140: InterfaceCollection_70
+    21300142: InterfaceCollection_71
+    21300144: InterfaceCollection_72
+    21300146: InterfaceCollection_73
+    21300148: InterfaceCollection_74
+    21300150: InterfaceCollection_75
+    21300152: InterfaceCollection_76
+    21300154: InterfaceCollection_77
+    21300156: InterfaceCollection_78
+    21300158: InterfaceCollection_79
+    21300160: InterfaceCollection_80
+    21300162: InterfaceCollection_81
+    21300164: InterfaceCollection_82
+    21300166: InterfaceCollection_83
+    21300168: InterfaceCollection_84
+    21300170: InterfaceCollection_85
+    21300172: InterfaceCollection_86
+    21300174: InterfaceCollection_87
+    21300176: InterfaceCollection_88
+    21300178: InterfaceCollection_89
+    21300180: InterfaceCollection_90
+    21300182: InterfaceCollection_91
+    21300184: InterfaceCollection_92
+    21300186: InterfaceCollection_93
+    21300188: InterfaceCollection_94
+    21300190: InterfaceCollection_95
+    21300192: InterfaceCollection_96
+    21300194: InterfaceCollection_97
+    21300196: InterfaceCollection_98
+    21300198: InterfaceCollection_99
+    21300200: InterfaceCollection_100
+    21300202: InterfaceCollection_101
+    21300204: InterfaceCollection_102
+    21300206: InterfaceCollection_103
+    21300208: InterfaceCollection_104
+    21300210: InterfaceCollection_105
+    21300212: InterfaceCollection_106
+    21300214: InterfaceCollection_107
+    21300216: InterfaceCollection_108
+    21300218: InterfaceCollection_109
+    21300220: InterfaceCollection_110
+    21300222: InterfaceCollection_111
+    21300224: InterfaceCollection_112
+    21300226: InterfaceCollection_113
+    21300228: InterfaceCollection_114
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 8
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: InterfaceCollection_0
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 1055
+        width: 13
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_1
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 1055
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_2
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 1055
+        width: 9
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_3
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 1055
+        width: 9
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_4
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 1055
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_5
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 1055
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_6
+      rect:
+        serializedVersion: 2
+        x: 396
+        y: 797
+        width: 369
+        height: 269
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_7
+      rect:
+        serializedVersion: 2
+        x: 424
+        y: 1051
+        width: 20
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_8
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 1051
+        width: 21
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_9
+      rect:
+        serializedVersion: 2
+        x: 472
+        y: 1051
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_10
+      rect:
+        serializedVersion: 2
+        x: 488
+        y: 1051
+        width: 7
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_11
+      rect:
+        serializedVersion: 2
+        x: 746
+        y: 1048
+        width: 14
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_12
+      rect:
+        serializedVersion: 2
+        x: 762
+        y: 1048
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_13
+      rect:
+        serializedVersion: 2
+        x: 778
+        y: 1048
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_14
+      rect:
+        serializedVersion: 2
+        x: 794
+        y: 1048
+        width: 14
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_15
+      rect:
+        serializedVersion: 2
+        x: 809
+        y: 1048
+        width: 10
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_16
+      rect:
+        serializedVersion: 2
+        x: 844
+        y: 1052
+        width: 17
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_17
+      rect:
+        serializedVersion: 2
+        x: 862
+        y: 1052
+        width: 8
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_18
+      rect:
+        serializedVersion: 2
+        x: 871
+        y: 1047
+        width: 23
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_19
+      rect:
+        serializedVersion: 2
+        x: 897
+        y: 1052
+        width: 6
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_20
+      rect:
+        serializedVersion: 2
+        x: 904
+        y: 1052
+        width: 10
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_21
+      rect:
+        serializedVersion: 2
+        x: 915
+        y: 1052
+        width: 7
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_22
+      rect:
+        serializedVersion: 2
+        x: 923
+        y: 1052
+        width: 11
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_23
+      rect:
+        serializedVersion: 2
+        x: 935
+        y: 1052
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_24
+      rect:
+        serializedVersion: 2
+        x: 998
+        y: 1052
+        width: 10
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_25
+      rect:
+        serializedVersion: 2
+        x: 1009
+        y: 1052
+        width: 8
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_26
+      rect:
+        serializedVersion: 2
+        x: 1017
+        y: 1052
+        width: 12
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_27
+      rect:
+        serializedVersion: 2
+        x: 1031
+        y: 1053
+        width: 11
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_28
+      rect:
+        serializedVersion: 2
+        x: 1044
+        y: 1052
+        width: 11
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_29
+      rect:
+        serializedVersion: 2
+        x: 1056
+        y: 1052
+        width: 8
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_30
+      rect:
+        serializedVersion: 2
+        x: 1145
+        y: 1048
+        width: 16
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_31
+      rect:
+        serializedVersion: 2
+        x: 1165
+        y: 1048
+        width: 13
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_32
+      rect:
+        serializedVersion: 2
+        x: 1303
+        y: 1048
+        width: 13
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_33
+      rect:
+        serializedVersion: 2
+        x: 1318
+        y: 1048
+        width: 8
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_34
+      rect:
+        serializedVersion: 2
+        x: 1326
+        y: 1048
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_35
+      rect:
+        serializedVersion: 2
+        x: 1342
+        y: 1048
+        width: 14
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_36
+      rect:
+        serializedVersion: 2
+        x: 1360
+        y: 1048
+        width: 19
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_37
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 957
+        width: 310
+        height: 97
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_38
+      rect:
+        serializedVersion: 2
+        x: 857
+        y: 1012
+        width: 24
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_39
+      rect:
+        serializedVersion: 2
+        x: 899
+        y: 1012
+        width: 24
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_40
+      rect:
+        serializedVersion: 2
+        x: 980
+        y: 1004
+        width: 34
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_41
+      rect:
+        serializedVersion: 2
+        x: 1048
+        y: 1004
+        width: 34
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_42
+      rect:
+        serializedVersion: 2
+        x: 1168
+        y: 975
+        width: 73
+        height: 64
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 2, z: 2, w: 0}
+    - name: InterfaceCollection_43
+      rect:
+        serializedVersion: 2
+        x: 1335
+        y: 872
+        width: 165
+        height: 162
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_44
+      rect:
+        serializedVersion: 2
+        x: 857
+        y: 965
+        width: 25
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_45
+      rect:
+        serializedVersion: 2
+        x: 898
+        y: 965
+        width: 25
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_46
+      rect:
+        serializedVersion: 2
+        x: 979
+        y: 958
+        width: 39
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_47
+      rect:
+        serializedVersion: 2
+        x: 1043
+        y: 958
+        width: 39
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_48
+      rect:
+        serializedVersion: 2
+        x: 1556
+        y: 895
+        width: 108
+        height: 105
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_49
+      rect:
+        serializedVersion: 2
+        x: 870
+        y: 957
+        width: 8
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_50
+      rect:
+        serializedVersion: 2
+        x: 911
+        y: 957
+        width: 8
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_51
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 935
+        width: 13
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_52
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 935
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_53
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 935
+        width: 9
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_54
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 935
+        width: 9
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_55
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 935
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_56
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 935
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_57
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 935
+        width: 4
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_58
+      rect:
+        serializedVersion: 2
+        x: 118
+        y: 935
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_59
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 935
+        width: 9
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_60
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 935
+        width: 14
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_61
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 935
+        width: 8
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_62
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 935
+        width: 12
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_63
+      rect:
+        serializedVersion: 2
+        x: 182
+        y: 935
+        width: 12
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_64
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 935
+        width: 10
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_65
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 935
+        width: 4
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_66
+      rect:
+        serializedVersion: 2
+        x: 212
+        y: 935
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_67
+      rect:
+        serializedVersion: 2
+        x: 227
+        y: 935
+        width: 14
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_68
+      rect:
+        serializedVersion: 2
+        x: 856
+        y: 919
+        width: 25
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_69
+      rect:
+        serializedVersion: 2
+        x: 898
+        y: 918
+        width: 25
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_70
+      rect:
+        serializedVersion: 2
+        x: 980
+        y: 916
+        width: 35
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_71
+      rect:
+        serializedVersion: 2
+        x: 1048
+        y: 916
+        width: 35
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_72
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 835
+        width: 310
+        height: 97
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_73
+      rect:
+        serializedVersion: 2
+        x: 1300
+        y: 827
+        width: 13
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_74
+      rect:
+        serializedVersion: 2
+        x: 1315
+        y: 827
+        width: 12
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_75
+      rect:
+        serializedVersion: 2
+        x: 1330
+        y: 827
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_76
+      rect:
+        serializedVersion: 2
+        x: 1347
+        y: 827
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_77
+      rect:
+        serializedVersion: 2
+        x: 1363
+        y: 827
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_78
+      rect:
+        serializedVersion: 2
+        x: 1379
+        y: 827
+        width: 7
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_79
+      rect:
+        serializedVersion: 2
+        x: 1387
+        y: 827
+        width: 11
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_80
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 716
+        width: 310
+        height: 113
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_81
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 813
+        width: 13
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_82
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 813
+        width: 9
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_83
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 813
+        width: 9
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_84
+      rect:
+        serializedVersion: 2
+        x: 190
+        y: 813
+        width: 15
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_85
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 690
+        width: 13
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_86
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 690
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_87
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 690
+        width: 9
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_88
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 690
+        width: 9
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_89
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 690
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_90
+      rect:
+        serializedVersion: 2
+        x: 89
+        y: 690
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_91
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 690
+        width: 4
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_92
+      rect:
+        serializedVersion: 2
+        x: 119
+        y: 690
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_93
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 684
+        width: 15
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_94
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 690
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_95
+      rect:
+        serializedVersion: 2
+        x: 167
+        y: 690
+        width: 10
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_96
+      rect:
+        serializedVersion: 2
+        x: 487
+        y: 692
+        width: 12
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_97
+      rect:
+        serializedVersion: 2
+        x: 500
+        y: 692
+        width: 14
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_98
+      rect:
+        serializedVersion: 2
+        x: 514
+        y: 692
+        width: 12
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_99
+      rect:
+        serializedVersion: 2
+        x: 530
+        y: 692
+        width: 21
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_100
+      rect:
+        serializedVersion: 2
+        x: 555
+        y: 686
+        width: 20
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_101
+      rect:
+        serializedVersion: 2
+        x: 578
+        y: 692
+        width: 14
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_102
+      rect:
+        serializedVersion: 2
+        x: 593
+        y: 692
+        width: 10
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_103
+      rect:
+        serializedVersion: 2
+        x: 780
+        y: 552
+        width: 174
+        height: 162
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_104
+      rect:
+        serializedVersion: 2
+        x: 1301
+        y: 573
+        width: 253
+        height: 219
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_105
+      rect:
+        serializedVersion: 2
+        x: 1591
+        y: 572
+        width: 231
+        height: 220
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_106
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 590
+        width: 311
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_107
+      rect:
+        serializedVersion: 2
+        x: 446
+        y: 319
+        width: 253
+        height: 219
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_108
+      rect:
+        serializedVersion: 2
+        x: 780
+        y: 332
+        width: 313
+        height: 193
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_109
+      rect:
+        serializedVersion: 2
+        x: 1301
+        y: 480
+        width: 40
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_110
+      rect:
+        serializedVersion: 2
+        x: 1382
+        y: 357
+        width: 219
+        height: 149
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_111
+      rect:
+        serializedVersion: 2
+        x: 417
+        y: 56
+        width: 270
+        height: 220
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_112
+      rect:
+        serializedVersion: 2
+        x: 791
+        y: 98
+        width: 290
+        height: 176
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_113
+      rect:
+        serializedVersion: 2
+        x: 1306
+        y: 261
+        width: 40
+        height: 89
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: InterfaceCollection_114
+      rect:
+        serializedVersion: 2
+        x: 1376
+        y: 140
+        width: 220
+        height: 149
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
