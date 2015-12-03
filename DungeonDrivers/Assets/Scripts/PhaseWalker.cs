@@ -569,6 +569,7 @@ public class PhaseWalker : NetworkBehaviour
 	// Card 1
 	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	Card_Script TempCardScript;
+	public bool[] playersHit = new bool[4];
 
 
 	public void PlayerIsCard1()
@@ -600,7 +601,7 @@ public class PhaseWalker : NetworkBehaviour
 		{
 		case Card_Script.Targeting.Locked:
 
-			//UseLockedCard();
+			UseLockedCard();
 			Debug.Log("Activate Locked Card");
 
 			break;
@@ -616,14 +617,36 @@ public class PhaseWalker : NetworkBehaviour
 	{
 		foreach(Vector3 cardTargetGridBlock in TempCardScript.affectedGridBlocks)
 		{
+			//SelectGridBlock(new Vector3(CurrentGridBlock.transform.position.x + (cardTargetGridBlock.x * Grid_Spawner_Script.tileSize), CurrentGridBlock.transform.position.y, CurrentGridBlock.transform.position.z + (cardTargetGridBlock.y * Grid_Spawner_Script.tileSize)));
+
 			for(int i = 0; i < 4; i++)
 			{
-				if(SelectMoveBlock(cardTargetGridBlock + currentPlayerPos).GetComponent<Grid_Block_Script>().playersInSide[i])
+				if(SelectCardBlock(new Vector3(CurrentGridBlock.transform.position.x + (cardTargetGridBlock.x * Grid_Spawner_Script.tileSize), CurrentGridBlock.transform.position.y, CurrentGridBlock.transform.position.z + (cardTargetGridBlock.y * Grid_Spawner_Script.tileSize))) != null)
 				{
-					Debug.Log("Player: " + i + " is inside");
+					if(SelectCardBlock(new Vector3(CurrentGridBlock.transform.position.x + (cardTargetGridBlock.x * Grid_Spawner_Script.tileSize), CurrentGridBlock.transform.position.y, CurrentGridBlock.transform.position.z + (cardTargetGridBlock.y * Grid_Spawner_Script.tileSize))).GetComponent<Grid_Block_Script>().playersInSide[i])
+					{
+						playersHit[i] = true;
+						//SelectGridBlock(SelectCardBlock(new Vector3(CurrentGridBlock.transform.position.x + (cardTargetGridBlock.x * Grid_Spawner_Script.tileSize), CurrentGridBlock.transform.position.y, CurrentGridBlock.transform.position.z + (cardTargetGridBlock.y * Grid_Spawner_Script.tileSize))));
+						//Debug.Log("Player: " + i + " is inside");
+					}
 				}
 			}
-			//SelectMoveBlock(cardTargetGridBlock).GetComponent<Grid_Block_Script>().playersInSide[0];
+
+		}
+	}
+
+	// Select a gridblock.
+	GameObject SelectCardBlock(Vector3 blockPos)
+	{
+		RaycastHit vHit = new RaycastHit();
+		
+		if(Physics.Linecast(PlayerCamera.transform.position, blockPos, out vHit, layerMask))
+		{
+			return vHit.collider.gameObject;
+		}
+		else
+		{
+			return null;
 		}
 	}
 	
@@ -766,6 +789,15 @@ public class PhaseWalker : NetworkBehaviour
 			if(!currentPhase.turnStarted)
 			{
 				ResetPhases();
+
+
+				for(int i = 0; i < Game_Manager_Script.players.Count - 1; i++)
+				{
+					if(playersHit[i])
+					{
+						CmdDoDamage(TempCardScript.damage, i);
+					}
+				}
 			}
 		}
 	}
@@ -1001,7 +1033,7 @@ public class PhaseWalker : NetworkBehaviour
 	[ClientRpc]
 	void RpcDoDamage(int damage, int pId)
 	{
-		Game_Manager_Script.players[pId].health -= damage;
+		Game_Manager_Script.players[pId].currentHealth -= damage;
 	}
 
 	[Command]
