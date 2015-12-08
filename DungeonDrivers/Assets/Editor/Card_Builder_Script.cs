@@ -360,7 +360,7 @@ public class Card_Builder_Script : MonoBehaviour
 			}
 			else
 			{
-				currentLoadCard = classes.Count - 1;
+				currentLoadCard = currentLoadCardList.Count - 1;
 			}
 		}
 

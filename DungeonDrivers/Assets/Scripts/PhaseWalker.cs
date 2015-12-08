@@ -591,17 +591,17 @@ public class PhaseWalker : NetworkBehaviour
 					return;
 				}
 			}
-			UseCard();
+			UseCard(tempPlayerList[0].playerID);
 		}
 	}
 
-	void UseCard()
+	void UseCard(int pId)
 	{
 		switch(TempCardScript.targeting)
 		{
 		case Card_Script.Targeting.Locked:
 
-			UseLockedCard();
+			UseLockedCard(pId);
 			Debug.Log("Activate Locked Card");
 
 			break;
@@ -613,27 +613,28 @@ public class PhaseWalker : NetworkBehaviour
 		}
 	}
 
-	void UseLockedCard()
+	void UseLockedCard(int pId)
 	{
 		foreach(Vector3 cardTargetGridBlock in TempCardScript.affectedGridBlocks)
 		{
-			//SelectGridBlock(new Vector3(CurrentGridBlock.transform.position.x + (cardTargetGridBlock.x * Grid_Spawner_Script.tileSize), CurrentGridBlock.transform.position.y, CurrentGridBlock.transform.position.z + (cardTargetGridBlock.y * Grid_Spawner_Script.tileSize)));
+			GameObject CurrentlyUsedGridblock = Grid_Spawner_Script.gridBlocks[Game_Manager_Script.players[pId].currentBlockId];
 
 			for(int i = 0; i < 4; i++)
 			{
-				if(SelectCardBlock(new Vector3(CurrentGridBlock.transform.position.x + (cardTargetGridBlock.x * Grid_Spawner_Script.tileSize), CurrentGridBlock.transform.position.y, CurrentGridBlock.transform.position.z + (cardTargetGridBlock.y * Grid_Spawner_Script.tileSize))) != null)
+				if(SelectCardBlock(new Vector3(CurrentlyUsedGridblock.transform.position.x + (cardTargetGridBlock.x * Grid_Spawner_Script.tileSize), CurrentlyUsedGridblock.transform.position.y, CurrentlyUsedGridblock.transform.position.z + (cardTargetGridBlock.y * Grid_Spawner_Script.tileSize))) != null)
 				{
-					if(SelectCardBlock(new Vector3(CurrentGridBlock.transform.position.x + (cardTargetGridBlock.x * Grid_Spawner_Script.tileSize), CurrentGridBlock.transform.position.y, CurrentGridBlock.transform.position.z + (cardTargetGridBlock.y * Grid_Spawner_Script.tileSize))).GetComponent<Grid_Block_Script>().playersInSide[i])
+					if(SelectCardBlock(new Vector3(CurrentlyUsedGridblock.transform.position.x + (cardTargetGridBlock.x * Grid_Spawner_Script.tileSize), CurrentlyUsedGridblock.transform.position.y, CurrentlyUsedGridblock.transform.position.z + (cardTargetGridBlock.y * Grid_Spawner_Script.tileSize))).GetComponent<Grid_Block_Script>().playersInSide[i])
 					{
 						playersHit[i] = true;
-						//SelectGridBlock(SelectCardBlock(new Vector3(CurrentGridBlock.transform.position.x + (cardTargetGridBlock.x * Grid_Spawner_Script.tileSize), CurrentGridBlock.transform.position.y, CurrentGridBlock.transform.position.z + (cardTargetGridBlock.y * Grid_Spawner_Script.tileSize))));
-						//Debug.Log("Player: " + i + " is inside");
+
+
 					}
 				}
 			}
-
 		}
 	}
+
+
 
 	// Select a gridblock.
 	GameObject SelectCardBlock(Vector3 blockPos)
@@ -663,7 +664,22 @@ public class PhaseWalker : NetworkBehaviour
 				ResetPhases();
 
 
+				for(int i = 0; i < Game_Manager_Script.players.Count; i++)
+				{
+					if(playersHit[i])
+					{
+						if(playerID == 0)
+						{
+							Debug.Log("Player " + i + "is hit.");
+							CmdDoDamage(TempCardScript.damage, i);
+						}
+					}
+				}
 
+				for(int i = 0; i < 4; i++)
+				{
+					playersHit[i] = false;
+				}
 			}
 		}
 	}
@@ -679,13 +695,19 @@ public class PhaseWalker : NetworkBehaviour
 			if(!currentPhase.turnStarted)
 			{
 				ResetPhases();
-
+				
 				if(tempPlayerList.Count > 1)
 				{
-					Card_Script tempCardScript = allCards[tempPlayerList[1].cardId].GetComponent<Card_Script>();
-					Debug.Log(tempCardScript.cardName);
+					TempCardScript = allCards[tempPlayerList[1].cardId].GetComponent<Card_Script>();
+					Debug.Log(TempCardScript.cardName);
+					
+				}
+				else
+				{
+					return;
 				}
 			}
+			UseCard(tempPlayerList[1].playerID);
 		}
 	}
 	
@@ -700,6 +722,24 @@ public class PhaseWalker : NetworkBehaviour
 			if(!currentPhase.turnStarted)
 			{
 				ResetPhases();
+				
+				
+				for(int i = 0; i < Game_Manager_Script.players.Count; i++)
+				{
+					if(playersHit[i])
+					{
+						if(playerID == 0)
+						{
+							Debug.Log("Player " + i + "is hit.");
+							CmdDoDamage(TempCardScript.damage, i);
+						}
+					}
+				}
+				
+				for(int i = 0; i < 4; i++)
+				{
+					playersHit[i] = false;
+				}
 			}
 		}
 	}
@@ -715,12 +755,21 @@ public class PhaseWalker : NetworkBehaviour
 			if(!currentPhase.turnStarted)
 			{
 				ResetPhases();
-
+				
 				if(tempPlayerList.Count > 2)
 				{
-					Card_Script tempCardScript = allCards[tempPlayerList[2].cardId].GetComponent<Card_Script>();
-					Debug.Log(tempCardScript.cardName);
+					TempCardScript = allCards[tempPlayerList[2].cardId].GetComponent<Card_Script>();
+					Debug.Log(TempCardScript.cardName);
+					
 				}
+				else
+				{
+					return;
+				}
+			}
+			if(Game_Manager_Script.players.Count > 2)
+			{
+				UseCard(tempPlayerList[2].playerID);
 			}
 		}
 	}
@@ -738,6 +787,24 @@ public class PhaseWalker : NetworkBehaviour
 			if(!currentPhase.turnStarted)
 			{
 				ResetPhases();
+				
+				
+				for(int i = 0; i < Game_Manager_Script.players.Count; i++)
+				{
+					if(playersHit[i])
+					{
+						if(playerID == 0)
+						{
+							Debug.Log("Player " + i + "is hit.");
+							CmdDoDamage(TempCardScript.damage, i);
+						}
+					}
+				}
+				
+				for(int i = 0; i < 4; i++)
+				{
+					playersHit[i] = false;
+				}
 			}
 		}
 	}
@@ -753,12 +820,21 @@ public class PhaseWalker : NetworkBehaviour
 			if(!currentPhase.turnStarted)
 			{
 				ResetPhases();
-
+				
 				if(tempPlayerList.Count > 3)
 				{
-					Card_Script tempCardScript = allCards[tempPlayerList[3].cardId].GetComponent<Card_Script>();
-					Debug.Log(tempCardScript.cardName);
+					TempCardScript = allCards[tempPlayerList[3].cardId].GetComponent<Card_Script>();
+					Debug.Log(TempCardScript.cardName);
+					
 				}
+				else
+				{
+					return;
+				}
+			}
+			if(Game_Manager_Script.players.Count > 3)
+			{
+				UseCard(tempPlayerList[3].playerID);
 			}
 		}
 	}
@@ -789,14 +865,23 @@ public class PhaseWalker : NetworkBehaviour
 			if(!currentPhase.turnStarted)
 			{
 				ResetPhases();
-
-
-				for(int i = 0; i < Game_Manager_Script.players.Count - 1; i++)
+				
+				
+				for(int i = 0; i < Game_Manager_Script.players.Count; i++)
 				{
 					if(playersHit[i])
 					{
-						CmdDoDamage(TempCardScript.damage, i);
+						if(playerID == 0)
+						{
+							Debug.Log("Player " + i + "is hit.");
+							CmdDoDamage(TempCardScript.damage, i);
+						}
 					}
+				}
+				
+				for(int i = 0; i < 4; i++)
+				{
+					playersHit[i] = false;
 				}
 			}
 		}
