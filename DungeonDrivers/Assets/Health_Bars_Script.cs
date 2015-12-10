@@ -7,13 +7,34 @@ public class Health_Bars_Script : MonoBehaviour
 	private Game_Manager_Script GM;
 	public Text[] HealthTexts;
 
+    private Player_Sync_Variables PSV;
+    private Sprite playerPortrait;
+
+    public Sprite kaylessaPortrait;
+    public Sprite grimmetPortrait; 
+
+    
+
 	void Start () 
 	{
 		GM = GetComponentInParent<PhaseWalker>().Game_Manager_Script;
+        PSV = GetComponentInParent<PhaseWalker>().Player_Sync_Variables;
+        
 
 		for(int i = 0; i < GM.players.Count; i++)
 		{
 			HealthTexts[i].transform.parent.gameObject.SetActive(true);
+
+
+            // Check which class the player is.
+            if (GM.players[i].playerClass == "Sandmage")
+            {
+                HealthTexts[i].GetComponentInParent<Image>().sprite = kaylessaPortrait;
+            }
+            else
+            {
+                HealthTexts[i].GetComponentInParent<Image>().sprite = grimmetPortrait;
+            }
 		}
 
 		StartCoroutine("UpdateHealthBars");
