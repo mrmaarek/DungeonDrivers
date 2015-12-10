@@ -210,54 +210,15 @@ public class PhaseWalker : NetworkBehaviour
 				{
 				case "Warrior":
 					CmdSetHp(13);
+					CmdSetMaxMovement(2);
 					break;
 				case "Sandmage":
 					CmdSetHp(11);
+					CmdSetMaxMovement(3);
 					break;
 				}
 
-				/*
-                healthPanel = GameObject.Find("HealthPanel").transform;
 
-                //PlayerDeckObject.GetComponent<playerDeck>().enabled = true;
-
-                //SET HEALTH TO THE PLAYERS.
-                for (int i = 0; i < Game_Manager_Script.players.Count; i++)
-                {
-                    int spacing = i * -100;
-
-
-                    GameObject hpBar;
-                    hpBar = Instantiate(playerHealth, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
-                    hpBar.transform.SetParent(healthPanel);
-                    hpBar.SetActive(true);
-                    hpBar.transform.localPosition = new Vector3(0, spacing, 0);
-                    hpBar.transform.localScale = new Vector3(1, 1, 1);
-                    hpBar.transform.localRotation = new Quaternion(0, 0, 0, 0);
-                    //hpBar.GetComponentInChildren<Text>().text = 
-                    
-                    //hpBar.GetComponent<Text>().text = Game_Manager_Script.players[i].maxHealth.ToString();
-                    int realID = i + 1;
-                    hpBar.name = "Player" + realID + "Health";
-                    // If you've chosen a warrior...
-                    if (Game_Manager_Script.players[i].playerClass == "Warrior")
-                    {
-                        Game_Manager_Script.players[i].maxHealth = 13;
-                        Game_Manager_Script.players[i].currentHealth = Game_Manager_Script.players[i].maxHealth;
-                        
-                    }
-                    else if (Game_Manager_Script.players[i].playerClass == "Sandmage")
-                    {
-                        Game_Manager_Script.players[i].maxHealth = 11;
-                        Game_Manager_Script.players[i].currentHealth = Game_Manager_Script.players[i].maxHealth;
-                    }
-
-                    hpBar.GetComponentInChildren<Text>().text = Game_Manager_Script.players[i].maxHealth.ToString();
-
-                    //playerHealth = GameObject.Find("");
-                    //playerHealth = Instantiate(playerHealth);
-                }
-                */
 
                 LoadAllCards();
 
@@ -433,6 +394,8 @@ public class PhaseWalker : NetworkBehaviour
 				DeselectAllGridBlocks();
 				DeactivateAllGridBlocks();
 				PreviousGridBlock = null;
+
+				CmdResetMovementModifier();
 			}
 		}
 	}
@@ -466,6 +429,30 @@ public class PhaseWalker : NetworkBehaviour
             }
 			
 			SelectCard();
+			if(CurrentCardScript != null)
+			{
+
+
+				if(CurrentCardScript.targeting == Card_Script.Targeting.FreeSelect)
+				{
+
+					if(!blockCardSelect)
+					{
+						for(int i = 0; i < Grid_Spawner_Script.gridBlocks.Count; i++)
+						{
+							ActivateGridBlock(Grid_Spawner_Script.gridBlocks[i]);
+						}
+						blockCardSelect = true;
+					}
+					
+					SelectWithMouseCard();
+				}
+				else if(CurrentCardScript.targeting == Card_Script.Targeting.Locked)
+				{
+					
+					ShowAffectedGridblocks(CurrentGridBlock);
+				}
+			}
         }
 	}
 
@@ -485,6 +472,20 @@ public class PhaseWalker : NetworkBehaviour
 				ResetPhases();
 
 
+
+				int j = 0;
+				foreach(GameObject gridB in Grid_Spawner_Script.gridBlocks)
+				{
+					if(gridB == FreeSelectGridBlock)
+					{
+						CmdSendCardPosition(j);
+						break;
+					}
+					j++;
+				}
+
+				DeselectAllGridBlocks();
+				DeactivateAllGridBlocks();
 
 				for(int i = 0; i < hand.Count; i++)
 				{
@@ -607,6 +608,7 @@ public class PhaseWalker : NetworkBehaviour
 			break;
 		case Card_Script.Targeting.FreeSelect:
 
+			UseFreeSelectCard(pId);
 			Debug.Log("Activate Freeselect Card");
 
 			break;
@@ -618,6 +620,8 @@ public class PhaseWalker : NetworkBehaviour
 		foreach(Vector3 cardTargetGridBlock in TempCardScript.affectedGridBlocks)
 		{
 			GameObject CurrentlyUsedGridblock = Grid_Spawner_Script.gridBlocks[Game_Manager_Script.players[pId].currentBlockId];
+			
+
 
 			for(int i = 0; i < 4; i++)
 			{
@@ -628,6 +632,31 @@ public class PhaseWalker : NetworkBehaviour
 						playersHit[i] = true;
 
 
+					}
+				}
+			}
+		}
+	}
+	bool blockCardSelect;
+	public GameObject FreeSelectGridBlock;
+
+	void UseFreeSelectCard(int pId)
+	{
+
+		foreach(Vector3 cardTargetGridBlock in TempCardScript.affectedGridBlocks)
+		{
+			GameObject CurrentlyUsedGridblock = Grid_Spawner_Script.gridBlocks[Game_Manager_Script.players[pId].cardPosId];
+			
+			for(int i = 0; i < 4; i++)
+			{
+				if(SelectCardBlock(new Vector3(CurrentlyUsedGridblock.transform.position.x + (cardTargetGridBlock.x * Grid_Spawner_Script.tileSize), CurrentlyUsedGridblock.transform.position.y, CurrentlyUsedGridblock.transform.position.z + (cardTargetGridBlock.y * Grid_Spawner_Script.tileSize))) != null)
+				{
+
+					if(SelectCardBlock(new Vector3(CurrentlyUsedGridblock.transform.position.x + (cardTargetGridBlock.x * Grid_Spawner_Script.tileSize), CurrentlyUsedGridblock.transform.position.y, CurrentlyUsedGridblock.transform.position.z + (cardTargetGridBlock.y * Grid_Spawner_Script.tileSize))).GetComponent<Grid_Block_Script>().playersInSide[i])
+					{
+						playersHit[i] = true;
+						
+						
 					}
 				}
 			}
@@ -650,6 +679,81 @@ public class PhaseWalker : NetworkBehaviour
 			return null;
 		}
 	}
+
+	public void SelectWithMouseCard()
+	{
+		RaycastHit vHit = new RaycastHit();
+		
+		Ray vRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+		if(Physics.Raycast(vRay, out vHit, 1000, layerMask)) 
+		{
+			SelectGridBlockWithMouseCard(vHit.collider.gameObject);
+			if(FreeSelectGridBlock == null)
+			{
+				ShowAffectedGridblocks(vHit.collider.gameObject);
+			}
+		}
+	}
+	
+	void SelectGridBlockWithMouseCard(GameObject gridBlockSelected)
+	{
+		DeselectAllGridBlocks();
+		GameObject HitGridBlock = gridBlockSelected;
+		Grid_Block_Script Temp_Grid_Block_Script = HitGridBlock.GetComponent<Grid_Block_Script>();
+		Temp_Grid_Block_Script.isSelected = true;
+		
+		if(Input.GetMouseButtonUp(0))
+		{
+			if(gridBlockSelected != null)
+			{
+				if(Temp_Grid_Block_Script.isActive)
+				{
+					if(FreeSelectGridBlock != null)
+					{
+						FreeSelectGridBlock.GetComponent<Grid_Block_Script>().isCardPos = false;
+					}
+					FreeSelectGridBlock = gridBlockSelected;
+					FreeSelectGridBlock.GetComponent<Grid_Block_Script>().isCardPos = true;
+
+				}
+			}
+		}
+	}
+
+	void ShowAffectedGridblocks(GameObject selectedGridB)
+	{
+
+		RaycastHit vHit = new RaycastHit();
+
+
+		for(int i = 0; i <  CurrentCardScript.affectedGridBlocks.Count; i++)
+		{
+			GameObject CurrentlyUsedGridblock = selectedGridB;
+
+			if(SelectCardBlock(new Vector3(CurrentlyUsedGridblock.transform.position.x + ( CurrentCardScript.affectedGridBlocks[i].x * Grid_Spawner_Script.tileSize), CurrentlyUsedGridblock.transform.position.y, CurrentlyUsedGridblock.transform.position.z + ( CurrentCardScript.affectedGridBlocks[i].y * Grid_Spawner_Script.tileSize))) != null)
+			{
+				SelectGridBlockCard(new Vector3(CurrentlyUsedGridblock.transform.position.x + ( CurrentCardScript.affectedGridBlocks[i].x * Grid_Spawner_Script.tileSize), CurrentlyUsedGridblock.transform.position.y, CurrentlyUsedGridblock.transform.position.z + ( CurrentCardScript.affectedGridBlocks[i].y * Grid_Spawner_Script.tileSize)));
+			}
+		}
+	}
+
+	public void SelectGridBlockCard(Vector3 gridBlockPos)
+	{
+		RaycastHit vHit = new RaycastHit();
+		
+		if(Physics.Linecast(PlayerCamera.transform.position, gridBlockPos, out vHit, layerMask))
+		{
+			ActivateGridBlockCard(vHit.collider.gameObject);
+		}
+	}
+
+	void ActivateGridBlockCard(GameObject GridBlockSelected)
+	{
+		GameObject HitGridBlock = GridBlockSelected;
+		Grid_Block_Script Temp_Grid_Block_Script = HitGridBlock.GetComponent<Grid_Block_Script>();
+		Temp_Grid_Block_Script.isSelected = true;
+	}
+
 	
 	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	// Card 1 Resolve
@@ -707,7 +811,10 @@ public class PhaseWalker : NetworkBehaviour
 					return;
 				}
 			}
-			UseCard(tempPlayerList[1].playerID);
+			if(Game_Manager_Script.players.Count > 1)
+			{
+				UseCard(tempPlayerList[1].playerID);
+			}
 		}
 	}
 	
@@ -898,6 +1005,10 @@ public class PhaseWalker : NetworkBehaviour
 			if(!currentPhase.turnStarted)
 			{
 				ResetPhases();
+
+
+				CmdSetCurrentMaxMovement(Player_Sync_Variables.maxMoves + Player_Sync_Variables.movementModifier);
+				CmdResetCard();
 			}
 		}
 	}
@@ -1027,6 +1138,7 @@ public class PhaseWalker : NetworkBehaviour
 			Grid_Spawner_Script.gridBlocks[i].GetComponent<Grid_Block_Script>().isSelected = false;
 		}
 	}
+
 	
 	public void BackToPreviousGridBlock()
 	{
@@ -1158,6 +1270,80 @@ public class PhaseWalker : NetworkBehaviour
 	{
 		Player_Sync_Variables.playerClass = pClass;
 	}
+
+	[Command]
+	void CmdSetMaxMovement(int pMovement)
+	{
+		RpcSetMaxMovement(pMovement);
+	}
+	
+	[ClientRpc]
+	void RpcSetMaxMovement(int pMovement)
+	{
+		Player_Sync_Variables.maxMoves = pMovement;
+	}
+
+	[Command]
+	void CmdSetCurrentMaxMovement(int pMovement)
+	{
+		RpcSetCurrentMaxMovement(pMovement);
+	}
+	
+	[ClientRpc]
+	void RpcSetCurrentMaxMovement(int pMovement)
+	{
+		Player_Sync_Variables.currentMaxMoves = pMovement;
+	}
+
+	[Command]
+	void CmdResetMovementModifier()
+	{
+		RpcResetMovementModifier();
+	}
+	
+	[ClientRpc]
+	void RpcResetMovementModifier()
+	{
+		Player_Sync_Variables.movementModifier = 0;
+	}
+
+	[Command]
+	void CmdSetMovementModifier(int id, int number)
+	{
+		RpcSetMovementModifier(id, number);
+	}
+	
+	[ClientRpc]
+	void RpcSetMovementModifier(int id, int number)
+	{
+		Game_Manager_Script.players[id].currentHealth += number;
+	}
+
+	[Command]
+	void CmdResetCard()
+	{
+		RpcResetCard();
+	}
+	
+	[ClientRpc]
+	void RpcResetCard()
+	{
+		Destroy(CardCurrentlyPlayed.gameObject);
+		CmdSetCard(0);
+	}
+
+	[Command]
+	void CmdSendCardPosition(int blockId)
+	{
+		RpcSendCardPosition(blockId);
+	}
+	
+	[ClientRpc]
+	void RpcSendCardPosition(int blockId)
+	{
+
+		Player_Sync_Variables.cardPosId = blockId;
+	}
 	
 	public GameObject[] allCards2;
 	public List<GameObject> allCards = new List<GameObject>();
@@ -1248,7 +1434,9 @@ public class PhaseWalker : NetworkBehaviour
 			deck.Remove(deck[0]);
 		}
 	}
-	
+
+	public Card_Script CurrentCardScript;
+
 	public void SelectCard()
 	{
 		GameObject CardHoveredOver;
@@ -1279,6 +1467,7 @@ public class PhaseWalker : NetworkBehaviour
 					else if(CardCurrentlyPlayed == null)
 					{
 						CardCurrentlyPlayed = cardHit;
+						CurrentCardScript = CardCurrentlyPlayed.GetComponent<Card_Script>();
 						
 						for(int i = 0; i < allCards.Count; i++)
 						{
@@ -1310,6 +1499,15 @@ public class PhaseWalker : NetworkBehaviour
 		CardHit.transform.localPosition = new Vector3(CardHit.transform.localPosition.x, -80, CardHit.transform.localPosition.z);
 		CardHit.transform.localScale = new Vector3(400, 400, 400);
 		CardCurrentlyPlayed = null;
+		CurrentCardScript = null;
+		DeselectAllGridBlocks();
+		DeactivateAllGridBlocks();
+		blockCardSelect = false;
+		if(FreeSelectGridBlock != null)
+		{
+			FreeSelectGridBlock.GetComponent<Grid_Block_Script>().isCardPos = false;
+		}
+		FreeSelectGridBlock = null;
 	}
 	
 	void OrderCards()

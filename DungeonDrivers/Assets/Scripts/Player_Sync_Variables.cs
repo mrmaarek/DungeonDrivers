@@ -6,7 +6,7 @@ using UnityEngine.Networking;
 public class Player_Sync_Variables
 {
 	[SyncVar]
-	public int playerID, currentTurn, health, maxMoves, currentPhaseId, currentHealth, maxHealth;
+	public int playerID, currentTurn, health, maxMoves, currentPhaseId, currentHealth, maxHealth, movementModifier;
 	[SyncVar]
 	public int currentMaxMoves = 3;
 	[SyncVar]
@@ -30,5 +30,11 @@ public class Player_Sync_Variables
 
 	[SyncVar]
 	public string playerClass;
+
+	
+	[SyncVar]
+	public Vector3 cardPos;
+	[SyncVar]
+	public int cardPosId;
 
 }
