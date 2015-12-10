@@ -112,6 +112,16 @@ public class Card_Builder_Script : MonoBehaviour
 		Card_Script.SetTexts();
 	}
 
+	public void SetSelfMovementModifier(InputField InputField)
+	{
+		Card_Script.selfMovementModifier = int.Parse(InputField.text);
+	}
+
+	public void SetEnemyMovementModifier(InputField InputField)
+	{
+			Card_Script.enemyMovementModifier = int.Parse(InputField.text);
+	}
+
 	public void SwitchImage(bool nextImage)
 	{
 		if(nextImage)
@@ -367,7 +377,7 @@ public class Card_Builder_Script : MonoBehaviour
 		SetLoadInformation();
 	}
 
-	public InputField NameText, DamageText, DescriptionText;
+	public InputField NameText, DamageText, DescriptionText, SelfMovementModifierText, EnemyMovementModifier;
 	public Image ImageImage;
 	public Text ClassText;
 
@@ -378,6 +388,8 @@ public class Card_Builder_Script : MonoBehaviour
 		DescriptionText.text = Card_Script.description;
 		ImageImage.sprite = Card_Script.cardImage;
 		ClassText.text = Card_Script.cardClass;
+		SelfMovementModifierText.text = Card_Script.selfMovementModifier + "";
+		EnemyMovementModifier.text = Card_Script.enemyMovementModifier + "";
 	}
 
 	public void ClearCardInformation()
@@ -387,10 +399,13 @@ public class Card_Builder_Script : MonoBehaviour
 		DescriptionText.text = "";
 		ImageImage.sprite = null;
 		ClassText.text = "";
+		SelfMovementModifierText.text = "";
+		EnemyMovementModifier.text = "";
+
 	}
 
 
-	public Text LoadNameText, LoadTargetingText, LoadDamageText, LoadInitiativeText, LoadDescriptionText;
+	public Text LoadNameText, LoadTargetingText, LoadDamageText, LoadInitiativeText, LoadDescriptionText, LoadSelfMovementModifier, LoadEnemyMovementModifier;
 	public Image LoadImage;
 
 	public void SetLoadInformation()
@@ -403,6 +418,8 @@ public class Card_Builder_Script : MonoBehaviour
 		LoadInitiativeText.text = LoadCardScript.initiative + "";
 		LoadDescriptionText.text = LoadCardScript.description;
 		LoadImage.sprite = LoadCardScript.cardImage;
+		LoadSelfMovementModifier.text = LoadCardScript.selfMovementModifier + "";
+		LoadEnemyMovementModifier.text = LoadCardScript.enemyMovementModifier + "";
 	}
 
 	public void LoadCardFunction()

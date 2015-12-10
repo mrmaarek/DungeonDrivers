@@ -15,6 +15,8 @@ public class Card_Script : MonoBehaviour
 	public Targeting targeting;
 	public CardType cardType;
 	public string cardClass;
+	public int selfMovementModifier;
+	public int enemyMovementModifier;
 
 	public List<Vector3> affectedGridBlocks = new List<Vector3>();
 
