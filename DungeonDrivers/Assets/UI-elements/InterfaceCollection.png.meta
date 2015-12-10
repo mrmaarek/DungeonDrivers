@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 266dbb286a0690248b8fbe4857073e09
-timeCreated: 1449749931
+timeCreated: 1449752039
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -41,7 +41,7 @@ TextureImporter:
     21300068: InterfaceCollection_34
     21300070: InterfaceCollection_35
     21300072: InterfaceCollection_36
-    21300074: InterfaceCollection_37
+    21300074: Button_Normal
     21300076: InterfaceCollection_38
     21300078: InterfaceCollection_39
     21300080: InterfaceCollection_40
@@ -76,7 +76,7 @@ TextureImporter:
     21300138: InterfaceCollection_69
     21300140: InterfaceCollection_70
     21300142: InterfaceCollection_71
-    21300144: InterfaceCollection_72
+    21300144: Button_Hover
     21300146: InterfaceCollection_73
     21300148: InterfaceCollection_74
     21300150: InterfaceCollection_75
@@ -84,7 +84,7 @@ TextureImporter:
     21300154: InterfaceCollection_77
     21300156: InterfaceCollection_78
     21300158: InterfaceCollection_79
-    21300160: InterfaceCollection_80
+    21300160: Button_Pressed
     21300162: InterfaceCollection_81
     21300164: InterfaceCollection_82
     21300166: InterfaceCollection_83
@@ -110,7 +110,7 @@ TextureImporter:
     21300206: InterfaceCollection_103
     21300208: InterfaceCollection_104
     21300210: InterfaceCollection_105
-    21300212: InterfaceCollection_106
+    21300212: Button_Input
     21300214: InterfaceCollection_107
     21300216: Portrait_Kaylessa
     21300218: InterfaceCollection_109
@@ -535,13 +535,13 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: InterfaceCollection_37
+    - name: Button_Normal
       rect:
         serializedVersion: 2
-        x: 17
-        y: 957
+        x: 16
+        y: 959
         width: 310
-        height: 97
+        height: 91
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -885,13 +885,13 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: InterfaceCollection_72
+    - name: Button_Hover
       rect:
         serializedVersion: 2
-        x: 17
-        y: 835
+        x: 16
+        y: 839
         width: 310
-        height: 97
+        height: 91
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -965,13 +965,13 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: InterfaceCollection_80
+    - name: Button_Pressed
       rect:
         serializedVersion: 2
         x: 17
         y: 716
         width: 310
-        height: 113
+        height: 91
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1225,13 +1225,13 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: InterfaceCollection_106
+    - name: Button_Input
       rect:
         serializedVersion: 2
         x: 17
         y: 590
         width: 311
-        height: 94
+        height: 91
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
