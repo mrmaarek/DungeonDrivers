@@ -23,4 +23,9 @@ public class Custom_Network_Manager_UI : MonoBehaviour
 	{
 		Manager.networkAddress = IpBar.text.ToString();
 	}
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 }

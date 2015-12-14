@@ -43,6 +43,8 @@ public class ClassSelector : MonoBehaviour
 
     void Update()
     {
+        Debug.Log(Camera.current);
+
         if (this.playerClass == Classes.None_Selected)
         {
             readyToStart.enabled = false;
