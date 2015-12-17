@@ -20,8 +20,9 @@ public class PhaseWalker : NetworkBehaviour
 	
 	private GameObject PlayerCamera;
 	public GameObject ObjectsToTurnOn;	// Will be turned on when te player spawns.
+    public GameObject CharacterSelection; // Will be turned off when the player spawns.
 
-	private float doneTimer;
+    private float doneTimer;
 
 	public List<string> phaseFuncions = new List<string>(); // Functions that belong to the phases.
 	
@@ -114,6 +115,8 @@ public class PhaseWalker : NetworkBehaviour
 		}
 		ObjectsToTurnOn.SetActive(true);
 
+        
+
 		//Grid_Spawner_Script.SetupGrid();
 		
 
@@ -199,6 +202,7 @@ public class PhaseWalker : NetworkBehaviour
 
 				Destroy(ClassSelector);
 				Destroy(ClassSelectorUI);
+                Destroy(CharacterSelection);
 
 				Grid_Spawner_Script.SetupGrid();
 				LoadDeck();
