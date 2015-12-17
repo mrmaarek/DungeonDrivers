@@ -213,7 +213,7 @@ public class PhaseWalker : NetworkBehaviour
 				switch(Player_Sync_Variables.playerClass)
 				{
 				case "Warrior":
-					CmdSetHp(13);
+					CmdSetHp(1);
 					CmdSetMaxMovement(2);
 					break;
 				case "Sandmage":
@@ -270,18 +270,21 @@ public class PhaseWalker : NetworkBehaviour
 				DrawCard();
 			}
 
-			if(canMove)
+			if(Player_Sync_Variables.currentHealth > 0)
 			{
-				PlayerMovementSelector();
-				SelectWithMouse();
-				stopDeselecting = false;
-			}
-			else
-			{
-				if(!stopDeselecting)
+				if(canMove)
 				{
-					stopDeselecting = true;
-					DeselectAllGridBlocks();
+					PlayerMovementSelector();
+					SelectWithMouse();
+					stopDeselecting = false;
+				}
+				else
+				{
+					if(!stopDeselecting)
+					{
+						stopDeselecting = true;
+						DeselectAllGridBlocks();
+					}
 				}
 			}
 		}
@@ -384,15 +387,18 @@ public class PhaseWalker : NetworkBehaviour
 
 				canMove = true;
 
-				int i = 0;
-				foreach(GameObject gridB in Grid_Spawner_Script.gridBlocks)
+				if(Player_Sync_Variables.currentHealth > 0)
 				{
-					if(gridB == CurrentGridBlock)
+					int i = 0;
+					foreach(GameObject gridB in Grid_Spawner_Script.gridBlocks)
 					{
-						CmdSetCurrentPosition(i);
-						break;
+						if(gridB == CurrentGridBlock)
+						{
+							CmdSetCurrentPosition(i);
+							break;
+						}
+						i++;
 					}
-					i++;
 				}
 
 				DeselectAllGridBlocks();
@@ -431,30 +437,32 @@ public class PhaseWalker : NetworkBehaviour
 
                 
             }
-			
-			SelectCard();
-			if(CurrentCardScript != null)
+			if(Player_Sync_Variables.currentHealth > 0)
 			{
-
-
-				if(CurrentCardScript.targeting == Card_Script.Targeting.FreeSelect)
+				SelectCard();
+				if(CurrentCardScript != null)
 				{
 
-					if(!blockCardSelect)
+
+					if(CurrentCardScript.targeting == Card_Script.Targeting.FreeSelect)
 					{
-						for(int i = 0; i < Grid_Spawner_Script.gridBlocks.Count; i++)
+
+						if(!blockCardSelect)
 						{
-							ActivateGridBlock(Grid_Spawner_Script.gridBlocks[i]);
+							for(int i = 0; i < Grid_Spawner_Script.gridBlocks.Count; i++)
+							{
+								ActivateGridBlock(Grid_Spawner_Script.gridBlocks[i]);
+							}
+							blockCardSelect = true;
 						}
-						blockCardSelect = true;
+						
+						SelectWithMouseCard();
 					}
-					
-					SelectWithMouseCard();
-				}
-				else if(CurrentCardScript.targeting == Card_Script.Targeting.Locked)
-				{
-					
-					ShowAffectedGridblocks(CurrentGridBlock);
+					else if(CurrentCardScript.targeting == Card_Script.Targeting.Locked)
+					{
+						
+						ShowAffectedGridblocks(CurrentGridBlock);
+					}
 				}
 			}
         }
@@ -506,9 +514,12 @@ public class PhaseWalker : NetworkBehaviour
 				{
 					foreach(Player_Sync_Variables player in Game_Manager_Script.players)
 					{
-						if(allCards[player.cardId].GetComponent<Card_Script>().initiative == i+1)
+						if(player.cardId != 0)
 						{
-							tempPlayerList.Add(player);
+							if(allCards[player.cardId].GetComponent<Card_Script>().initiative == i+1)
+							{
+								tempPlayerList.Add(player);
+							}
 						}
 					}
 				}
@@ -596,7 +607,10 @@ public class PhaseWalker : NetworkBehaviour
 					return;
 				}
 			}
-			UseCard(tempPlayerList[0].playerID);
+			if(tempPlayerList.Count > 0)
+			{
+				UseCard(tempPlayerList[0].playerID);
+			}
 		}
 	}
 
@@ -607,13 +621,11 @@ public class PhaseWalker : NetworkBehaviour
 		case Card_Script.Targeting.Locked:
 
 			UseLockedCard(pId);
-			Debug.Log("Activate Locked Card");
 
 			break;
 		case Card_Script.Targeting.FreeSelect:
 
 			UseFreeSelectCard(pId);
-			Debug.Log("Activate Freeselect Card");
 
 			break;
 		}
@@ -726,10 +738,7 @@ public class PhaseWalker : NetworkBehaviour
 
 	void ShowAffectedGridblocks(GameObject selectedGridB)
 	{
-
-		RaycastHit vHit = new RaycastHit();
-
-
+		
 		for(int i = 0; i <  CurrentCardScript.affectedGridBlocks.Count; i++)
 		{
 			GameObject CurrentlyUsedGridblock = selectedGridB;
@@ -780,10 +789,19 @@ public class PhaseWalker : NetworkBehaviour
 						{
 							Debug.Log("Player " + i + "is hit.");
 							CmdDoDamage(TempCardScript.damage, i);
+							CmdSetSlow(i, TempCardScript.enemyMovementModifier);
+						}
+					}
+					if(tempPlayerList.Count > 0)
+					{
+						if(tempPlayerList[0].playerID == Game_Manager_Script.players[i].playerID)
+						{
+							CmdSetSpeedUp(i, TempCardScript.selfMovementModifier);
 						}
 					}
 				}
 
+				
 				for(int i = 0; i < 4; i++)
 				{
 					playersHit[i] = false;
@@ -815,7 +833,7 @@ public class PhaseWalker : NetworkBehaviour
 					return;
 				}
 			}
-			if(Game_Manager_Script.players.Count > 1)
+			if(tempPlayerList.Count > 1)
 			{
 				UseCard(tempPlayerList[1].playerID);
 			}
@@ -843,10 +861,19 @@ public class PhaseWalker : NetworkBehaviour
 						{
 							Debug.Log("Player " + i + "is hit.");
 							CmdDoDamage(TempCardScript.damage, i);
+							CmdSetSlow(i, TempCardScript.enemyMovementModifier);
+						}
+					}
+					if(tempPlayerList.Count > 1)
+					{
+						if(tempPlayerList[1].playerID == Game_Manager_Script.players[i].playerID)
+						{
+							CmdSetSpeedUp(i, TempCardScript.selfMovementModifier);
 						}
 					}
 				}
-				
+
+
 				for(int i = 0; i < 4; i++)
 				{
 					playersHit[i] = false;
@@ -878,7 +905,7 @@ public class PhaseWalker : NetworkBehaviour
 					return;
 				}
 			}
-			if(Game_Manager_Script.players.Count > 2)
+			if(tempPlayerList.Count > 2)
 			{
 				UseCard(tempPlayerList[2].playerID);
 			}
@@ -908,10 +935,19 @@ public class PhaseWalker : NetworkBehaviour
 						{
 							Debug.Log("Player " + i + "is hit.");
 							CmdDoDamage(TempCardScript.damage, i);
+							CmdSetSlow(i, TempCardScript.enemyMovementModifier);
+						}
+					}
+					if(tempPlayerList.Count > 2)
+					{
+						if(tempPlayerList[2].playerID == Game_Manager_Script.players[i].playerID)
+						{
+							CmdSetSpeedUp(i, TempCardScript.selfMovementModifier);
 						}
 					}
 				}
-				
+
+
 				for(int i = 0; i < 4; i++)
 				{
 					playersHit[i] = false;
@@ -943,7 +979,7 @@ public class PhaseWalker : NetworkBehaviour
 					return;
 				}
 			}
-			if(Game_Manager_Script.players.Count > 3)
+			if(tempPlayerList.Count > 3)
 			{
 				UseCard(tempPlayerList[3].playerID);
 			}
@@ -962,6 +998,32 @@ public class PhaseWalker : NetworkBehaviour
 			if(!currentPhase.turnStarted)
 			{
 				ResetPhases();
+
+				for(int i = 0; i < Game_Manager_Script.players.Count; i++)
+				{
+					if(playersHit[i])
+					{
+						if(playerID == 0)
+						{
+							Debug.Log("Player " + i + "is hit.");
+							CmdDoDamage(TempCardScript.damage, i);
+							CmdSetSlow(i, TempCardScript.enemyMovementModifier);
+						}
+					}
+					if(tempPlayerList.Count > 3)
+					{
+						if(tempPlayerList[3].playerID == Game_Manager_Script.players[i].playerID)
+						{
+							CmdSetSpeedUp(i, TempCardScript.selfMovementModifier);
+						}
+					}
+				}
+
+				
+				for(int i = 0; i < 4; i++)
+				{
+					playersHit[i] = false;
+				}
 			}
 		}
 	}
@@ -978,22 +1040,7 @@ public class PhaseWalker : NetworkBehaviour
 				ResetPhases();
 				
 				
-				for(int i = 0; i < Game_Manager_Script.players.Count; i++)
-				{
-					if(playersHit[i])
-					{
-						if(playerID == 0)
-						{
-							Debug.Log("Player " + i + "is hit.");
-							CmdDoDamage(TempCardScript.damage, i);
-						}
-					}
-				}
-				
-				for(int i = 0; i < 4; i++)
-				{
-					playersHit[i] = false;
-				}
+
 			}
 		}
 	}
@@ -1285,6 +1332,7 @@ public class PhaseWalker : NetworkBehaviour
 	void RpcSetMaxMovement(int pMovement)
 	{
 		Player_Sync_Variables.maxMoves = pMovement;
+		Player_Sync_Variables.currentMaxMoves = pMovement;
 	}
 
 	[Command]
@@ -1347,6 +1395,32 @@ public class PhaseWalker : NetworkBehaviour
 	{
 
 		Player_Sync_Variables.cardPosId = blockId;
+	}
+
+	[Command]
+	void CmdSetSlow(int id, int number)
+	{
+		RpcSetSlow(id, number);
+	}
+	
+	[ClientRpc]
+	void RpcSetSlow(int id, int number)
+	{
+		
+		Game_Manager_Script.players[id].movementModifier -= number;
+	}
+
+	[Command]
+	void CmdSetSpeedUp(int id, int number)
+	{
+		RpcSetSpeedUp(id, number);
+	}
+	
+	[ClientRpc]
+	void RpcSetSpeedUp(int id, int number)
+	{
+		
+		Game_Manager_Script.players[id].movementModifier += number;
 	}
 	
 	public GameObject[] allCards2;
@@ -1518,6 +1592,8 @@ public class PhaseWalker : NetworkBehaviour
 	{
 		for(int i = 0; i < hand.Count; i++)
 		{
+			hand[i].SetActive(false);
+			hand[i].SetActive(true);
 			hand[i].transform.localPosition = new Vector3(125 + i * 250, -80, 0);
 			hand[i].transform.localScale = new Vector3(400, 400, 400);
 			hand[i].transform.localRotation = Quaternion.Euler(new Vector3(270, 0));
@@ -1529,8 +1605,16 @@ public class PhaseWalker : NetworkBehaviour
 	{
 		for(int i = 0; i < discardPile.Count; i++)
 		{
-			deck.Add(discardPile[i]);
+
+			for(int j = 0; j < allCards.Count; j++)
+			{
+				if(discardPile[i].name == allCards[j].name + "(Clone)")
+				{
+					deck.Add(allCards[j]);
+				}
+			}
 		}
+		discardPile.Clear();
 		ShuffleDeck();
 	}
 }
