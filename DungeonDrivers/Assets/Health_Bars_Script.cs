@@ -7,7 +7,7 @@ public class Health_Bars_Script : MonoBehaviour
 	private Game_Manager_Script GM;
 	public Text[] HealthTexts;
 
-    private Player_Sync_Variables PSV;
+    //private Player_Sync_Variables PSV;
     private Sprite playerPortrait;
 
     public Sprite kaylessaPortrait;
@@ -18,7 +18,7 @@ public class Health_Bars_Script : MonoBehaviour
 	void Start () 
 	{
 		GM = GetComponentInParent<PhaseWalker>().Game_Manager_Script;
-        PSV = GetComponentInParent<PhaseWalker>().Player_Sync_Variables;
+        //PSV = GetComponentInParent<PhaseWalker>().Player_Sync_Variables;
         
 
 		for(int i = 0; i < GM.players.Count; i++)

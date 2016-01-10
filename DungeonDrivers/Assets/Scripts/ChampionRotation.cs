@@ -5,7 +5,7 @@ using System.Collections;
 public class ChampionRotation : MonoBehaviour
 {
     [SerializeField]
-    private GameObject Kaylessa, Grimmet;
+    //private GameObject Kaylessa, Grimmet;
 
 	// Update is called once per frame
 	void Update ()
@@ -27,11 +27,11 @@ public class ChampionRotation : MonoBehaviour
             print(gameObject.name);
             if (gameObject.tag == "ChampKaylessa")
             {
-                Rotate(Kaylessa);
+                //Rotate(Kaylessa);
             }
             if (gameObject.tag == "ChampGrimmet")
             {
-                Rotate(Grimmet);
+                //Rotate(Grimmet);
             }
             
         }

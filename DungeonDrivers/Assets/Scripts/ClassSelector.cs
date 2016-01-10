@@ -31,6 +31,8 @@ public class ClassSelector : MonoBehaviour
 
     void Start()
     {
+        chosenCharacter = GameObject.Find("Selected_Character").GetComponent<Text>();
+
 		/*
         // To make the class selection screen clearer, i'm having a canvas group which alpha will be set to 0.
         notNeededUI = GameObject.Find("inGameUIElements").GetComponent<CanvasGroup>();
@@ -43,7 +45,7 @@ public class ClassSelector : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(Camera.current);
+        //Debug.Log(Camera.current);
 
         if (this.playerClass == Classes.None_Selected)
         {
