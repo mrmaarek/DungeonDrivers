@@ -11,10 +11,10 @@ public class ParticleTest : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
-        particleObject = GameObject.Find("Arcane Bolt");
-        myPlayer = particleObject.transform.GetComponentInParent<PhaseWalker>();
+        //particleObject = GameObject.Find("Arcane Bolt");
+        //myPlayer = particleObject.transform.GetComponentInParent<PhaseWalker>();
         //particleObject.particleSystem.isPlaying
-        test = particleObject.GetComponent<ParticleSystem>();
+        //test = particleObject.GetComponent<ParticleSystem>();
 
     }
 	
