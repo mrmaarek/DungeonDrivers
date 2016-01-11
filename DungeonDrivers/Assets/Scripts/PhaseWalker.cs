@@ -63,6 +63,11 @@ public class PhaseWalker : NetworkBehaviour
 
 	public GameObject Health_Object;
 
+
+
+    public GameObject GrimmetTest;
+    public GameObject KaylessaTest;
+
     // Add the player to the list of objects moving along with the camera, set the starting vars.
     void Awake()
 	{
@@ -210,15 +215,28 @@ public class PhaseWalker : NetworkBehaviour
 
 				Health_Object.SetActive(true);
 
+               
+            
+                //KaylessaTest = GameObject.FindGameObjectWithTag("KaylessaTestJe");
+                //GrimmetTest = GameObject.FindGameObjectWithTag("GrimmetTestje");
+
 				switch(Player_Sync_Variables.playerClass)
 				{
 				case "Warrior":
-					CmdSetHp(1);
+					CmdSetHp(13);
 					CmdSetMaxMovement(2);
+                    if (KaylessaTest != null)
+                    { 
+                        KaylessaTest.gameObject.SetActive(false);
+                    }
 					break;
 				case "Sandmage":
 					CmdSetHp(11);
 					CmdSetMaxMovement(3);
+                    if (GrimmetTest != null)
+                    {
+                        GrimmetTest.gameObject.SetActive(false);
+                    }
 					break;
 				}
 
